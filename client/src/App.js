@@ -1,7 +1,6 @@
 import './App.css';
 import Chat from './Components/Chat/Chat';
 import React, { useReducer, useEffect, useState } from 'react';
-import { UserContext } from './hooks/userContext';
 import axios from 'axios';
 import { io } from "socket.io-client"
 
@@ -15,6 +14,7 @@ function reducer(state, action){
     const updateState = {...newState, [input.date] : input}
     return updateState
   }
+
 
   const initialize = (input) => {
     const newState = {};
@@ -37,66 +37,55 @@ function reducer(state, action){
 }
 
 function App() {
-  const initialState = { 0 : { msg: "Hello", sent: "Anton", date: Date.now()}}
+  const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
 
+  // Initilize io-socket connection (Required for synchronious updates)
   useEffect(() => {
     const socket = io('http://localhost:8000');
     setConn(socket);
   }, [])
 
+  // On the first render pulls data from the database;
   useEffect(() => {
     axios.get('/api/messages')
-    .then((data) => {
-      dispatch({ type: "initialize", values: data.data})
+    .then((response) => {
+      // Dispacth command to reducer to initialize state with data pulled from the DB.
+      dispatch({ type: "initialize", values: response.data})
     })
   
   },[])
-  
-  // useEffect(() => {
 
-  //   const ws = new WebSocket("ws://localhost:8000", "JSON")
-
-  //   ws.onmessage = function (event) {
-  //     console.log("Here is data: ", event.data)
-  //     const data = JSON.parse(event.data)
-  //     if(data.type === "UPDATE_CHAT") {
-  //       const {msg} = data;
-  //       console.log("My message:", msg)
-  //       dispatch({ type : NEWMESSAGE, values : msg})
-  //     }
-  //   }
-
-  //   return () => ws.close();
-
-  // }, [])
-
-
+  // Listen to any changes to connection and trigger dispatch if message type is "UPDATE CHAT"
   useEffect(() => {
     if (conn) {
-
+      //check if message chat is "UPDATE_CHAT" and dispatch
       conn.on("UPDATE_CHAT", data => {
-        console.log("Here is a message:", data.msg)
+        //Dispatch with newmessage type in order to add new message which was sent by another user to the state.
         dispatch({ type : NEWMESSAGE, values : data.msg})
       })
+
     }
   }, [conn])
 
-
+  // This function is passed to Messages components via props and called on there
   const addMessage = (message) => {
+    //  Send a put request to add a new message
     return axios.put('/api/messages/new', {message})
     .then((result) => {
+      // Dispathing a command to reducer with type 'newmessage'. Message argument already have a form of {type: ..., value: ...}
       dispatch(message)
     })
     .catch((error) => console.log(error.response.data))
   }
 
-
   return (
-  <UserContext.Provider value = {{state, dispatch, addMessage}}>
-    <Chat />
-   </UserContext.Provider>
+    //Create a chat component and pass two props: addMessage and the entire state
+    <Chat 
+    state = {state}
+    addMessage = {addMessage}
+    />
   );
 }
 
