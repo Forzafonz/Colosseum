@@ -1,5 +1,5 @@
 import './App.css';
-import Chat from './Components/Chat';
+import Chat from './Components/Chat/Chat';
 import React, { useReducer, useEffect, useState } from 'react';
 import { UserContext } from './hooks/userContext';
 import axios from 'axios';

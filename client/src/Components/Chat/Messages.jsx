@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react'
 import './styles.scss'
-import { UserContext } from '../hooks/userContext'
+import { UserContext } from '../../hooks/userContext'
 import NewMessage from './NewMessage'
 
 
