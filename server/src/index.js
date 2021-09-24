@@ -1,11 +1,18 @@
+/// Main file which will run on npm start
+/// Contains declarations for http server and sokets.io
+
+
+
 const PORT = process.env.PORT || 8000;
 
 const app = require("./application")({ addText });
+
+//Define socketio
 const socketio = require("socket.io")
+//Define http server
 const server = require("http").Server(app);
 
-// const WebSocket = require('ws');
-// const wss = new WebSocket.Server({ server });
+// Create io instance using http server
 const io = socketio(server, {
   cors: {
   origin: "http://localhost:3000",
@@ -13,35 +20,8 @@ const io = socketio(server, {
   }
 });
 
-
-//This function will fire only when we send a message to the app.
-
-// wss.on('connection', socket =>  {
-//   socket.onmessage = message => {
-//     console.log(`Message Received: ${message.data}`);
-
-//     if (message.data === "ping") {
-//       socket.send(JSON.stringify("pong"));
-//     }
-
-//   };
-// });
-
-//Function addText using ws
-// function addText(msg) {
-//   wss.clients.forEach(function eachClient(client) {
-//     if (client.readyState === WebSocket.OPEN) {
-//       client.send(
-//         JSON.stringify({
-//           type: "UPDATE_CHAT",
-//           msg
-//         })
-//       );
-//     }
-//   });
-// }
-
-
+// Define a simple function which will be passed as a callback to our app, which will be called when a specific route is called.
+// This function cannot be defined in the route itself as it will not have access to io (for now)
 function addText(msg) {
   
   io.emit("UPDATE_CHAT", { msg });
