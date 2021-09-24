@@ -15,7 +15,7 @@ export default function NewMessage(props) {
   const enterPress = (e) => {
     onEnter(e, ref.current.value)
   }
-
+  //Test comment
   return (
     <div className="message-box">
       <textarea type="text" className="message-input" placeholder="Type message..." ref = {ref} onKeyPress={enterPress}>
