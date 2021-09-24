@@ -1,8 +1,9 @@
 import './App.css';
 import Chat from './Components/Chat';
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import { UserContext } from './hooks/userContext';
 import axios from 'axios';
+import { io } from "socket.io-client"
 
 const NEWMESSAGE = 'newmessage'
 const INITIALIZE = 'initialize'
@@ -38,6 +39,12 @@ function reducer(state, action){
 function App() {
   const initialState = { 0 : { msg: "Hello", sent: "Anton", date: Date.now()}}
   const [state, dispatch] = useReducer(reducer, initialState)
+  const [conn, setConn] = useState(undefined);
+
+  useEffect(() => {
+    const socket = io('http://localhost:8000');
+    setConn(socket);
+  }, [])
 
   useEffect(() => {
     axios.get('/api/messages')
@@ -47,23 +54,34 @@ function App() {
   
   },[])
   
+  // useEffect(() => {
+
+  //   const ws = new WebSocket("ws://localhost:8000", "JSON")
+
+  //   ws.onmessage = function (event) {
+  //     console.log("Here is data: ", event.data)
+  //     const data = JSON.parse(event.data)
+  //     if(data.type === "UPDATE_CHAT") {
+  //       const {msg} = data;
+  //       console.log("My message:", msg)
+  //       dispatch({ type : NEWMESSAGE, values : msg})
+  //     }
+  //   }
+
+  //   return () => ws.close();
+
+  // }, [])
+
+
   useEffect(() => {
+    if (conn) {
 
-    const ws = new WebSocket("ws://localhost:8000", "JSON")
-
-    ws.onmessage = function (event) {
-      console.log("Here is data: ", event.data)
-      const data = JSON.parse(event.data)
-      if(data.type === "UPDATE_CHAT") {
-        const {msg} = data;
-        console.log("My message:", msg)
-        dispatch({ type : NEWMESSAGE, values : msg})
-      }
+      conn.on("UPDATE_CHAT", data => {
+        console.log("Here is a message:", data.msg)
+        dispatch({ type : NEWMESSAGE, values : data.msg})
+      })
     }
-
-    return () => ws.close();
-
-  }, [])
+  }, [conn])
 
 
   const addMessage = (message) => {
