@@ -22,9 +22,7 @@ module.exports = function(router, addText) {
       .then((data) => {
         // Calls a function to update all clients using socket.io
         addText(req.body.message.values)
-        res
-        .status(200)
-        .json(data)
+        res.status(200).json(data)
       });
   });
 

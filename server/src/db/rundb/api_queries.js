@@ -19,7 +19,6 @@ const pool = require('./db_connect');
 exports.getTextMessages = getTextMessages;
 
 
-
 // Define function to insert a new messsage to the database and return a Promise.
 
 /**
