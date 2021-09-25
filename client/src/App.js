@@ -1,6 +1,7 @@
 import './App.css';
 import Chat from './Components/Chat/Chat';
 import React, { useReducer, useEffect, useState } from 'react';
+import ReactPlayer from 'react-player'
 import axios from 'axios';
 import { io } from "socket.io-client"
 
@@ -81,11 +82,27 @@ function App() {
   }
 
   return (
-    //Create a chat component and pass two props: addMessage and the entire state
-    <Chat 
-    state = {state}
-    addMessage = {addMessage}
-    />
+    <body>
+      <header>THIS IS THE HEADER</header>
+      <main className="layout">
+        <section className="media-and-chat">
+          <section className="media-player">
+            <ReactPlayer width="100%" height="100%" controls url='https://www.youtube.com/watch?v=ysz5S6PUM-U' />
+          </section>
+          <section className="chat-container">
+          {/* //Create a chat component and pass two props: 
+          addMessage and the entire state */}
+            <Chat
+            state = {state}
+            addMessage = {addMessage}
+            />
+          </section>
+        </section>
+        <section className="media-que">
+          QUE GOES HERE
+        </section>
+      </main>
+    </body>
   );
 }
 

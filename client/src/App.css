@@ -1,4 +1,44 @@
-.App {
+header {
+  border: rgb(43, 220, 226);
+  border-style: dotted;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.media-and-chat {
+  display: flex;
+  flex-direction: row;
+}
+
+.media-player {
+  border: blueviolet;
+  border-style: dotted;
+  height:80vh;
+  width: 65vw;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.media-que {
+  border: red;
+  border-style: dotted;
+  height:15vh;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.chat-container {
+  border: yellow;
+  border-style: dotted;
+  width: 35vw;
+}
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +75,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
