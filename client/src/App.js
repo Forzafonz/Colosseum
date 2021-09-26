@@ -1,7 +1,10 @@
 import './App.css';
 import Chat from './Components/Chat/Chat';
+import Header from './Components/Header';
+import MediaPlayer from './Components/MediaPlayer';
+import MediaQue from './Components/MediaQue';
 import React, { useReducer, useEffect, useState } from 'react';
-import ReactPlayer from 'react-player'
+
 import axios from 'axios';
 import { io } from "socket.io-client"
 
@@ -41,6 +44,8 @@ function App() {
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
+
+  const [media, setMedia] = useState('https://www.youtube.com/watch?v=IfFhU3edLk4')
 
   // Initilize io-socket connection (Required for synchronious updates)
   useEffect(() => {
@@ -82,13 +87,13 @@ function App() {
   }
 
   return (
-    <body>
-      <header>THIS IS THE HEADER</header>
+    <div className="App">
+      <Header />
       <main className="layout">
         <section className="media-and-chat">
-          <section className="media-player">
-            <ReactPlayer width="100%" height="100%" controls url='https://www.youtube.com/watch?v=ysz5S6PUM-U' />
-          </section>
+          <MediaPlayer 
+          media = {media} 
+          />
           <section className="chat-container">
           {/* //Create a chat component and pass two props: 
           addMessage and the entire state */}
@@ -98,11 +103,9 @@ function App() {
             />
           </section>
         </section>
-        <section className="media-que">
-          QUE GOES HERE
-        </section>
+        <MediaQue />
       </main>
-    </body>
+    </div>
   );
 }
 

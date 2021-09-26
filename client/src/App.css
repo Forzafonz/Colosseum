@@ -1,6 +1,7 @@
 header {
   border: rgb(43, 220, 226);
   border-style: dotted;
+  height:5vh;
 }
 
 .layout {
@@ -13,16 +14,16 @@ header {
   flex-direction: row;
 }
 
-.media-player {
+.media-player-container {
   border: blueviolet;
   border-style: dotted;
   height:80vh;
-  width: 65vw;
+  width: 70vw;
   /* align-items: center;
   justify-content: center; */
 }
 
-.media-que {
+.media-que-container {
   border: red;
   border-style: dotted;
   height:15vh;
@@ -33,7 +34,7 @@ header {
 .chat-container {
   border: yellow;
   border-style: dotted;
-  width: 35vw;
+  width: 30vw;
 }
 
 
