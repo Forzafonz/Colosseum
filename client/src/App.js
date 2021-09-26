@@ -47,7 +47,7 @@ function App() {
 
   //TEMPORARY, WILL REFACTOR WITH useReducer
   const [mediaList, setMediaList] = useState([])
-  const [media, setMedia] = useState('https://www.youtube.com/watch?v=IfFhU3edLk4')
+  const [media, setMedia] = useState('https://soundcloud.com/housemusicdj/lets-get-down-house-mix_0715')
 
   // Initilize io-socket connection (Required for synchronious updates)
   useEffect(() => {

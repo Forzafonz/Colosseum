@@ -11,6 +11,7 @@ function MediaQue({setMedia, mediaList}){
     let randomSongIndex = Math.floor(Math.random() * mediaList.length);
 
     console.log("SONG INDEX", randomSongIndex);
+    console.log("MEDIALIST", mediaList);
 
     // Pick random song from the song DB
     playingMedia = mediaList[randomSongIndex].link
