@@ -26,16 +26,16 @@ INSERT INTO playlists(id, name , rating, thumbnail, queue)
             (5, 'PL-5', 4,'https://www.liveabout.com/thmb/CXNryNO4dxhyT13v41hVmKXHq1Q=/3000x2000/filters:no_upscale():max_bytes(150000):strip_icc()/weeknd-56a96cf75f9b58b7d0fb536c.jpg' , false);
 
 INSERT INTO media (id, link, category, thumbnail, description)
-            VALUES(1, 'https://www.youtube.com/watch?v=9bZkp7q19f0&list=PL15B1E77BB5708555&index=1', 'video', 't', 'desc1'),
-            (2, 'https://www.youtube.com/watch?v=OPf0YbXqDm0&list=PL15B1E77BB5708555&index=2', 'video', 't', 'desc1'),
-            (3, 'https://www.youtube.com/watch?v=OPf0YbXqDm0&list=PL15B1E77BB5708555&index=3', 'video', 't', 'desc1'),
-            (4, 'https://www.youtube.com/watch?v=OPf0YbXqDm0&list=PL15B1E77BB5708555&index=4', 'video', 't', 'desc1'),
-            (5, 'https://www.youtube.com/watch?v=OPf0YbXqDm0&list=PL15B1E77BB5708555&index=5', 'video', 't', 'desc1'),
-            (6, 'https://www.youtube.com/watch?v=OPf0YbXqDm0&list=PL15B1E77BB5708555&index=6', 'video', 't', 'desc1'),
-            (7, 'https://www.youtube.com/watch?v=OPf0YbXqDm0&list=PL15B1E77BB5708555&index=7', 'video', 't', 'desc1'),
-            (8, 'https://www.youtube.com/watch?v=OPf0YbXqDm0&list=PL15B1E77BB5708555&index=8', 'video', 't', 'desc1'),
-            (9, 'https://www.youtube.com/watch?v=kJQP7kiw5Fk&list=PL15B1E77BB5708555&index=9', 'video', 't', 'desc1'),
-            (10, 'https://www.youtube.com/watch?v=JGwWNGJdvx8&list=PL15B1E77BB5708555&index=10', 'video', 't', 'desc1');
+            VALUES(1, 'https://www.youtube.com/watch?v=IfFhU3edLk4', 'video', 't', 'desc1'),
+            (2, 'https://www.youtube.com/watch?v=dwDns8x3Jb4', 'video', 't', 'desc1'),
+            (3, 'https://www.youtube.com/watch?v=b4eMyOzD9UI', 'video', 't', 'desc1'),
+            (4, 'https://www.youtube.com/watch?v=lPKjlbXHP3E', 'video', 't', 'desc1'),
+            (5, 'https://www.youtube.com/watch?v=iqIn9N_fJJY', 'video', 't', 'desc1'),
+            (6, 'https://www.youtube.com/watch?v=auLBLk4ibAk', 'video', 't', 'desc1'),
+            (7, 'https://www.youtube.com/watch?v=D0W1v0kOELA', 'video', 't', 'desc1'),
+            (8, 'https://www.youtube.com/watch?v=_pFZz3OXcMs', 'video', 't', 'desc1'),
+            (9, 'https://www.youtube.com/watch?v=rIvEiTrq9kk', 'video', 't', 'desc1'),
+            (10, 'https://www.youtube.com/watch?v=h4UqMyldS7Q', 'video', 't', 'desc1');
 
 INSERT INTO users_playlists (id, is_host, user_id, playlist_id)
             VALUES(1,true, 1 , 1),

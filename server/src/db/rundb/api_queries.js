@@ -18,6 +18,15 @@ const pool = require('./db_connect');
 
 exports.getTextMessages = getTextMessages;
 
+const getMedia = function() {
+  const queryString = 'SELECT * FROM media'
+  return pool.query(queryString)
+    .then(result => result.rows)
+    .catch(error => console.log(error.message));
+};
+
+exports.getMedia = getMedia;
+
 
 // Define function to insert a new messsage to the database and return a Promise.
 

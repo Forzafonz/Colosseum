@@ -17,18 +17,14 @@ header {
 .media-player-container {
   border: blueviolet;
   border-style: dotted;
-  height:80vh;
+  /* height:80vh; */
   width: 70vw;
-  /* align-items: center;
-  justify-content: center; */
 }
 
 .media-que-container {
   border: red;
   border-style: dotted;
   height:15vh;
-  /* align-items: center;
-  justify-content: center; */
 }
 
 .chat-container {

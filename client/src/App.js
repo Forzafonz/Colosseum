@@ -45,6 +45,8 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
 
+  //TEMPORARY, WILL REFACTOR WITH useReducer
+  const [mediaList, setMediaList] = useState([])
   const [media, setMedia] = useState('https://www.youtube.com/watch?v=IfFhU3edLk4')
 
   // Initilize io-socket connection (Required for synchronious updates)
@@ -53,12 +55,25 @@ function App() {
     setConn(socket);
   }, [])
 
-  // On the first render pulls data from the database;
+  // On the first render pulls message data from the database;
   useEffect(() => {
     axios.get('/api/messages')
     .then((response) => {
       // Dispacth command to reducer to initialize state with data pulled from the DB.
       dispatch({ type: "initialize", values: response.data})
+    })
+  
+  },[])
+
+  //REFACTOR INTO ONE useEffect TO PULL ALL APP DATA FROM BACKEND
+  // On the first render pulls media data from the database;
+  useEffect(() => {
+    axios.get('/api/media')
+    .then((response) => {
+      
+      //Set media to the media in the db
+      setMediaList(response.data);
+
     })
   
   },[])
@@ -103,7 +118,10 @@ function App() {
             />
           </section>
         </section>
-        <MediaQue />
+        <MediaQue 
+        setMedia = {setMedia}
+        mediaList = {mediaList} 
+        />
       </main>
     </div>
   );
