@@ -10,6 +10,7 @@ import Particles from "./Particles";
 // import Login from "./Components/Login";
 import "./App.css";
 import './main.scss'
+import Menu from "./Menu";
 
 const Collesium = () => {
   const [model, setModel] = useState()
@@ -93,6 +94,7 @@ const MainLanding = () => {
   return (
     <>
       <div className = "name">Colosseum</div>
+      <Menu/ >
       <Scene />
     </>
   );
