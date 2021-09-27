@@ -1,0 +1,14 @@
+App.jsx
+----Header.jsx
+----Landing.jsx (login)
+----Home.jsx (1)
+  ----SavedPlaylists.jsx (1 & 2)
+    ----Playlist.jsx (1 & 2)
+  ----NewPlaylist.jsx (1)
+  ----CurrentPlaylist.jsx (2)
+    ----Media.jsx (2)
+----NewRoom.jsx (3 & 4)
+  ----Media.jsx (3 & 4)
+  ----Chat.jsx (3 & 4 & 5)
+  ----MediaQue.jsx (3 & 4 & 5)
+  ----MediaForm.jsx (5)
