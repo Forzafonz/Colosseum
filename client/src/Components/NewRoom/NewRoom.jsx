@@ -1,8 +1,8 @@
-import './NewRoom.css';
-import Chat from '../Chat/Chat';
+import './NewRoom.scss';
+import Chat from './Chat/Chat';
 import Header from '../Header';
-import MediaPlayer from './MediaPlayer';
-import MediaQue from './MediaQue';
+import MediaPlayer from './MediaPlayer/MediaPlayer';
+import MediaQue from './MediaQueue/MediaQueue';
 import React, { useReducer, useEffect, useState } from 'react';
 
 import axios from 'axios';
@@ -103,7 +103,7 @@ function NewRoom() {
 
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <main className="layout">
         <section className="media-and-chat">
           <MediaPlayer 
