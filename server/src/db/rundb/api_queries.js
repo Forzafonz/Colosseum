@@ -38,8 +38,8 @@ exports.getMedia = getMedia;
 
 //AM: NEED TO FIX THIS QUERY, THE GET QUERY WAS ALREADY FIXED BUT NOT THE PUT QUERY
 const insertTextMessages = function(message) {
-  const {msg, sent, date} = message;
-  const queryString = 'INSERT INTO messages (text, date, user_id) VALUES ($1, $2, $3) RETURNING *'
+  const { text, date, user_playlists_id } = message;
+  const queryString = 'INSERT INTO messages (text, date, user_playlists_id) VALUES ($1, $2, $3) RETURNING *'
   return pool.query(queryString, [msg, String(date), sent])
     .then(result => result.rows)
     .catch(error => console.log(error.message));
