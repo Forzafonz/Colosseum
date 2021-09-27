@@ -1,6 +1,10 @@
 import './App.css';
 import Chat from './Components/Chat/Chat';
+import Header from './Components/Header';
+import MediaPlayer from './Components/MediaPlayer';
+import MediaQue from './Components/MediaQue';
 import React, { useReducer, useEffect, useState } from 'react';
+
 import axios from 'axios';
 import { io } from "socket.io-client"
 
@@ -41,18 +45,35 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
 
+  //TEMPORARY, WILL REFACTOR WITH useReducer
+  const [mediaList, setMediaList] = useState([])
+  const [media, setMedia] = useState('https://soundcloud.com/housemusicdj/lets-get-down-house-mix_0715')
+
   // Initilize io-socket connection (Required for synchronious updates)
   useEffect(() => {
     const socket = io('http://localhost:8000');
     setConn(socket);
   }, [])
 
-  // On the first render pulls data from the database;
+  // On the first render pulls message data from the database;
   useEffect(() => {
     axios.get('/api/messages')
     .then((response) => {
       // Dispacth command to reducer to initialize state with data pulled from the DB.
       dispatch({ type: "initialize", values: response.data})
+    })
+  
+  },[])
+
+  //REFACTOR INTO ONE useEffect TO PULL ALL APP DATA FROM BACKEND
+  // On the first render pulls media data from the database;
+  useEffect(() => {
+    axios.get('/api/media')
+    .then((response) => {
+      
+      //Set media to the media in the db
+      setMediaList(response.data);
+
     })
   
   },[])
@@ -81,11 +102,28 @@ function App() {
   }
 
   return (
-    //Create a chat component and pass two props: addMessage and the entire state
-    <Chat 
-    state = {state}
-    addMessage = {addMessage}
-    />
+    <div className="App">
+      <Header />
+      <main className="layout">
+        <section className="media-and-chat">
+          <MediaPlayer 
+          media = {media} 
+          />
+          <section className="chat-container">
+          {/* //Create a chat component and pass two props: 
+          addMessage and the entire state */}
+            <Chat
+            state = {state}
+            addMessage = {addMessage}
+            />
+          </section>
+        </section>
+        <MediaQue 
+        setMedia = {setMedia}
+        mediaList = {mediaList} 
+        />
+      </main>
+    </div>
   );
 }
 

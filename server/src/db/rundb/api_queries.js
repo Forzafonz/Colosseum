@@ -10,13 +10,22 @@ const pool = require('./db_connect');
  */
 
  const getTextMessages = function() {
-  const queryString = 'SELECT * FROM messages'
+  const queryString = 'SELECT * FROM messages JOIN users_playlists ON users_playlists.id = users_playlists_id'
   return pool.query(queryString)
     .then(result => result.rows)
     .catch(error => console.log(error.message));
 };
 
 exports.getTextMessages = getTextMessages;
+
+const getMedia = function() {
+  const queryString = 'SELECT * FROM media'
+  return pool.query(queryString)
+    .then(result => result.rows)
+    .catch(error => console.log(error.message));
+};
+
+exports.getMedia = getMedia;
 
 
 // Define function to insert a new messsage to the database and return a Promise.
@@ -27,6 +36,7 @@ exports.getTextMessages = getTextMessages;
  * @return {Promise<{}>} A promise to the user with an added message
  */
 
+//AM: NEED TO FIX THIS QUERY, THE GET QUERY WAS ALREADY FIXED BUT NOT THE PUT QUERY
 const insertTextMessages = function(message) {
   const {msg, sent, date} = message;
   const queryString = 'INSERT INTO messages (text, date, user_id) VALUES ($1, $2, $3) RETURNING *'

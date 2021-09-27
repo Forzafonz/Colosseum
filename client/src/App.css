@@ -1,4 +1,41 @@
-.App {
+header {
+  border: rgb(43, 220, 226);
+  border-style: dotted;
+  height:5vh;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.media-and-chat {
+  display: flex;
+  flex-direction: row;
+}
+
+.media-player-container {
+  border: blueviolet;
+  border-style: dotted;
+  /* height:80vh; */
+  width: 70vw;
+}
+
+.media-que-container {
+  border: red;
+  border-style: dotted;
+  height:15vh;
+}
+
+.chat-container {
+  border: yellow;
+  border-style: dotted;
+  width: 30vw;
+}
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +72,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
