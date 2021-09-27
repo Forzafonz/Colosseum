@@ -1,12 +1,16 @@
 import React, { useReducer, useEffect, useState } from 'react';
+import MainLanding from './LandingPage/MainLanding';
 
 
 function Landing() {
-  return (
 
-    <div>
-      LANDING PAGE!
-    </div>
+  const mode = 0;
+
+  return (
+    <>
+    {!mode && <MainLanding />}
+    {mode && <div> LANDING PAGE! </div>}
+    </>
 
   )
 }
