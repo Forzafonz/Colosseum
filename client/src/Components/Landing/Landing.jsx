@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect, useState } from 'react';
 import MainLanding from './LandingPage/MainLanding';
+import Login from './LandingPage/Login';
 
 
 function Landing() {
@@ -8,7 +9,7 @@ function Landing() {
 
   return (
     <>
-    {!mode && <MainLanding />}
+    {!mode && <Login />}
     {mode && <div> LANDING PAGE! </div>}
     </>
 

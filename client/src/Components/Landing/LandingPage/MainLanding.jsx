@@ -62,28 +62,29 @@ const Scene = () => {
   const mouse = useRef([0, 0])
   return (
     <Canvas 
-    camera={{ fov: 10, position: [2,2, 5] }}
-    onCreated={({ gl }) => {
-      gl.setClearColor(new THREE.Color('#020207'))
-    }}
+    camera={{ fov: 10, position: [2, 2, 5] }}
+    // onCreated={({ gl }) => {
+    //   gl.setClearColor(new THREE.Color('#020207'))
+    // }}
     >
      
       <color attach="background" args={"black"} />
       <pointLight intensity={0.2} color="white" />
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.7} />
       <spotLight intensity={1} position={[30, 30, 30]} color="white" />
-      <PerspectiveCamera makeDefault position={[2, 2, 5]} fov={10}>
+      <PerspectiveCamera makeDefault position={[2, 2, 5]} fov={5} maxDistance = {0.00001}>
       </PerspectiveCamera>
       <Stars radius={100} depth={100} count={5000} factor={4} saturation={0} fade />
-      <fog attach = "fog" args = {["black", 1, 10]}/>
+      <fog attach = "fog" args = {["black", 5, 10]}/>
       <Particles count={5000} mouse = {mouse}/>
       <Suspense fallback={null}>
       <Ground />
       <Statues name = {'/Statue1/scene.gltf'} scale={[0.007,0.007,0.007]} position={[0.4, -0.05, 0]}/>
       <Statues name = {'/Statue2/scene.gltf'} scale={[0.000010,0.000010,0.000010]} position={[-0.35, 0.01, 0]}/>
+      <Statues name = {'/Statue3/scene.gltf'} scale={[0.013,0.013,0.013]} position={[0.0, -0.07, 0.33]}/>
       <Collesium />
       </Suspense>
-      <OrbitControls autoRotate  enableZoom={true} maxPolarAngle={Math.PI / 2} />
+      <OrbitControls autoRotate  enableZoom={true} maxPolarAngle={Math.PI / 2 - 0.3} minPolarAngle={Math.PI / 2 - 0.5} maxZoom = {0.001}/>
     </Canvas>
   );
 };
@@ -93,7 +94,6 @@ const MainLanding = () => {
   
   return (
     <>
-      <div className = "name">Colosseum</div>
       <Menu/ >
       <Scene />
     </>
