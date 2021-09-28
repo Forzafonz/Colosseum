@@ -1,7 +1,52 @@
-.login{
-  position:absolute;
-  width: 100vw;
-  height: 100vh;
+@import "~bootstrap/scss/bootstrap";
+
+
+.form{
+  padding-top: 1vh;
+  padding-left: 4vh;
+  padding-right: 4vh;
   background-color: rgba(255, 255, 255, 0.4);
-  color: black;
+  position: absolute;
+  width: 30vw;
+  height: 60vh;
+  left:35vw;
+  right: 35vw;
+  top: 20vh;
+  bottom: 20vh;
+  border-radius: 1%;
+  border:solid 2px #FFF;
+
+  .form-main{
+    padding-top: 4vh;
+    display:flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: space-evenly;
+  }
+
+  .header{
+    height: 2vw;
+    padding-bottom: 4vh;
+    margin-left: -3vh;
+    .close-button{
+      font-size: 3vh;
+      padding: 2vh;
+      width: 5vh;
+      height: 5vh;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      border-radius: 50%;
+       &:hover{
+        cursor: pointer;
+        background-color: lightgray;
+       }
+    }
+    .buttons{
+      margin-top: 3vh;
+    }
+  }
+
+  
+
 }

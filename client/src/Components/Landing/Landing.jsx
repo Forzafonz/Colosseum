@@ -5,12 +5,13 @@ import Login from './LandingPage/Login';
 
 function Landing() {
 
-  const mode = 0;
+  const mode = 1;
 
   return (
     <>
-    {!mode && <Login />}
-    {mode && <div> LANDING PAGE! </div>}
+    <Login />
+    {/* {!mode && <Login />}
+    {mode && <div> LANDING PAGE! </div>} */}
     </>
 
   )
