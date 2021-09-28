@@ -25,7 +25,7 @@ function App() {
           <Header />
           <NewRoom />
         </Route>
-      
+       
         <Route path = "/">
          <Landing />
         </Route>

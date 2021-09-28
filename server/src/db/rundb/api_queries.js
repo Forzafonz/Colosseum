@@ -46,3 +46,9 @@ const insertTextMessages = function(message) {
 }
 
 exports.insertTextMessages = insertTextMessages;
+
+const createPlaylist = function (data) {
+
+}
+
+exports.createPlaylist = createPlaylist;
