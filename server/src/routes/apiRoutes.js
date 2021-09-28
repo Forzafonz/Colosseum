@@ -5,10 +5,11 @@ const { getTextMessages, insertTextMessages, getMedia } =require('../db/rundb/ap
 // Add text function is required here to update all clients semulteneosly using socket.io
 module.exports = function(router, addText) {
 
-  // Route to get all messages currently existed in the database.
-  router.get('/messages', (req, res) => {
 
-    getTextMessages()
+  // Route to get all messages currently existed in the database.
+  router.get('/messages/:userid', (req, res) => {
+    const userid = req.params.userid;
+    getTextMessages(userid)
       .then((data) => {
         res
         .status(200)

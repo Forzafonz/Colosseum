@@ -1,6 +1,5 @@
 import React, { useReducer, useEffect, useState } from 'react';
 
-
 function Home() {
   return (
 

@@ -37,17 +37,17 @@ INSERT INTO media (id, link, category, thumbnail, description)
             (9, 'https://www.youtube.com/watch?v=rIvEiTrq9kk', 'video', 't', 'desc1'),
             (10, 'https://www.youtube.com/watch?v=h4UqMyldS7Q', 'video', 't', 'desc1');
 
-INSERT INTO users_playlists (id, is_host, user_id, playlist_id)
-            VALUES(1,true, 1 , 1),
-            (2,false, 2 , 1),
-            (3,false, 3 , 1),
-            (4,false, 4 , 1),
-            (5,false, 1 , 2),
-            (6,true, 2 , 2),
-            (7,false, 3 , 2),
-            (8,false, 4 , 2),
-            (9,false, 1 , 3),
-            (10,false, 2 , 3);
+INSERT INTO users_playlists (id, is_host, user_id, playlist_id, active)
+            VALUES(1,true, 1 , 1, true),
+            (2,false, 2 , 1, true),
+            (3,false, 3 , 1, true),
+            (4,false, 4 , 1, true),
+            (5,false, 1 , 2, false),
+            (6,true, 2 , 2, true),
+            (7,false, 3 , 2, true),
+            (8,false, 4 , 2, true),
+            (9,false, 1 , 3, false),
+            (10,false, 2 , 3, true);
 
 INSERT INTO playlists_media (id, media_rating, play_order, played_already, played_length, media_id, playlist_id)
             VALUES (1, 3, 1, true, 1.10, 1, 1),
@@ -66,12 +66,13 @@ INSERT INTO playlists_media (id, media_rating, play_order, played_already, playe
             (14, 1, 3, false, 0.00, 10, 4),
             (15, 3, 1, false, 0.00, 4, 5);
 
-INSERT INTO messages (id, text, date, users_playlists_id)
-            VALUES(1, 'Hello There !!',1632010842289,1),
-            (2, 'Hi !!',1632010842289,2),
-            (3, 'Whats up..',1632010842289,1),
-            (4, 'All good',1632010842289,3),
-            (5, 'new or old playlist',1632010842289,4),
-            (6, 'old will be good',1632010842289,2),
-            (7, 'great!!',1632010842289,1);
+INSERT INTO messages (text, date, users_playlists_id)
+            VALUES('Hello There !!',1632010842289,1),
+            ('Hi !!',1632010842290,2),
+            ('Whats up..',1632010842291,1),
+            ('All good',1632010842292,3),
+            ('new or old playlist',1632010842293,4),
+            ('old will be good',1632010842294,2),
+            ('great!!',1632010842295,1),
+            ('Another text',1632010842296,5);
             
