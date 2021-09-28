@@ -12,6 +12,7 @@ const bodyParser    = require('body-parser')
 const apiRoutes = require("./routes/apiRoutes");
 const resetRoute = require("./routes/resetRoutes")
 const loginRegisterRoutes = require("./routes/loginRegisterRoutes")
+const homeRoutes = require("./routes/homeRoutes")
 
 //Middleware assinged
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +29,8 @@ const apiRouter = express.Router();
 const resetRouter = express.Router();
 // A router for login and registration requests
 const loginRegisterRouter = express.Router();
+// A router for home page requests
+const homeRouter = express.Router();
 
 
 module.exports = function application( actions = { addText: () => {} } ) {
@@ -35,11 +38,13 @@ module.exports = function application( actions = { addText: () => {} } ) {
   app.use(cors());
   resetRoute(resetRouter);
   loginRegisterRoutes(loginRegisterRouter);
+  homeRoutes(homeRouter);
 
   // Mount apiRouter to specified routes in the routes/apiRouters.js file and pass addText function which was declared in the index.js
   apiRoutes(apiRouter, actions.addText);
   app.use("/api/login", loginRegisterRouter)
   app.use("/reset", resetRouter)
+  app.use("/api/home", homeRouter)
   // Use apiRouter in our express app.
   app.use("/api", apiRouter);
   return app;
