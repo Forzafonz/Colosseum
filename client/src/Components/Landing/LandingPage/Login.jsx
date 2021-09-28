@@ -1,6 +1,6 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import './login.scss'
-import {Button, Form, FloatingLabel} from 'react-bootstrap';
+import {Button, Form, FloatingLabel, Alert} from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -8,6 +8,7 @@ export default function Login() {
   const password = useRef();
   const login = useRef();
   const history = useHistory();
+  const [show, setShow] = useState(false);
 
   //const cat = localStorage.getItem('myCat');
 
@@ -19,7 +20,10 @@ export default function Login() {
       localStorage.setItem('user_id', response.data.id);
       history.push('/home')
     })
-    .catch((error) => console.log(`error: ${error}`))
+    .catch((error) => {
+      setShow(true)
+      console.log(`error: ${error}`)
+    })
     password.current.value = "";
     login.current.value = "";
   }
@@ -36,6 +40,9 @@ export default function Login() {
       <div className = "close-button" onClick = {cancelHandler}><div>✕</div></div>
     </div>
     <Form className = "form-main">
+      <Alert variant="danger" show = {show}>
+        Sorry there is no user with such email or username or your password is incorrect.
+      </Alert>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <FloatingLabel
           controlId="floatingInput"
