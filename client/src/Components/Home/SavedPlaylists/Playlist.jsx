@@ -1,12 +1,36 @@
 import React, { useReducer, useEffect, useState } from 'react';
+import './Playlist.scss'
 
 
-function Playlist() {
+function Playlist({id, name, rating, thumbnail}) {
   return (
 
-    <>
-    Playlist PAGE!
-    </>
+    <li className='playlist__item'>
+      <img
+        className="playlist__image"
+        src={thumbnail}
+        size
+      />
+      <div className>
+        {id}  
+      </div>
+
+      <div className>
+        {name}
+      </div>
+
+      <div className>
+        {rating}
+      </div>
+     
+      
+      
+      
+      
+     
+      
+      
+    </li>
     
   )
 }
