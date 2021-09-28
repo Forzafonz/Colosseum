@@ -4,48 +4,59 @@ import Addeditems from './Addeditems';
 import axios from 'axios';
 
 function NewPlaylist() {
+
   const [name, setName] = useState('');
   const [tnail, setTnail] = useState('');
-  const [url, setUrl] = useState('');
-  const [obj, setObj] = useState([]);
+  const [user, setUser] = useState('');
+  const [udata, setUdata] = useState([]);
 
   const addtolist = (e) => {
     e.preventDefault();
+    axios.get(`http://localhost:8000/api/user/${user}`)
+    .then((res) => {
+      console.log("---->-->user name", res.data[0].username);
+      const udata1 = [...udata];
+      const obj2 = {};
+      obj2['id']=udata.length;
+      obj2['u_id'] = res.data[0].id;
+      obj2['name'] = user;
+      udata1[udata.length] = obj2;
+      setUdata(udata1);
+      setUser('');
+      
+    })
+    .catch((error) => alert('invalid user'));
 
-    const obj1 = [...obj];
-    const obj2 = {};
-    obj2['id'] = obj.length;
-    obj2['name'] = url;
-    obj1[obj.length] = obj2;
-    setObj(obj1);
-    setUrl('');
-    console.log('----------->', obj1);
+    // console.log('----------->', udata1);
   };
 
   const deleteurl = function (id) {
-    const obj1 = [...obj];
-    const y = obj1.indexOf(obj[id]);
-    console.log('-->y', y);
-    obj1.splice(y, 1);
-    setObj(obj1);
+    const udata1 = [...udata];
+    const y = udata1.indexOf(udata[id]);
+    udata1.splice(y, 1);
+    setUdata(udata1);
   };
 
-  const createPlaylist = function(e) {
-
+  const createPlaylist = function (e) {
+    const user_id = 1;
     const data = {
       name,
       tnail,
-      obj
-    }
-    // return axios.put('/api/create',data)
-    //   .then(
-    //     );
-
+      udata,
+      user_id
+    };
+    axios.put('http://localhost:8000/api/create',{data})
+      .then((res) => {
+        // console.log("-----res",res);
         setName('');
         setTnail('');
-        setObj([]);
-        setUrl('');
-        alert('Playlist created successfully');
+        setUdata([]);
+        setUser('');
+        alert(`Playlist created successfully. Link to playlist is http://localhost:3000/playlist/${res.data[0].id}`);
+        console.log("```````res", res.data[0].id);
+      }
+        )
+        .catch(error=> console.log(error.message))
 
   };
 
@@ -87,8 +98,8 @@ function NewPlaylist() {
               <input
                 required
                 type="text"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
+                value={user}
+                onChange={(e) => setUser(e.target.value)}
               ></input>
               <label> </label>
               <button type="submit" name="add-url">
@@ -100,7 +111,7 @@ function NewPlaylist() {
       </table>
       <br></br>
       <div className="list-container">
-        {obj.map((x) => (
+        {udata.map((x) => (
           <Addeditems id={x.id} name={x.name} deleteurl={deleteurl} />
         ))}
       </div>

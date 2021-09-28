@@ -3,7 +3,9 @@ const {
   getTextMessages,
   insertTextMessages,
   getMedia,
-  createPlaylist
+  createPlaylist,
+  searchUser,
+  updateUserPlaylist
 } = require('../db/rundb/api_queries');
 
 // Define a function which will mount router that was passed to it to specified paths.
@@ -23,8 +25,24 @@ module.exports = function (router, addText) {
     });
   });
   //Route to create new playlist
-  router.get('/create', (req, res) => {
-    createPlaylist().then((data) => {
+  router.put('/create', (req, res) => {
+    const x = req.body.data;
+    createPlaylist(x)
+    .then((data) => {
+      // console.log("==--==>", data[0].id);
+      updateUserPlaylist(data[0].id, x)
+        .then(() => {
+          console.log("suucess");
+
+        });
+        res.status(200).json(data);
+    });
+  });
+
+  //Route to search for user
+  router.get('/user/:id', (req,res) => {
+    searchUser(req.params.id)
+    .then((data) => {
       res.status(200).json(data);
     });
   });

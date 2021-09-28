@@ -48,7 +48,38 @@ const insertTextMessages = function(message) {
 exports.insertTextMessages = insertTextMessages;
 
 const createPlaylist = function (data) {
+  const{name, tnail} =  data;
+  const queryString = 'INSERT INTO playlists (name, thumbnail) VALUES ($1, $2) RETURNING *'
+  return pool.query(queryString, [name, tnail])
+    .then(result => result.rows)
+    .catch(error => console.log(error.message));
+}
+exports.createPlaylist = createPlaylist;
+
+const updateUserPlaylist = function (id, x) {
+  console.log(";;;;;;data:", id);
+  console.log(";;;;;;x:", x);
+  const {user_id, udata} = x;
+  return pool.query('INSERT INTO users_playlists(is_host, user_id, playlist_id) VALUES (true, $1, $2)', [user_id, id])
+  .then( () => {
+    console.log("success 1")
+  udata.map((y) => {
+       pool.query('INSERT INTO users_playlists (is_host, user_id, playlist_id) VALUES (false, $1, $2)', [y.u_id, id])
+       .then()
+      })
+      
+    }
+   
+  )
+
 
 }
+exports.updateUserPlaylist = updateUserPlaylist;
+const searchUser = function(id) {
+  const queryString = 'SELECT * FROM users where username LIKE $1'
+  return pool.query(queryString,[id])
+    .then(result => result.rows)
+    .catch(error => console.log(error.message));
+}
 
-exports.createPlaylist = createPlaylist;
+exports.searchUser = searchUser;
