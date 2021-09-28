@@ -12,24 +12,17 @@ function Playlist({id, name, rating, thumbnail}) {
         size
       />
       <div className>
-        {id}  
+        playlist id: {id}  
       </div>
 
       <div className>
-        {name}
+        playlist name: {name}
       </div>
 
       <div className>
-        {rating}
+        playlist rating: {rating}
       </div>
      
-      
-      
-      
-      
-     
-      
-      
     </li>
     
   )

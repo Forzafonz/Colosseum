@@ -14,7 +14,6 @@ function Home() {
       <section className="new-playlist-container">
         {/* NEW PLAYLIST ALSO GOES HERE */}
         <CurrentPlaylist/>
-        NEW PLAYLISTS GO HERE
       </section>
     </div>
     
