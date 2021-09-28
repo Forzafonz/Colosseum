@@ -4,6 +4,9 @@ import NewMessage from './NewMessage'
 
 
 export default function Messages({addMessage, state}) {
+  // Mock number needs to be updated
+  const chatNumber = 1;
+  const user_id = localStorage.getItem('user_id');
   // Create a reference to a "fake" empty message to target it, so that we can scroll to the most up-to-date message
   // using function scrollToBottom 
   const messagesEndRef = useRef(null)

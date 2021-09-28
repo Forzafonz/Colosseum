@@ -9,10 +9,25 @@ const pool = require('./db_connect');
  * @return {Promise<{}>} A promise to the user once query is done
  */
 
- const getTextMessages = function() {
-  const queryString = 'SELECT * FROM messages JOIN users_playlists ON users_playlists.id = users_playlists_id'
-  return pool.query(queryString)
-    .then(result => result.rows)
+ const getTextMessages = function(user_id) {
+  // const queryString = `
+  //   SELECT * FROM messages 
+  //   JOIN (SELECT * 
+  //         FROM users_playlists
+  //         WHERE playlist_id IN (SELECT playlist_id 
+  //                               FROM users_playlists 
+  //                               WHERE user_id = $1 AND
+  //                               active IS TRUE)) as target_chat
+  //   ON taget_chat.id = messages.users_playlists_id`         
+    
+  const queryString = `SELECT * FROM messages WHERE users_playlists_id IN (SELECT id FROM users_playlists WHERE playlist_id IN (SELECT playlist_id 
+                                 FROM users_playlists 
+                                 WHERE user_id = $1 AND
+                                 active IS TRUE))`
+  return pool.query(queryString, [user_id])
+    .then(result => {
+      console.log("Here is a result rows", result.rows)
+      return result.rows})
     .catch(error => console.log(error.message));
 };
 

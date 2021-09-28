@@ -36,9 +36,10 @@ CREATE TABLE playlists(
   thumbnail VARCHAR(255),
   queue BOOLEAN 
 );
-
+-- Added active column to indicate which user joined which playlist
 CREATE TABLE users_playlists(
   id SERIAL PRIMARY KEY NOT NULL,
+  active BOOLEAN DEFAULT FALSE,
   is_host BOOLEAN,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   playlist_id INTEGER REFERENCES playlists(id) ON DELETE CASCADE
