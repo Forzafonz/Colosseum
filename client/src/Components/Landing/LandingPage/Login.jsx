@@ -9,23 +9,25 @@ export default function Login() {
   const login = useRef();
   const history = useHistory();
 
-  
+  //const cat = localStorage.getItem('myCat');
+
   const submitHandler = (event) =>{
     event.preventDefault();
   
     axios.put('/api/login', {password: password.current.value, login: login.current.value})
-    .then(()=> console.log("hurray!"))
+    .then((response)=> {
+      localStorage.setItem('user_id', response.data.id);
+      history.push('/home')
+    })
     .catch((error) => console.log(`error: ${error}`))
     password.current.value = "";
     login.current.value = "";
-
   }
 
   const cancelHandler = (event) => {
     event.preventDefault();
     history.goBack();
   }
-
 
   return (
     <>
