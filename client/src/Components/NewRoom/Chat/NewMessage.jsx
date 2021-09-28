@@ -20,7 +20,10 @@ export default function NewMessage(props) {
   // and it calls andleKeyPress function defined in Messages.jsx which was passed as onEnter prop
   // Used to send messages on Enter
   const enterPress = (e) => {
+    if(e.key === 'Enter'){
     onEnter(e, ref.current.value)
+    ref.current.value =""
+    }
   }
   // Input form for a new message at the bottom of the chat
   return (

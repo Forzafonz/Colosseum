@@ -66,13 +66,13 @@ INSERT INTO playlists_media (id, media_rating, play_order, played_already, playe
             (14, 1, 3, false, 0.00, 10, 4),
             (15, 3, 1, false, 0.00, 4, 5);
 
-INSERT INTO messages (id, text, date, users_playlists_id)
-            VALUES(1, 'Hello There !!',1632010842289,1),
-            (2, 'Hi !!',1632010842290,2),
-            (3, 'Whats up..',1632010842291,1),
-            (4, 'All good',1632010842292,3),
-            (5, 'new or old playlist',1632010842293,4),
-            (6, 'old will be good',1632010842294,2),
-            (7, 'great!!',1632010842295,1),
-            (8, 'Another text',1632010842296,5);
+INSERT INTO messages (text, date, users_playlists_id)
+            VALUES('Hello There !!',1632010842289,1),
+            ('Hi !!',1632010842290,2),
+            ('Whats up..',1632010842291,1),
+            ('All good',1632010842292,3),
+            ('new or old playlist',1632010842293,4),
+            ('old will be good',1632010842294,2),
+            ('great!!',1632010842295,1),
+            ('Another text',1632010842296,5);
             

@@ -25,7 +25,7 @@ function reducer(state, action){
     input.forEach(element => {
 
       const date = Number(element.date);
-      newState[date] = {msg: element.text, date: date, user_id : element.user_id}
+      newState[date] = {msg: element.text, date: date, user_id : element.user_id, avatar: element.avatar, username: element.username}
     });
     return newState;
 
@@ -62,6 +62,7 @@ function NewRoom() {
     axios.get(`/api/messages/${user_id}`)
     .then((response) => {
       // Dispacth command to reducer to initialize state with data pulled from the DB.
+      console.log(response.data)
       dispatch({ type: "initialize", values: response.data})
     })
   
