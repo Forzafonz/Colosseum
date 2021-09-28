@@ -1,9 +1,13 @@
 import React, { useRef, useEffect } from 'react'
 import './styles.scss'
+import TimeAgo from 'react-timeago'
 import NewMessage from './NewMessage'
 
 
 export default function Messages({addMessage, state}) {
+  // Mock number needs to be updated
+  const chatNumber = 1;
+  const user_id = localStorage.getItem('user_id');
   // Create a reference to a "fake" empty message to target it, so that we can scroll to the most up-to-date message
   // using function scrollToBottom 
   const messagesEndRef = useRef(null)
@@ -14,19 +18,24 @@ export default function Messages({addMessage, state}) {
   // "state" has the following structure: {1: {..}, 2: {...}, 3: {...}}, so we need to run map to "convert to array"
   // Object.keys(state) returns array of keys, like that => [1, 2, 3]
   const messages = Object.keys(state).map(message => {
-    if (state[message]['user_id'] === 2) {
+    if (state[message]['user_id'] === Number(user_id)) {
       return (
+        <>
         <div 
           className="message message-personal"
-          key = {message}> 
+          key = {message}>
+          <div key = {message} className = "message-top"><span>Sent <TimeAgo date={state[message]['date']}/></span></div>
           {state[message]['msg']}
-        </div>)
+        </div>
+        </>)
+        
     } else {
       return (
         <div className="message new"
-        key = {message}>
+           key = {message}>
+          <div className = "message-top" key = {message}><span>Sent by {state[message]['username']} <TimeAgo date={state[message]['date']}/></span></div>
           <figure className="avatar">
-          <img src="https://img-9gag-fun.9cache.com/photo/ayeRAm8_460s.jpg" alt = "avatar" />
+          <img src={state[message]['avatar']} alt = "avatar" />
           </figure>  {state[message]['msg']}
         </div>
       )
@@ -37,21 +46,18 @@ export default function Messages({addMessage, state}) {
   const sortedMessages = messages.sort((firstElem, secondElem) => {
     // Custom sort. Might be useless here
     if (firstElem.key > secondElem.key){
-      return 1
+      return -1
     } else {
-      return -1 
+      return 1 
     }
   })
 
   // Function that 
   const submitMessage = (e, msg) => {
-    // Remove me later
-    const names = [1, 2, 3, 4]
-    const pickName = names[Math.floor(Math.random() * 4)]
-    
+    // Remove me later  
     // check if message if not empty then calls addMessage function  with specified type. AddMessage function is defined in App.
     if (msg !== 0){
-      addMessage({type: 'newmessage', values : { msg: msg, user_id: pickName, date: Date.now()}})
+      addMessage({type: 'newmessage', values : { msg: msg, 'user_id': Number(user_id), date: Date.now()}})
     }
   }
   // this function is invoked every time any button is pressed in textarrea of a newMessage

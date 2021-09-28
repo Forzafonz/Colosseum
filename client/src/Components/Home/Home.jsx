@@ -4,7 +4,6 @@ import SavedPlaylists from './SavedPlaylists/SavedPlaylists';
 import CurrentPlaylist from './CurrentPlaylist/CurrentPlaylist';
 import axios from 'axios';
 
-
 function Home() {
   
   const userId = localStorage.user_id;

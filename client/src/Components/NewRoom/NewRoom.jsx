@@ -25,7 +25,7 @@ function reducer(state, action){
     input.forEach(element => {
 
       const date = Number(element.date);
-      newState[date] = {msg: element.text, date: date, user_id : element.user_id}
+      newState[date] = {msg: element.text, date: date, user_id : element.user_id, avatar: element.avatar, username: element.username}
     });
     return newState;
 
@@ -45,6 +45,8 @@ function NewRoom() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
 
+  const user_id = localStorage.getItem('user_id')
+
   //TEMPORARY, WILL REFACTOR WITH useReducer
   const [mediaList, setMediaList] = useState([])
   const [media, setMedia] = useState('https://soundcloud.com/housemusicdj/lets-get-down-house-mix_0715')
@@ -57,9 +59,10 @@ function NewRoom() {
 
   // On the first render pulls message data from the database;
   useEffect(() => {
-    axios.get('/api/messages')
+    axios.get(`/api/messages/${user_id}`)
     .then((response) => {
       // Dispacth command to reducer to initialize state with data pulled from the DB.
+      console.log(response.data)
       dispatch({ type: "initialize", values: response.data})
     })
   
