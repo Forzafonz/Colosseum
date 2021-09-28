@@ -26,16 +26,16 @@ INSERT INTO playlists(id, name , rating, thumbnail, queue)
             (5, 'PL-5', 4,'https://www.liveabout.com/thmb/CXNryNO4dxhyT13v41hVmKXHq1Q=/3000x2000/filters:no_upscale():max_bytes(150000):strip_icc()/weeknd-56a96cf75f9b58b7d0fb536c.jpg' , false);
 
 INSERT INTO media (id, link, category, thumbnail, description)
-            VALUES(1, 'https://www.youtube.com/watch?v=IfFhU3edLk4', 'video', 'https://images-prod.healthline.com/hlcmsresource/images/Dog-Breeds-Health-Problems/3180-Pug_green_grass-1284x400-BANNER10.jpg', 'desc1'),
-            (2, 'https://www.youtube.com/watch?v=dwDns8x3Jb4', 'video', 'https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGRvZ3N8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80', 'desc1'),
-            (3, 'https://www.youtube.com/watch?v=b4eMyOzD9UI', 'video', 'https://thumbs.dreamstime.com/b/dog-golden-retriever-jumping-autumn-leaves-autumnal-sunlight-77861618.jpg', 'desc1'),
-            (4, 'https://www.youtube.com/watch?v=lPKjlbXHP3E', 'video', 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZG9nc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80', 'desc1'),
-            (5, 'https://www.youtube.com/watch?v=iqIn9N_fJJY', 'video', 't', 'desc1'),
-            (6, 'https://www.youtube.com/watch?v=auLBLk4ibAk', 'video', 't', 'desc1'),
-            (7, 'https://www.youtube.com/watch?v=D0W1v0kOELA', 'video', 't', 'desc1'),
-            (8, 'https://www.youtube.com/watch?v=_pFZz3OXcMs', 'video', 't', 'desc1'),
-            (9, 'https://www.youtube.com/watch?v=rIvEiTrq9kk', 'video', 't', 'desc1'),
-            (10, 'https://www.youtube.com/watch?v=h4UqMyldS7Q', 'video', 't', 'desc1');
+            VALUES(1, 'https://www.youtube.com/watch?v=IfFhU3edLk4', 'video', 'https://images-prod.healthline.com/hlcmsresource/images/Dog-Breeds-Health-Problems/3180-Pug_green_grass-1284x400-BANNER10.jpg', 'Media 1'),
+            (2, 'https://www.youtube.com/watch?v=dwDns8x3Jb4', 'video', 'https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGRvZ3N8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80', 'Media 2'),
+            (3, 'https://www.youtube.com/watch?v=b4eMyOzD9UI', 'video', 'https://thumbs.dreamstime.com/b/dog-golden-retriever-jumping-autumn-leaves-autumnal-sunlight-77861618.jpg', 'Media 3'),
+            (4, 'https://www.youtube.com/watch?v=lPKjlbXHP3E', 'video', 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZG9nc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80', 'Media 4'),
+            (5, 'https://www.youtube.com/watch?v=iqIn9N_fJJY', 'video', 't', 'Media 5'),
+            (6, 'https://www.youtube.com/watch?v=auLBLk4ibAk', 'video', 't', 'Media 6'),
+            (7, 'https://www.youtube.com/watch?v=D0W1v0kOELA', 'video', 't', 'Media 7'),
+            (8, 'https://www.youtube.com/watch?v=_pFZz3OXcMs', 'video', 't', 'Media 8'),
+            (9, 'https://www.youtube.com/watch?v=rIvEiTrq9kk', 'video', 't', 'Media 9'),
+            (10, 'https://www.youtube.com/watch?v=h4UqMyldS7Q', 'video', 't', 'Media 10');
 
 INSERT INTO users_playlists (id, is_host, user_id, playlist_id, active)
             VALUES(1,true, 1 , 1, true),

@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect, useState } from 'react';
 import Playlist from './Playlist';
 
-function SavedPlaylists({playlists}) {
+function SavedPlaylists({ playlists, setPlaylistId }) {
   //TEMPORARY (use state, passed down as props to this component from App.js)
   // id, name, rating and thumbnail from playlists table. 
   // user id from users_playlists table
@@ -38,6 +38,7 @@ function SavedPlaylists({playlists}) {
     name = {playlist.name}
     rating = { playlist.rating}
     thumbnail = {playlist.thumbnail} 
+    setPlaylistId = {setPlaylistId}
   />);
 
   return (

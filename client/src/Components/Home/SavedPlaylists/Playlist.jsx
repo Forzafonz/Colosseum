@@ -2,7 +2,7 @@ import React, { useReducer, useEffect, useState } from 'react';
 import './Playlist.scss'
 
 
-function Playlist({id, name, rating, thumbnail}) {
+function Playlist({id, name, rating, thumbnail, setPlaylistId }) {
   return (
 
     <li className='playlist__item'>
@@ -22,6 +22,12 @@ function Playlist({id, name, rating, thumbnail}) {
       <div className>
         playlist rating: {rating}
       </div>
+
+      <button onClick={()=> {
+        console.log("playlist Id", id)
+        setPlaylistId(id)
+        }
+        }>SELECT</button>
      
     </li>
     
