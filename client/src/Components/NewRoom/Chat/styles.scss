@@ -75,6 +75,58 @@ Chat
 /*--------------------
 Chat Title
 --------------------*/
+.selected{
+  box-shadow:inset 0 0 30px rgba(196, 199, 38, 0.6);
+}
+
+.head{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  padding:0 !important;
+  margin: 0;
+  left:0;
+  top:0;
+  width: 100%;
+  height: 100vh;
+  width: 25vw;
+
+  .chat_click-chat{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width:12.5vw;
+    background: linear-gradient(90deg, #8dc2a5, #466068);
+    margin-right: 0.05rem;
+
+      &:hover{
+        box-shadow:inset 0 0 15px rgba(255, 255, 255, 0.8);
+        box-shadow:inset 0 0 6px rgba(0, 0, 0, 0.6);
+        cursor: pointer;
+        // box-shadow: 0 0 1rem 1rem rgba(255, 255, 255, 0.3);
+        // 
+      }
+    
+  }
+  .chat_click-room{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width:12.5vw;
+    background:  linear-gradient(90deg, #466068, #8dc2a5);
+    margin-left: 0.05rem;
+
+    &:hover{
+      box-shadow:inset 0 0 15px rgba(255, 255, 255, 0.8);
+      box-shadow:inset 0 0 6px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      // box-shadow: 0 0 1rem 1rem rgba(255, 255, 255, 0.3);
+      // box-shadow:inset 0 0 30px rgba(196, 199, 38, 0.6);
+    }
+
+  }
+}
+
 .chat-title {
   flex: 0 1 45px;
   position: relative;
@@ -84,6 +136,8 @@ Chat Title
   text-transform: uppercase;
   text-align: left;
   padding: 10px 10px 10px 50px;
+
+    
 
   h1,
   h2 {
