@@ -23,6 +23,7 @@ function Home() {
   }, [])
 
   //Get the medias for the current user (empty array to only run on page load)
+  //Medias is all the media associated with every playlist for the logged in user
   useEffect(() => {
     axios.get(`/api/home/${userId}/media`)
     .then((response) => {
@@ -31,16 +32,22 @@ function Home() {
     });
   }, [])
 
+  //Get selected playlist (whichever one is selected by user)
+  const playlist = playlists.find(playlist => playlist.id === playlistId);
+  //Get selected playlist name (for use as header in CurrentPlaylist component)
+
+  const playlistName = playlist ? playlist.name : "Choose a playlist";
+
   return (
 
     <div className="home">
       <section className="saved-playlists-container">
-        CURRENT LOGGED IN: {userId}
+        CURRENT USER ID LOGGED IN: {userId}
         <SavedPlaylists playlists={playlists} setPlaylistId={setPlaylistId}/>
       </section>
       <section className="new-playlist-container">
         {/* NEW PLAYLIST ALSO GOES HERE */}
-        <CurrentPlaylist medias={medias} playlistId={playlistId}/>
+        <CurrentPlaylist medias={medias} playlistId={playlistId} playlistName={playlistName}/>
       </section>
     </div>
     

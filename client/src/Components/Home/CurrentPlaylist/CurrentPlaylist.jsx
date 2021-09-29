@@ -2,7 +2,7 @@ import React, { useReducer, useEffect, useState } from 'react';
 import CurrentPlaylistItem from './CurrentPlaylistItem';
 
 
-function CurrentPlaylist({ medias, playlistId }) {
+function CurrentPlaylist({ medias, playlistId, playlistName }) {
   //TEMPORARY (use state, passed down as props to this component from App.js)
   // THIS IS A COMBO OF playlists_media and media tables
   // playlist_id, media_id, play_order and media_rating from playlists_media
@@ -62,12 +62,17 @@ function CurrentPlaylist({ medias, playlistId }) {
     />);
 
   return (
-
-    <ul>
+    <>
       PLAYLIST ID: {playlistId}
-      {currentPlaylist}
-    </ul>
+      <h1>{playlistName}</h1>
+      <ul>
+        
+        {currentPlaylist}
+      </ul>
   
+
+    </>
+   
   )
 }
 
