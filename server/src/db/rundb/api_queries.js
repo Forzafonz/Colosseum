@@ -47,6 +47,16 @@ const getMedia = function() {
 
 exports.getMedia = getMedia;
 
+const getPlaylists = function() {
+  const queryString = 'SELECT * FROM playlists'
+  return pool.query(queryString)
+    .then(result => result.rows)
+    .catch(error => console.log(error.message));
+};
+
+exports.getPlaylists = getPlaylists;
+
+
 
 // Define function to insert a new messsage to the database and return a Promise.
 
