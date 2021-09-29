@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect, useState } from 'react';
-import MediaForCurrentPlaylist from './MediaForCurrentPlaylist';
+import CurrentPlaylistItem from './CurrentPlaylistItem';
+
 
 function CurrentPlaylist({ medias, playlistId }) {
   //TEMPORARY (use state, passed down as props to this component from App.js)
@@ -51,7 +52,7 @@ function CurrentPlaylist({ medias, playlistId }) {
   // ];
 
   const currentPlaylist = mediaArray.map( (media) => 
-    <MediaForCurrentPlaylist
+    <CurrentPlaylistItem
       playlist_id = {media.playlist_id}
       media_id = {media.media_id}
       play_order = { media.play_order}

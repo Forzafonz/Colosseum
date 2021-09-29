@@ -1,8 +1,8 @@
 import React, { useReducer, useEffect, useState } from 'react';
-import './MediaForCurrentPlaylist.scss'
+import './CurrentPlaylistItem.scss'
 
 
-function MediaForCurrentPlaylist({playlist_id, media_id, play_order, media_rating, media_description, media_thumbnail }) {
+function CurrentPlaylistItem({playlist_id, media_id, play_order, media_rating, media_description, media_thumbnail }) {
   return (
 
     <li className='media__item'>
@@ -28,4 +28,4 @@ function MediaForCurrentPlaylist({playlist_id, media_id, play_order, media_ratin
   )
 }
 
-export default MediaForCurrentPlaylist;
+export default CurrentPlaylistItem;

@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect, useState } from 'react';
-import Playlist from './Playlist';
+import SavedPlaylistsItem from './SavedPlaylistsItem';
+import ListGroup from 'react-bootstrap/ListGroup'
 
 function SavedPlaylists({ playlists, setPlaylistId }) {
   //TEMPORARY (use state, passed down as props to this component from App.js)
@@ -33,7 +34,7 @@ function SavedPlaylists({ playlists, setPlaylistId }) {
   const playlistsArray = playlists;
 
   const savedPlaylists = playlistsArray.map( (playlist) => 
-  <Playlist
+  <SavedPlaylistsItem
     id = {playlist.id}
     name = {playlist.name}
     rating = { playlist.rating}
@@ -42,10 +43,14 @@ function SavedPlaylists({ playlists, setPlaylistId }) {
   />);
 
   return (
-
-    <ul>
-      {savedPlaylists}
-    </ul>
+    <>
+    <h1>Saved Playlists</h1>
+      <ListGroup>
+        {savedPlaylists}
+      </ListGroup>
+    </>
+     
+ 
   
   )
 }
