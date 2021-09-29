@@ -12,8 +12,8 @@ function CurrentPlaylist({ medias, playlistId, playlistName }) {
 
   const mediaArray = medias.filter(media => media.playlist_id === playlistId);
   
-  console.log("MEDIA IN ALL USER PLAYLIST:", medias);
-  console.log("MEDIA IN CURRENT PLAYLIST:", mediaArray);
+  // console.log("MEDIA IN ALL USER PLAYLIST:", medias);
+  // console.log("MEDIA IN CURRENT PLAYLIST:", mediaArray);
 
 
   // const mediaArray = [
