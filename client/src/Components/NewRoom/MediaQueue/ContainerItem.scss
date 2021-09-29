@@ -1,0 +1,67 @@
+.main-block {
+  width: 15rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  margin: 0.2rem 0.4rem;
+  border-radius: 5%;
+  border: 0.1rem, solid, black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0.3rem;
+  position: relative;
+
+  &:hover{
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .message{
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+  }
+  .input-form{
+    background-color: rgba(0,0,0, 0.6);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .likes-dislikes{
+    position: absolute;
+    width: auto;
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .social{
+  
+    font-weight: bold;
+
+    &-likes{
+      color: green;
+      
+    }
+ 
+
+    &-button{
+      font-weight: bold;
+      margin: 0 0.5rem 0 0.5rem;
+      width: auto;
+      &:hover{
+        cursor:pointer;
+      }
+    }
+  }
+
+  .remove-button {
+    font-weight: bold;
+    position: absolute;
+    top: 0.3rem;
+    right: 1rem;
+    &:hover{
+      cursor:pointer;
+    }
+  }
+}
+

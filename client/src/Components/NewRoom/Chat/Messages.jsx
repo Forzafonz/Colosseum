@@ -8,6 +8,8 @@ export default function Messages({addMessage, state}) {
   // Mock number needs to be updated
   const chatNumber = 1;
   const user_id = localStorage.getItem('user_id');
+  const username =localStorage.getItem('user_username');
+  const avatar = localStorage.getItem('user_avatar');
   // Create a reference to a "fake" empty message to target it, so that we can scroll to the most up-to-date message
   // using function scrollToBottom 
   const messagesEndRef = useRef(null)
@@ -20,14 +22,14 @@ export default function Messages({addMessage, state}) {
   const messages = Object.keys(state).map(message => {
     if (state[message]['user_id'] === Number(user_id)) {
       return (
-        <>
+        <React.Fragment key = {message}>
         <div 
           className="message message-personal"
           key = {message}>
           <div key = {message} className = "message-top"><span>Sent <TimeAgo date={state[message]['date']}/></span></div>
           {state[message]['msg']}
         </div>
-        </>)
+        </React.Fragment>)
         
     } else {
       return (
@@ -41,14 +43,13 @@ export default function Messages({addMessage, state}) {
       )
     }
   });
-  
   //Sort messages by date, so they show in the correct order in the chat:
   const sortedMessages = messages.sort((firstElem, secondElem) => {
     // Custom sort. Might be useless here
-    if (firstElem.key > secondElem.key){
-      return -1
+    if (Number(firstElem.key) > Number(secondElem.key)){
+      return 1
     } else {
-      return 1 
+      return -1 
     }
   })
 
@@ -57,7 +58,7 @@ export default function Messages({addMessage, state}) {
     // Remove me later  
     // check if message if not empty then calls addMessage function  with specified type. AddMessage function is defined in App.
     if (msg !== 0){
-      addMessage({type: 'newmessage', values : { msg: msg, 'user_id': Number(user_id), date: Date.now()}})
+      addMessage({type: 'newmessage', values : { msg: msg, 'user_id': Number(user_id), date: Date.now(), avatar, username}})
     }
   }
   // this function is invoked every time any button is pressed in textarrea of a newMessage
