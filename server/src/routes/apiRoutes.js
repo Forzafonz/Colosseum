@@ -5,7 +5,8 @@ const {
   getMedia,
   createPlaylist,
   searchUser,
-  updateUserPlaylist
+  updateUserPlaylist,
+  searchmedia
 } = require('../db/rundb/api_queries');
 
 // Define a function which will mount router that was passed to it to specified paths.
@@ -46,6 +47,15 @@ module.exports = function (router, addText) {
       res.status(200).json(data);
     });
   });
+
+  //Route to add new media
+  router.put('/addmedia', (req,res) => {
+    searchmedia(req.body.data)
+    .then((response) => {
+      res.status(200).json({c:'Hello'});
+
+    })
+  })
 
   // Route to post a new message to the database
   router.put(`/messages/new`, (req, res) => {

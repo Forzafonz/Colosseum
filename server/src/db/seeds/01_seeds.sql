@@ -25,17 +25,17 @@ INSERT INTO playlists(id, name , rating, thumbnail, queue)
             (DEFAULT, 'PL-4', 5,'https://i.insider.com/5b21452f1ae6623b008b5306?width=750&format=jpeg&auto=webp' , false),
             (DEFAULT, 'PL-5', 4,'https://www.liveabout.com/thmb/CXNryNO4dxhyT13v41hVmKXHq1Q=/3000x2000/filters:no_upscale():max_bytes(150000):strip_icc()/weeknd-56a96cf75f9b58b7d0fb536c.jpg' , false);
 
-INSERT INTO media (id, link, category, thumbnail, description)
-            VALUES(1, 'https://www.youtube.com/watch?v=IfFhU3edLk4', 'video', 't', 'desc1'),
-            (2, 'https://www.youtube.com/watch?v=dwDns8x3Jb4', 'video', 't', 'desc1'),
-            (3, 'https://www.youtube.com/watch?v=b4eMyOzD9UI', 'video', 't', 'desc1'),
-            (4, 'https://www.youtube.com/watch?v=lPKjlbXHP3E', 'video', 't', 'desc1'),
-            (5, 'https://www.youtube.com/watch?v=iqIn9N_fJJY', 'video', 't', 'desc1'),
-            (6, 'https://www.youtube.com/watch?v=auLBLk4ibAk', 'video', 't', 'desc1'),
-            (7, 'https://www.youtube.com/watch?v=D0W1v0kOELA', 'video', 't', 'desc1'),
-            (8, 'https://www.youtube.com/watch?v=_pFZz3OXcMs', 'video', 't', 'desc1'),
-            (9, 'https://www.youtube.com/watch?v=rIvEiTrq9kk', 'video', 't', 'desc1'),
-            (10, 'https://www.youtube.com/watch?v=h4UqMyldS7Q', 'video', 't', 'desc1');
+INSERT INTO media (link, category, thumbnail, description)
+            VALUES('https://www.youtube.com/watch?v=IfFhU3edLk4', 'video', 't', 'desc1'),
+            ('https://www.youtube.com/watch?v=b4eMyOzD9UI', 'video', 't', 'desc1'),
+            ('https://www.youtube.com/watch?v=lPKjlbXHP3E', 'video', 't', 'desc1'),
+            ('https://www.youtube.com/watch?v=iqIn9N_fJJY', 'video', 't', 'desc1'),
+            ('https://www.youtube.com/watch?v=dwDns8x3Jb4', 'video', 't', 'desc1'),
+            ('https://www.youtube.com/watch?v=auLBLk4ibAk', 'video', 't', 'desc1'),
+            ('https://www.youtube.com/watch?v=D0W1v0kOELA', 'video', 't', 'desc1'),
+            ('https://www.youtube.com/watch?v=_pFZz3OXcMs', 'video', 't', 'desc1'),
+            ('https://www.youtube.com/watch?v=rIvEiTrq9kk', 'video', 't', 'desc1'),
+            ('https://www.youtube.com/watch?v=h4UqMyldS7Q', 'video', 't', 'desc1');
 
 INSERT INTO users_playlists (is_host, user_id, playlist_id)
             VALUES(true, 1 , 1),
@@ -49,22 +49,22 @@ INSERT INTO users_playlists (is_host, user_id, playlist_id)
             (false, 1 , 3),
             (false, 2 , 3);
 
-INSERT INTO playlists_media (id, media_rating, play_order, played_already, played_length, media_id, playlist_id)
-            VALUES (1, 3, 1, true, 1.10, 1, 1),
-            (2, 4, 2, false, 0.00, 2, 1),
-            (3, 1, 3, false, 0.00, 3, 1),
-            (4, 6, 4, false, 0.00, 4, 1),
-            (5, 2, 1, true, 2.00, 2, 2),
-            (6, 3, 2, true, 2.00, 3, 2),
-            (7, 6, 3, false, 0.00, 5, 2),
-            (8, 4, 4, false, 0.00, 6, 2),
-            (9, 1, 1, false, 0.00, 6, 3),
-            (10, 5, 2, false, 0.00, 7, 3),
-            (11, 3, 3, false, 0.00, 8, 3),
-            (12, 3, 1, true, 1.20, 9, 4),
-            (13, 2, 2, false, 0.00, 3, 4),
-            (14, 1, 3, false, 0.00, 10, 4),
-            (15, 3, 1, false, 0.00, 4, 5);
+INSERT INTO playlists_media (media_rating, play_order, played_already, played_length, media_id, playlist_id)
+            VALUES (3, 1, true, 1.10, 1, 1),
+            (4, 2, false, 0.00, 2, 1),
+            (1, 3, false, 0.00, 3, 1),
+            (6, 4, false, 0.00, 4, 1),
+            (2, 1, true, 2.00, 2, 2),
+            (3, 2, true, 2.00, 3, 2),
+            (6, 3, false, 0.00, 5, 2),
+            (4, 4, false, 0.00, 6, 2),
+            (1, 1, false, 0.00, 6, 3),
+            (5, 2, false, 0.00, 7, 3),
+            (3, 3, false, 0.00, 8, 3),
+            (3, 1, true, 1.20, 9, 4),
+            (2, 2, false, 0.00, 3, 4),
+            (1, 3, false, 0.00, 10, 4),
+            (3, 1, false, 0.00, 4, 5);
 
 INSERT INTO messages (id, text, date, users_playlists_id)
             VALUES(1, 'Hello There !!',1632010842289,1),

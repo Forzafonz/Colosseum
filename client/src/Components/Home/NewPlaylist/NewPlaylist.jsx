@@ -10,6 +10,9 @@ function NewPlaylist() {
   const [user, setUser] = useState('');
   const [udata, setUdata] = useState([]);
 
+  const user_id = localStorage.getItem('user_id');
+
+
   const addtolist = (e) => {
     e.preventDefault();
     axios.get(`http://localhost:8000/api/user/${user}`)
@@ -38,7 +41,7 @@ function NewPlaylist() {
   };
 
   const createPlaylist = function (e) {
-    const user_id = 1;
+    
     const data = {
       name,
       tnail,
