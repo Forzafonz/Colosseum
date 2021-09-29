@@ -1,4 +1,4 @@
-const { getUserPlaylists, getMediaForUser } = require('../db/rundb/api_home_routes');
+const { getUserPlaylists, getMediaForUser, updatePlaylistToActive } = require('../db/rundb/api_home_routes');
 
 module.exports = function(router) { 
 
@@ -9,7 +9,6 @@ module.exports = function(router) {
 
     getUserPlaylists(userId)
       .then((data) => {
-
         res
           .status(200)
           .json(data)
@@ -23,13 +22,28 @@ module.exports = function(router) {
 
     getMediaForUser(userId)
       .then((data) => {
-
         res
           .status(200)
           .json(data)
       })
 
   })
+
+  router.put('/:user_id/playlists/:playlist_id/active', (req,res) => {
+
+    const playlistId = req.params.playlist_id;
+
+    updatePlaylistToActive(playlistId)
+      .then(() => {
+        res
+          .status(200)
+      })
+  })
+
+
+
+
+
 
   return router;
 

@@ -55,4 +55,25 @@ const getMediaForUser = function (userId) {
    
 };
 
-module.exports = { getUserPlaylists, getMediaForUser }; 
+const updatePlaylistToActive = function (playlistId) {
+  //Define query
+  const queryString = `
+  UPDATE users_playlists
+  SET active='false';
+
+  UPDATE users_playlists
+  SET active='true'
+  WHERE playlist_id = $1;`;
+
+  //Return promise for query
+  return pool.query(queryString, [playlistId])
+    //If result is found, return the object?
+    .then(() => console.log("Succesfully updated to active"))
+
+};
+
+
+
+
+
+module.exports = { getUserPlaylists, getMediaForUser, updatePlaylistToActive }; 

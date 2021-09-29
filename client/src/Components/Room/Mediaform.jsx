@@ -23,9 +23,6 @@ function Mediaform() {
       alert('Success');
       setUrl('');
       setDesc('');
-
-
-
     })
 
   }

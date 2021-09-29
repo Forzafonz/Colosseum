@@ -1,4 +1,4 @@
-import './NewRoom.scss';
+import './Room.scss';
 import Chat from './Chat/Chat';
 import Header from '../Header';
 import MediaPlayer from './MediaPlayer/MediaPlayer';
