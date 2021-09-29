@@ -4,6 +4,7 @@ import Header from '../Header';
 import MediaPlayer from './MediaPlayer/MediaPlayer';
 import MediaQue from './MediaQueue/MediaQueue';
 import React, { useReducer, useEffect, useState } from 'react';
+import Queue from './MediaQueue/Queue';
 
 import axios from 'axios';
 import { io } from "socket.io-client"
@@ -121,10 +122,11 @@ function NewRoom() {
             />
           </section>
         </section>
-        <MediaQue 
+        {/* <MediaQue 
         setMedia = {setMedia}
         mediaList = {mediaList} 
-        />
+        /> */}
+        <Queue />
       </main>
     </div>
   );
