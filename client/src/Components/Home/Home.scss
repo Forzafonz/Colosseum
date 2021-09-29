@@ -1,0 +1,18 @@
+.home {
+  display: flex;
+  flex-direction: row;
+  height: 95vh;
+}
+
+.saved-playlists-container {
+  border: blueviolet;
+  border-style: dotted;
+  // height:80vh;
+  width: 50vw;
+}
+
+.new-playlist-container {
+  border: red;
+  border-style: dotted;
+  width: 50vw;
+}

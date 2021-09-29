@@ -50,8 +50,6 @@ body {
   top: 0;
   left: 0;
   z-index: 1;
-  background: url("https://www.pikpng.com/pngl/b/109-1099794_ios-emoji-emoji-iphone-ios-heart-hearts-spin.png")
-    no-repeat 0 0;
   filter: blur(80px);
   transform: scale(1.2);
 }
@@ -77,6 +75,58 @@ Chat
 /*--------------------
 Chat Title
 --------------------*/
+.selected{
+  box-shadow:inset 0 0 30px rgba(196, 199, 38, 0.6);
+}
+
+.head{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  padding:0 !important;
+  margin: 0;
+  left:0;
+  top:0;
+  width: 100%;
+  height: 100vh;
+  width: 25vw;
+
+  .chat_click-chat{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width:12.5vw;
+    background: linear-gradient(90deg, #8dc2a5, #466068);
+    margin-right: 0.05rem;
+
+      &:hover{
+        box-shadow:inset 0 0 15px rgba(255, 255, 255, 0.8);
+        box-shadow:inset 0 0 6px rgba(0, 0, 0, 0.6);
+        cursor: pointer;
+        // box-shadow: 0 0 1rem 1rem rgba(255, 255, 255, 0.3);
+        // 
+      }
+    
+  }
+  .chat_click-room{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width:12.5vw;
+    background:  linear-gradient(90deg, #466068, #8dc2a5);
+    margin-left: 0.05rem;
+
+    &:hover{
+      box-shadow:inset 0 0 15px rgba(255, 255, 255, 0.8);
+      box-shadow:inset 0 0 6px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      // box-shadow: 0 0 1rem 1rem rgba(255, 255, 255, 0.3);
+      // box-shadow:inset 0 0 30px rgba(196, 199, 38, 0.6);
+    }
+
+  }
+}
+
 .chat-title {
   flex: 0 1 45px;
   position: relative;
@@ -86,6 +136,8 @@ Chat Title
   text-transform: uppercase;
   text-align: left;
   padding: 10px 10px 10px 50px;
+
+    
 
   h1,
   h2 {
@@ -173,11 +225,15 @@ Messages
     border-radius: 10px 10px 10px 0;
     background: rgba(0, 0, 0, 0.3);
     margin: 8px 0;
-    font-size: 11px;
+    font-size: 1rem;
     line-height: 1.4;
     margin-left: 35px;
     position: relative;
+    width: 40%;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      .message-top{
+        font-size: 00.5rem;
+      }
 
       &-null{
         clear: both;
@@ -301,7 +357,8 @@ Message Box
     height: 17px;
     margin: 0;
     padding-right: 20px;
-    width: 265px;
+    width: 80%;
+    overflow: hidden; 
   }
 
   textarea:focus:-webkit-placeholder {

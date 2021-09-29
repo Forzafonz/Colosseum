@@ -1,0 +1,48 @@
+// @import "styles/mixins.scss";
+// @import "styles/variables.scss";
+
+.playlist {
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10vw;
+    border: red;
+    border-style: dotted;
+    padding-right: 2rem;
+    background-color: red;
+  
+  }
+ 
+  &__image {
+
+    width: 15vh;
+    height: 15vh;
+    border-radius: 50%;
+
+
+
+
+
+
+
+    // &--selected {
+    //   color: $dark-background;
+    //   background-color: $white;
+    //   border-radius: 16px;
+    //   height: 32px;
+    //   display: flex;
+    //   align-items: center;
+    //   padding-left: 2px;
+    //   padding-right: 1rem;
+    //   user-select: none;
+    // }
+
+    // &--selected &-image {
+    //   width: 28px;
+    //   height: 28px;
+    //   margin-right: 0.5rem;
+    // }
+
+  }
+}

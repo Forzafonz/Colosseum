@@ -18,11 +18,12 @@ export default function Login() {
     axios.put('/api/login', {password: password.current.value, login: login.current.value})
     .then((response)=> {
       localStorage.setItem('user_id', response.data.id);
+      localStorage.setItem('user_avatar', response.data.avatar);
+      localStorage.setItem('user_username', response.data.username);
       history.push('/home')
     })
     .catch((error) => {
       setShow(true)
-      console.log(`error: ${error}`)
     })
     password.current.value = "";
     login.current.value = "";
