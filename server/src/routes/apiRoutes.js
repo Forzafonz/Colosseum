@@ -33,8 +33,7 @@ module.exports = function (router, addText) {
       // console.log("==--==>", data[0].id);
       updateUserPlaylist(data[0].id, x)
         .then(() => {
-          console.log("suucess");
-
+          console.log("success");
         });
         res.status(200).json(data);
     });
