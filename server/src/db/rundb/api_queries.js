@@ -1,7 +1,6 @@
 // import db connection from db_connect file where it was initiated
 const pool = require('./db_connect');
 
-
 // Define function to get all messages from the database and return a Promise
 
 /**
@@ -38,11 +37,12 @@ const pool = require('./db_connect');
 
 exports.getTextMessages = getTextMessages;
 
-const getMedia = function() {
-  const queryString = 'SELECT * FROM media'
-  return pool.query(queryString)
-    .then(result => result.rows)
-    .catch(error => console.log(error.message));
+const getMedia = function () {
+  const queryString = 'SELECT * FROM media';
+  return pool
+    .query(queryString)
+    .then((result) => result.rows)
+    .catch((error) => console.log(error.message));
 };
 
 exports.getMedia = getMedia;
@@ -66,7 +66,104 @@ exports.getPlaylists = getPlaylists;
  * @return {Promise<{}>} A promise to the user with an added message
  */
 
-//AM: NEED TO FIX THIS QUERY, THE GET QUERY WAS ALREADY FIXED BUT NOT THE PUT QUERY
+
+const createPlaylist = function (data) {
+  const { name, tnail } = data;
+  const queryString =
+    'INSERT INTO playlists (name, thumbnail) VALUES ($1, $2) RETURNING *';
+  return pool
+    .query(queryString, [name, tnail])
+    .then((result) => result.rows)
+    .catch((error) => console.log(error.message));
+};
+exports.createPlaylist = createPlaylist;
+
+const updateUserPlaylist = function (id, x) {
+  console.log(';;;;;;data:', id);
+  console.log(';;;;;;x:', x);
+  const { user_id, udata } = x;
+  return pool
+    .query(
+      'INSERT INTO users_playlists(is_host, user_id, playlist_id) VALUES (true, $1, $2)',
+      [user_id, id]
+    )
+    .then(() => {
+      console.log('success 1');
+      udata.map((y) => {
+        pool
+          .query(
+            'INSERT INTO users_playlists (is_host, user_id, playlist_id) VALUES (false, $1, $2)',
+            [y.u_id, id]
+          )
+          .then();
+      });
+    });
+};
+
+exports.updateUserPlaylist = updateUserPlaylist;
+
+const searchmedia = function (data) {
+  const {url, category, playlist_id, desc} = data;
+  let req_id=""
+  const queryString = 'SELECT * FROM media where link LIKE $1';
+  return pool
+    .query(queryString, [url])
+    .then((result) => {
+    if(result.rows.length === 0 ) {
+     console.log("Media not found");
+    const qs1 = 'INSERT INTO media(link, category, description) VALUES ($1, $2, $3) RETURNING *'
+    return pool.query (qs1,[url,category, desc])
+    .then((result2)=> {
+      console.log("Media added");
+      req_id= result2.rows[0].id;
+      const qs2 = 'INSERT INTO playlists_media(media_id, playlist_id) VALUES ($1, $2)'
+      return pool.query (qs2, [req_id, playlist_id])
+      .then(() => {
+        console.log("Success");
+      })
+    })
+    }
+    else {
+      console.log("Media Already present");
+      req_id = result.rows[0].id;
+      console.log("req_id = ", req_id);
+      const qs3 = 'SELECT * FROM playlists_media where media_id = $1 AND playlist_id = $2';
+      return pool.query (qs3,[req_id, playlist_id])
+      .then((result3) => {
+        if(result3.rows.length ===0) {
+          const qs2 = 'INSERT INTO playlists_media(media_id, playlist_id) VALUES ($1, $2)'
+          return pool.query (qs2, [req_id, playlist_id])
+          .then(() => {
+            console.log("Successsfully added to playlist");
+          })
+
+        }
+        else {
+          console.log("data already in playlist");
+        }
+      })
+
+    }
+
+
+  })
+    .catch((error) => console.log(error.message))
+};
+
+exports.searchmedia = searchmedia;
+
+
+const searchUser = function (id) {
+  const queryString = 'SELECT * FROM users where username LIKE $1';
+  return pool
+    .query(queryString, [id])
+    .then((result) => result.rows)
+    .catch((error) => console.log(error.message));
+};
+
+exports.searchUser = searchUser;
+
+
 const insertTextMessages = function(message) {
   const { msg, date, user_id } = message;
   const queryString = 'INSERT INTO messages (text, date, users_playlists_id) VALUES ($1, $2, $3) RETURNING *'

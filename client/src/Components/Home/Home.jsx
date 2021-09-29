@@ -3,6 +3,7 @@ import './Home.scss';
 import SavedPlaylists from './SavedPlaylists/SavedPlaylists';
 import CurrentPlaylist from './CurrentPlaylist/CurrentPlaylist';
 import axios from 'axios';
+import NewPlaylist from './NewPlaylist/NewPlaylist';
 
 function Home() {
   
@@ -49,6 +50,12 @@ function Home() {
         {/* NEW PLAYLIST ALSO GOES HERE */}
         <CurrentPlaylist medias={medias} playlistId={playlistId} playlistName={playlistName}/>
       </section>
+      {/* <section className="new-playlist-container">
+
+        <NewPlaylist/>
+      </section> */}
+
+
     </div>
     
   )
