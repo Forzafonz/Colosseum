@@ -1,17 +1,23 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import Container from './Container';
 import { UserContext } from '../../../hooks/userContext';
 import ContainerItem from './ContainerItem';
 import NewMessage from './NewMessage';
+import axios from 'axios';
+
+import useApplicationData from '../../../hooks/useApplicationData'
+
+
 
 const REMOVE = 'remove'
 const ADD = "modify"
 const ADDNEW = 'ADDNEW'
 const LIKE = "LIKE"
 const DISLIKE = "DISLIKE"
+const INITIALIZE = "INITIALIZE"
 
 function reducer (state, action) {
-  
+
   const add = (input) => {
     const {msg, id} = input.values;
     const newState = {...state};
@@ -50,14 +56,28 @@ function reducer (state, action) {
     return updatedState;
   }
 
+  
+  const initialize = (input) => {
+
+    const updatedState = {...state};
+
+    input.values.forEach(media => {
+      updatedState[media.id] = {...media};
+    })
+
+    return updatedState;
+    
+  }
+
 
   const actions = {
 
-    [ADD]: add,
-    [REMOVE]: remove,
-    [ADDNEW]: addnew,
-    [LIKE] : addlike,
-    [DISLIKE] :adddislike
+    [ADD]         :  add,
+    [REMOVE]      :  remove,
+    [ADDNEW]      :  addnew,
+    [LIKE]        :  addlike,
+    [DISLIKE]     :  adddislike,
+    [INITIALIZE]  :  initialize
 
   }
 
@@ -65,13 +85,33 @@ function reducer (state, action) {
 
 }
 
-function Queue() {
-  const initialState = {0: {votes: -1, id: 0}};
-  
-  // const initialState = {};
+function Queue({setPlayingMedia}) {
+
+  // const {
+  //   setPlayingMedia
+  // } = useApplicationData();
+
+
+  //The 0 key is the + button. Want to display it last after all playlist media (1000 is arbitrary high number)
+  const initialState = {0: {play_order: 1000, id: 0}};
+   
   const [state, dispatch] = useReducer(reducer, initialState)
   //ItemsRef return array of currents, like that: {current: [{current: ref}, {current: ref}]}
   
+  const userId = localStorage.user_id;
+
+  //Initialize data in state (Grab media from api on page load)
+  useEffect(() => {
+
+    axios.get(`api/room/${userId}/activeplaylist/media`)
+    .then((response) => {
+     
+      dispatch({ type: INITIALIZE, values: response.data })
+    })
+
+  }, []);
+
+
   const refs = React.useMemo(
     () =>
       Object.keys(state).map(() => ({
@@ -81,6 +121,7 @@ function Queue() {
   );
 
   const containers = Object.keys(state).map((container, i) => {
+
     if (container === "0") {
       return <NewMessage 
       ref = {refs[i]} 
@@ -90,18 +131,21 @@ function Queue() {
     return <ContainerItem
     ref= {refs[i]}
     key = {container} 
-    id = {container}/>
+    {...state[container]}
+    dispatch = {dispatch}
+    setPlayingMedia = {setPlayingMedia}
+    />
 
   });
 
   containers.sort((firstEl, secondEl) => { 
+
     const firstId = firstEl.props.id;
-    const secondId= secondEl.props.id;
-    const firstElVotes = Number(state[firstId].votes);
-    const secondElVotes = Number(state[secondId].votes);
-
-    return  secondElVotes - firstElVotes;
-
+    const secondId = secondEl.props.id;
+    const firstElPlayOrder = Number(state[firstId].play_order);
+    const secondElPlayOrder = Number(state[secondId].play_order);
+   
+    return  firstElPlayOrder - secondElPlayOrder;
   })
 
   return (

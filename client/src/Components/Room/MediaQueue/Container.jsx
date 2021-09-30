@@ -8,6 +8,7 @@ import './ContainerItem.scss'
 
 export default function Container({children}) {
 
+
   // const {state} = useContext(UserContext);
   const [boundingBox, setBoundingBox] = useState({});
   const [prevBoundingBox, setPrevBoundingBox] = useState({});
@@ -15,7 +16,7 @@ export default function Container({children}) {
   
   // A hook used to update Bounding Boxes of Cointer Items on each Render
   useEffect(() => {
-
+    console.log('Children', children)
     const newBoundingBox = calculateBoundingBoxes(children);
 
     setBoundingBox(newBoundingBox);
@@ -23,8 +24,10 @@ export default function Container({children}) {
 
   // A hook used to keep track of previous state of children's Bounding Boxes:
   useEffect(() => {
-    const prevBoundingBox = calculateBoundingBoxes(prevChildren);
-    setPrevBoundingBox(prevBoundingBox);
+    if(prevChildren && prevChildren.length > 1){
+      const prevBoundingBox = calculateBoundingBoxes(prevChildren);
+      setPrevBoundingBox(prevBoundingBox);
+    }
   }, [prevChildren]);
 
   useEffect(() => {
@@ -71,8 +74,6 @@ export default function Container({children}) {
   
     return boundingBoxes;
   };
-
-
 
   return (
     <div 

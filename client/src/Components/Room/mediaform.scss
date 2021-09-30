@@ -1,34 +1,15 @@
 .new-p-container {
   width:50%;
   border: 3px solid white;
-  background-color: rgb(8, 18, 63);
+  background-color: rgb(2, 2, 98);
   color:whitesmoke;
   height:100%;
-  font-size:1.3rem;
 
   display: flex;
   flex-direction: column;
   align-content: center;
 
-.h-pl {
-  color:rgb(255, 85, 0)
-}
-.h-name {
-  color:rgb(228, 46, 76);
-  font-style: italic;
-  
-}
 
-input, select{
-  width:27rem;
-  height:2rem;
-  background-color:rgb(65, 65, 140);
-  
-  }
-
-  label, h1{
-    color:plum;
-  }
 
 h1 {
   align-self: center;

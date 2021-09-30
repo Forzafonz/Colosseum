@@ -43,11 +43,11 @@ INSERT INTO users_playlists (is_host, user_id, playlist_id, active)
             (false, 3 , 1, true),
             (false, 4 , 1, true),
             (false, 1 , 2, false),
-            (true, 2 , 2, true),
-            (false, 3 , 2, true),
-            (false, 4 , 2, true),
+            (true, 2 , 2, false),
+            (false, 3 , 2, false),
+            (false, 4 , 2, false),
             (false, 1 , 3, false),
-            (false, 2 , 3, true);
+            (false, 2 , 3, false);
 
 INSERT INTO playlists_media (media_rating, play_order, played_already, played_length, media_id, playlist_id)
             VALUES (3, 1, true, 1.10, 1, 1),

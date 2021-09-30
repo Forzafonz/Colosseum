@@ -41,7 +41,7 @@ function reducer(state, action){
 
 }
 
-function Room() {
+function NewRoom({state1, setPlayingMedia}) {
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
@@ -112,6 +112,7 @@ function Room() {
         <section className="media-and-chat">
           <MediaPlayer 
           media = {media} 
+          state = {state1}
           />
           <section className="chat-container">
           {/* //Create a chat component and pass two props: 
@@ -126,10 +127,10 @@ function Room() {
         setMedia = {setMedia}
         mediaList = {mediaList} 
         /> */}
-        <Queue />
+        <Queue state = {state1} setPlayingMedia={setPlayingMedia} />
       </main>
     </div>
   );
 }
 
-export default Room;
+export default NewRoom;
