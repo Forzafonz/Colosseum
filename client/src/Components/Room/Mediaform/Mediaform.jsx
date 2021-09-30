@@ -42,14 +42,18 @@ function Mediaform() {
     };
 
      if (!url.includes("http")) {
-        
+       console.log("THIS IS URL Search:", url)
+        axios.get(`/api/youtube/${url}`). then((result) => {
+            console.log(result)
+        })
+        .catch((error) => console.error("This is error", error))
      }
 
-    axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
-      alert('Playlist updated');
-      setUrl('');
-      setDesc('');
-    });
+    // axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
+    //   alert('Playlist updated');
+    //   setUrl('');
+    //   setDesc('');
+    // });
   };
 
   const newSearch = (e) =>{
