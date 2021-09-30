@@ -4,19 +4,12 @@ import SavedPlaylists from './SavedPlaylists/SavedPlaylists';
 import CurrentPlaylist from './CurrentPlaylist/CurrentPlaylist';
 import axios from 'axios';
 import NewPlaylist from './NewPlaylist/NewPlaylist';
-import useApplicationData from '../../hooks/useApplicationData'
+// import useApplicationData from '../../hooks/useApplicationData'
 
-function Home() {
+function Home({state, setPlaylist}) {
 
-  const {
-    state, 
-    setPlaylist, 
-    setPlayingMedia
-  } = useApplicationData();
+  console.log("HOME STATE", state);
 
-  console.log("STATE!!!!!", state);
-
-  
   const userId = localStorage.user_id;
 
   const [playlists, setPlaylists] = useState([]);

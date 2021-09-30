@@ -15,19 +15,31 @@ const reducer = function (state, action) {
     //Setup keys with empty objects for each playlist id
     action.values.userPlaylists.forEach((playlist) => {
 
-      newPlaylistsForUser[playlist.id] = {};
+      // newPlaylistsForUser[playlist.id] = {};
+      newPlaylistsForUser[playlist.id] = { 
+        playlist: { ...playlist }, 
+        media: {} 
+      };
 
     })
 
     //Populate playlist keys with media 
     action.values.userMedias.forEach((media) => {
 
-      newPlaylistsForUser[media.playlist_id] = { ...newPlaylistsForUser[media.playlist_id], [media.media_id] : {...media} }
+      // newPlaylistsForUser[media.playlist_id] = { ...newPlaylistsForUser[media.playlist_id], [media.media_id] : {...media} }
+      newPlaylistsForUser[media.playlist_id]["media"] = { 
+        ...newPlaylistsForUser[media.playlist_id]["media"], 
+        [media.media_id] : {...media} 
+      };
       
     })
 
+  
+
     
     const newState = {...state, playlists_for_user: newPlaylistsForUser }
+
+    console.log("!!!!!!newSTATE!!!!!!", newState);
 
     return newState;
   }
