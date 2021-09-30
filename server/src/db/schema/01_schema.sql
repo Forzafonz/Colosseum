@@ -34,7 +34,8 @@ CREATE TABLE playlists(
   name VARCHAR(255) NOT NULL,
   rating INT,
   thumbnail VARCHAR(255),
-  queue BOOLEAN 
+  queue BOOLEAN,
+  url VARCHAR(255) NOT NULL 
 );
 -- Added active column to indicate which user joined which playlist
 CREATE TABLE users_playlists(

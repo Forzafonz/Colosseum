@@ -1,71 +1,90 @@
-import React, { useReducer, useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import '../homestyle.scss';
 import Addeditems from './Addeditems';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 
 function NewPlaylist() {
-
-  const [name, setName] = useState('');
-  const [tnail, setTnail] = useState('');
-  const [user, setUser] = useState('');
-  const [udata, setUdata] = useState([]);
+  const [name, setName] = useState(''); //Playlist name
+  const [tnail, setTnail] = useState(''); //Playlist Thumbnail
+  const [user, setUser] = useState(''); //User to be added to list
+  const [udata, setUdata] = useState([]); //Array of objects to contain users data
 
   const user_id = localStorage.getItem('user_id');
 
-
+  //function to add user to div container to show through <Addeditems>
   const addtolist = (e) => {
     e.preventDefault();
-    axios.get(`http://localhost:8000/api/user/${user}`)
-    .then((res) => {
-      console.log("---->-->user name", res.data[0].username);
-      const udata1 = [...udata];
-      const obj2 = {};
-      obj2['id']=udata.length;
-      obj2['u_id'] = res.data[0].id;
-      obj2['name'] = user;
-      udata1[udata.length] = obj2;
-      setUdata(udata1);
-      setUser('');
-      
-    })
-    .catch((error) => alert('invalid user'));
+    axios
+      .get(`http://localhost:8000/api/user/${user}`) //Checks for valid user
+      .then((res) => {
+        console.log('---->-->user name', res.data[0].username);
+        const udata1 = [...udata];
+        const obj2 = {};
+        // obj2['id']=udata.length;
 
-    // console.log('----------->', udata1);
+        if (udata.length === 0) {
+          obj2['id'] = 0;
+        } else {
+          obj2['id'] = udata[udata.length - 1]['id'] + 1;
+        }
+        console.log(obj2['id']);
+        obj2['u_id'] = res.data[0].id;
+        obj2['name'] = user;
+
+        if (udata.length === 0) {
+          udata1[0] = obj2;
+        } else {
+          udata1[udata.length] = obj2;
+        }
+
+        console.log(udata1);
+        setUdata(udata1);
+        setUser('');
+      })
+      .catch((error) => alert('invalid user'));
   };
-
+  //function to delete user from container
   const deleteurl = function (id) {
     const udata1 = [...udata];
-    const y = udata1.indexOf(udata[id]);
-    udata1.splice(y, 1);
+    let req_index = 0;
+    for (let i in udata1) {
+      if (udata1[i]['id'] == id) {
+        req_index = i;
+      }
+    }
+
+    udata1.splice(req_index, 1);
+    console.log(udata1);
     setUdata(udata1);
   };
 
+  //Function to create playlist
   const createPlaylist = function (e) {
-    
     const data = {
       name,
       tnail,
       udata,
-      user_id
+      user_id,
     };
-    axios.put('http://localhost:8000/api/create',{data})
+    axios
+      .put('http://localhost:8000/api/createplaylist', { data })
       .then((res) => {
-        // console.log("-----res",res);
         setName('');
         setTnail('');
         setUdata([]);
         setUser('');
-        alert(`Playlist created successfully. Link to playlist is http://localhost:3000/playlist/${res.data[0].id}`);
-        console.log("```````res", res.data[0].id);
-      }
-        )
-        .catch(error=> console.log(error.message))
-
+        alert(
+          `Playlist created successfully. Link to playlist is http://localhost:3000/playlist/${res.data[0].url}`
+        );
+        console.log('```````res', res.data[0]);
+      })
+      .catch((error) => console.log(error.message));
   };
 
   return (
     <div className="newplaylist">
-      <h1>Create a New Playlist</h1>
+      <h1 className="heading">Create a New Playlist</h1>
       <table name="new-table">
         <tr>
           <td>
@@ -105,9 +124,9 @@ function NewPlaylist() {
                 onChange={(e) => setUser(e.target.value)}
               ></input>
               <label> </label>
-              <button type="submit" name="add-url">
+              <Button type="submit" name="add-url" variant="success">
                 Add
-              </button>
+              </Button>
             </form>
           </td>
         </tr>
@@ -120,9 +139,14 @@ function NewPlaylist() {
       </div>
       <br></br>
 
-      <button type="submit" onClick={createPlaylist}>
+      <Button
+        type="submit"
+        onClick={createPlaylist}
+        size="lg"
+        variant="success"
+      >
         Create Playlist!
-      </button>
+      </Button>
     </div>
   );
 }

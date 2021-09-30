@@ -9,14 +9,16 @@ const ContainerItem = React.forwardRef((props, ref) => {
     dispatch({ type: "LIKE", values : {id}})
   }
 
-  
+
 
   return (
+
+    <div className= "pillar">
     <div
       id = {id} className = "main-block" ref = {ref}>
       <div className = "remove-button" onClick = {() => dispatch({ type: "remove" , values: {id}})}>✕</div>
       <span className = "likes-dislikes">
-        <div className = "social-button social-likes" onClick = {() => addLike()}>👍  {media_rating}/10</div>
+        <div className = "social-button social-likes" onClick = {() => addLike()}>  {media_rating}/10</div>
       </span>
       <div>
         {description}
@@ -24,12 +26,10 @@ const ContainerItem = React.forwardRef((props, ref) => {
       <div>
         <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(link)}/>
       </div>
-
-    
-
-      
-
     </div>
+      <img src = "Pillars2.png" /> 
+    </div>
+
   )
 });
 

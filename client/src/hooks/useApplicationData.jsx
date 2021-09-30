@@ -30,7 +30,7 @@ export default function useApplicationData(initial) {
     .then(
       (result) => {
         const [userPlaylists, userMedias] = result;
-        dispatch({ type: SET_APPLICATION_DATA, values : { userPlaylists: userPlaylists.data, userMedias: userMedias.data } })
+        dispatch({ type: SET_APPLICATION_DATA, values : { userPlaylists: userPlaylists.data ? userPlaylists.data : [] , userMedias: userMedias.data ? userMedias.data : [] } })
       }
     )
   }, []);
