@@ -12,6 +12,8 @@ const ContainerItem = React.forwardRef((props, ref) => {
   
 
   return (
+    
+    <div className= "pillar">
     <div
       id = {id} className = "main-block" ref = {ref}>
       <div className = "remove-button" onClick = {() => dispatch({ type: "remove" , values: {id}})}>✕</div>
@@ -24,12 +26,10 @@ const ContainerItem = React.forwardRef((props, ref) => {
       <div>
         <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(link)}/>
       </div>
-
-    
-
-      
-
     </div>
+      <img src = "Pillars2.png" /> 
+    </div>
+   
   )
 });
 

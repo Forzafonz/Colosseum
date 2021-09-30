@@ -1,3 +1,11 @@
+.pillar{
+ height: 15vh;
+ padding:0;
+ margin:0;
+ display: flex;
+ flex-direction: row;
+}
+
 .main-block {
   width: 15rem;
   background-color: rgba(255, 255, 255, 0.4);

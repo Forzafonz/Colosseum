@@ -15,7 +15,12 @@ module.exports = function(router, addText) {
           .status(403)
           .json({error: "Error while attempting to authorize"})
         }
-      });
+      })
+      .catch((error) =>{
+        res
+          .status(403)
+          .json({error: "Error while attempting to authorize"})
+      })
   });
 
   router.put('/new', (req, res) => {
