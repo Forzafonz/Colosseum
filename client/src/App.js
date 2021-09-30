@@ -5,7 +5,6 @@ import Header from './Components/Header';
 import Landing from './Components/Landing/Landing';
 import Home from './Components/Home/Home';
 import NewPlaylist from './Components/Home/NewPlaylist/NewPlaylist';
-import Mediaform from './Components/Room/Mediaform';
 import useApplicationData from './hooks/useApplicationData'
 
 function App() {
@@ -39,7 +38,7 @@ function App() {
         </Route>
 
         <Route path = "/playlist/:url">
-          <Mediaform/>
+          {/* <Mediaform/> */}
         </Route>
        
         <Route path = "/">

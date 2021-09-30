@@ -3,27 +3,32 @@ import { useParams } from 'react-router-dom';
 import './mediaform.scss';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import SearchResultsContainer from './SearchResultsContainer';
+
 
 function Mediaform() {
   const params = useParams();
   const [url, setUrl] = useState(''); //url to be added to playlist
   const [category, setCategory] = useState('youtube'); //youtube or soundcloud
   const [desc, setDesc] = useState(''); //Description for media
-  const [playlistName, setPlaylistName] = useState(''); 
-  const [currentplaylist_id, setCurrentplaylistId] = useState('');
+  const [buttonLabel, setButtonLabel] = useState('Search')
+  // UPDATE INITIAL STATE ONCE FIXED CURRENT INITIAL STATE FOR TEST ONLY
+  const [playlistName, setPlaylistName] = useState("Lolo"); 
+  // UPDATE INITIAL STATE ONCE FIXED CURRENT INITIAL STATE FOR TEST ONLY
+  const [currentplaylist_id, setCurrentplaylistId] = useState("6");
 
   //Gets playlist data from url
-  useEffect(() => {
-    const data = params.url;
-    axios
-      .put('http://localhost:8000/api/searchPlaylist', { data })
-      .then((res) => {
-        console.log('======>res', res.data[0].id);
+  // useEffect(() => {
+  //   const data = params.url;
+  //   axios
+  //     .put('http://localhost:8000/api/searchPlaylist', { data })
+  //     .then((res) => {
+  //       console.log('======>res', res.data[0].id);
 
-        setCurrentplaylistId(res.data[0].id);
-        setPlaylistName(res.data[0].name);
-      });
-  }, []);
+  //       setCurrentplaylistId(res.data[0].id);
+  //       setPlaylistName(res.data[0].name);
+  //     });
+  // }, []);
 
 //To add media to playlist
   const addMedia = () => {
@@ -36,12 +41,25 @@ function Mediaform() {
       desc,
     };
 
+     if (!url.includes("http")) {
+        
+     }
+
     axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
       alert('Playlist updated');
       setUrl('');
       setDesc('');
     });
   };
+
+  const newSearch = (e) =>{
+    if (e.target.value.includes("http")){
+      setButtonLabel("Add")
+    } else {
+      setButtonLabel("Search")
+    }
+    setUrl(e.target.value)
+  }
 
   return (
     <div className="new-p-container">
@@ -79,7 +97,7 @@ function Mediaform() {
 
         <tr>
           <td>
-            <label>Add URL</label>
+            <label>Search or paste URL</label>
           </td>
           <td>
             <form>
@@ -87,7 +105,7 @@ function Mediaform() {
                 required
                 type="text"
                 value={url}
-                onChange={(e) => setUrl(e.target.value)}
+                onChange={(e) => newSearch(e)}
               ></input>
             </form>
           </td>
@@ -115,13 +133,15 @@ function Mediaform() {
           <td>
             <label> </label>
             <Button type="submit" name="add-url" variant="success" type="submit"  onClick={addMedia}>
-              Add
+              {buttonLabel}
             </Button>
           </td>
         </tr>
       </table>
 
-      <div></div>
+      <section className = "search-results-container">
+           <SearchResultsContainer /> 
+      </section>
     </div>
   );
 }
