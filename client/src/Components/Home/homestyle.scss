@@ -14,7 +14,7 @@
   }
   
   .newplaylist {
-  background-color: rgb(3, 23, 110);
+  background-color: rgb(8, 18, 63);
   border: 2px solid rgb(245, 248, 245);
   width:50vw;
   height:100vh;
@@ -23,6 +23,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  padding:10px;
+
   input, select{
   width:27rem;
   height:2rem;
@@ -44,10 +46,7 @@
   margin:10px;
   }
   button {
-  height: 2.5rem;
-  min-width:80px;
-  background-color: orangered;
-  border-radius: 10px;
+
   margin-left:10px;
   }
   
@@ -64,10 +63,15 @@ table.center {
   width:10%;
 }
 
+
 }
 
 label, h1{
   color:plum;
+}
+
+.heading {
+  color:rgb(255, 85, 0)
 }
   }
   

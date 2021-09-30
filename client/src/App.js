@@ -34,11 +34,11 @@ function App() {
           <Header />
           <Room state1={state} setPlayingMedia={setPlayingMedia}/>
         </Route>
-        <Route path = "/create">
+        <Route path = "/createplaylist">
           <NewPlaylist/>
         </Route>
 
-        <Route path = "/playlist/:id">
+        <Route path = "/playlist/:url">
           <Mediaform/>
         </Route>
        
