@@ -4,8 +4,18 @@ import SavedPlaylists from './SavedPlaylists/SavedPlaylists';
 import CurrentPlaylist from './CurrentPlaylist/CurrentPlaylist';
 import axios from 'axios';
 import NewPlaylist from './NewPlaylist/NewPlaylist';
+import useApplicationData from '../../hooks/useApplicationData'
 
 function Home() {
+
+  const {
+    state, 
+    setPlaylist, 
+    setPlayingMedia
+  } = useApplicationData();
+
+  console.log("STATE!!!!!", state);
+
   
   const userId = localStorage.user_id;
 
@@ -18,7 +28,6 @@ function Home() {
     axios.get(`/api/home/${userId}/playlists`)
     .then((response) => {
       setPlaylists(response.data);
-      console.log("PLAYLISTS",response.data)
   
     });
   }, [])
@@ -29,7 +38,6 @@ function Home() {
     axios.get(`/api/home/${userId}/media`)
     .then((response) => {
       setMedias(response.data);
-      console.log("MEDIAS",response.data)
     });
   }, [])
 
