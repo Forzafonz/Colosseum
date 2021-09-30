@@ -4,10 +4,16 @@ import axios from "axios";
 
 export default function useApplicationData(initial) {
 
-  //state Object =====> { playlists_for_user : {playlists id 1: { media_id 1: {media 1}, media_id 2: {media2} ...}, playlists id 2: { media_id 3: {media 3}, media_id 4: {media4} ...}}}, 
+  //state Object old =====> { playlists_for_user : {playlists id 1: { media_id 1: {media 1}, media_id 2: {media2} ...}, playlists id 2: { media_id 3: {media 3}, media_id 4: {media4} ...}}}, 
                       //  current_playlist: playlist_id,
                       //  current_media:  link
                       // }
+
+   //state Object new =====> { playlists_for_user : {playlists id 1: {details : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}, 
+                                                 // {playlists id 2: {details : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}...} 
+                          //  current_playlist: playlist_id,
+                          //  current_media:  link
+                          // }
 
   const initialState = { 
     playlists_for_user: {},
