@@ -6,7 +6,7 @@ export default function useApplicationData(initial) {
 
   //state Object =====> { playlists_for_user : {playlists id 1: { media_id 1: {media 1}, media_id 2: {media2} ...}, playlists id 2: { media_id 3: {media 3}, media_id 4: {media4} ...}}}, 
                       //  current_playlist: playlist_id,
-                      //  current_media:  media_id
+                      //  current_media:  link
                       // }
 
   const initialState = { 
@@ -41,6 +41,7 @@ export default function useApplicationData(initial) {
   };
 
   const setPlayingMedia = (mediaId) => {
+
     dispatch({ type: SET_PLAYING_MEDIA, values: mediaId })
   };
 

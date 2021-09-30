@@ -3,11 +3,13 @@ import './ContainerItem.scss'
 
 const ContainerItem = React.forwardRef((props, ref) => {
 
-  const {id, dispatch, play_order, thumbnail, description, media_rating} = props;
+  const {id, dispatch, play_order, thumbnail, description, media_rating, setPlayingMedia, link} = props;
 
   const addLike = () => {
     dispatch({ type: "LIKE", values : {id}})
   }
+
+  
 
   return (
     <div
@@ -20,8 +22,11 @@ const ContainerItem = React.forwardRef((props, ref) => {
         {description}
       </div>
       <div>
-        <img className = "img-thumbnail" src = {thumbnail}/>
+        <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(link)}/>
       </div>
+
+    
+
       
 
     </div>

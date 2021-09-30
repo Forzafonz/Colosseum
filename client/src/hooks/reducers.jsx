@@ -42,7 +42,7 @@ const reducer = function (state, action) {
 
   //Function to set current media
   const setPlayingMedia = () => {
-  
+
     return {...state, current_media: action.values }
   }
 

@@ -5,6 +5,10 @@ import ContainerItem from './ContainerItem';
 import NewMessage from './NewMessage';
 import axios from 'axios';
 
+import useApplicationData from '../../../hooks/useApplicationData'
+
+
+
 const REMOVE = 'remove'
 const ADD = "modify"
 const ADDNEW = 'ADDNEW'
@@ -13,7 +17,7 @@ const DISLIKE = "DISLIKE"
 const INITIALIZE = "INITIALIZE"
 
 function reducer (state, action) {
-  
+
   const add = (input) => {
     const {msg, id} = input.values;
     const newState = {...state};
@@ -81,7 +85,13 @@ function reducer (state, action) {
 
 }
 
-function Queue() {
+function Queue({setPlayingMedia}) {
+
+  // const {
+  //   setPlayingMedia
+  // } = useApplicationData();
+
+
   //The 0 key is the + button. Want to display it last after all playlist media (1000 is arbitrary high number)
   const initialState = {0: {play_order: 1000, id: 0}};
    
@@ -123,6 +133,7 @@ function Queue() {
     key = {container} 
     {...state[container]}
     dispatch = {dispatch}
+    setPlayingMedia = {setPlayingMedia}
     />
 
   });

@@ -6,8 +6,15 @@ import Landing from './Components/Landing/Landing';
 import Home from './Components/Home/Home';
 import NewPlaylist from './Components/Home/NewPlaylist/NewPlaylist';
 import Mediaform from './Components/Room/Mediaform';
+import useApplicationData from './hooks/useApplicationData'
 
 function App() {
+
+  const {
+    state,
+    setPlayingMedia,
+    setPlaylist
+  } = useApplicationData();
 
   return (
 
@@ -25,7 +32,7 @@ function App() {
 
         <Route path = "/room">
           <Header />
-          <Room />
+          <Room state1={state} setPlayingMedia={setPlayingMedia}/>
         </Route>
         <Route path = "/create">
           <NewPlaylist/>
