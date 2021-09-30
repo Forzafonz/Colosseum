@@ -35,5 +35,22 @@ const getActivePlaylistIdForUser = function (userId) {
  
 };
 
+const getMediaWithMediaIDandUserID = function (playlist_id, media_id) {
+  //Define query
+  const queryString = `
+  SELECT *
+  FROM playlists_media 
+  JOIN media ON media_id = media.id
+  WHERE playlist_id = $1
+  AND media_id = $2;`;
 
-module.exports = { getMediaForPlaylist, getActivePlaylistIdForUser }; 
+  //Return promise for query
+  return pool.query(queryString, [playlist_id, media_id])
+    //If result is found, return the object?
+    .then(result => result.rows[0])
+    //Console log error if there is one
+    .catch(error => console.log(error.message));
+ 
+};
+
+module.exports = { getMediaForPlaylist, getActivePlaylistIdForUser, getMediaWithMediaIDandUserID }; 

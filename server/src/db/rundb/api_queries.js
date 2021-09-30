@@ -181,7 +181,7 @@ const searchmedia = function (data) {
           }
         });
       }
-    })
+    }).then(() => req_id)
     .catch((error) => console.log(error.message));
 };
 
