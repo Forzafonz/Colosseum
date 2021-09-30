@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import SearchResultsContainer from './SearchResultsContainer';
 
 
-function Mediaform() {
+function Mediaform({addMediaToPlaylist}) {
   const params = useParams();
   const [url, setUrl] = useState(''); //url to be added to playlist
   const [category, setCategory] = useState('youtube'); //youtube or soundcloud
@@ -76,13 +76,10 @@ function Mediaform() {
       desc,
       thumbnail : image
     };
-
-    console.log("I am submitting with this data:", data)
-      axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
-      alert('Playlist updated');
-      setUrl('');
-      setDesc('');
-    });
+    addMediaToPlaylist(data)
+    setUrl('');
+    setDesc('');
+    alert('Playlist updated');
 
   }
 

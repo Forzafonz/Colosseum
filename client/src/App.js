@@ -12,7 +12,8 @@ function App() {
   const {
     state,
     setPlayingMedia,
-    setPlaylist
+    setPlaylist, 
+    addMediaToPlaylist
   } = useApplicationData();
 
   return (
@@ -26,12 +27,16 @@ function App() {
 
         <Route path = "/home">
           <Header />
-          <Home state={state} setPlaylist={setPlaylist} />
+          <Home state={state} 
+          setPlaylist={setPlaylist} />
         </Route>
 
         <Route path = "/room">
           <Header />
-          <Room state1={state} setPlayingMedia={setPlayingMedia}/>
+          <Room state1={state} 
+          setPlayingMedia={setPlayingMedia}
+          addMediaToPlaylist = {addMediaToPlaylist}
+          />
         </Route>
         <Route path = "/createplaylist">
           <NewPlaylist/>
