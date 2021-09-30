@@ -1,11 +1,11 @@
 import React, { useReducer, useEffect, useState } from 'react';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import NewRoom from './Components/NewRoom/NewRoom';
+import Room from './Components/Room/Room';
 import Header from './Components/Header';
 import Landing from './Components/Landing/Landing';
 import Home from './Components/Home/Home';
 import NewPlaylist from './Components/Home/NewPlaylist/NewPlaylist';
-import Mediaform from './Components/NewRoom/Mediaform';
+import Mediaform from './Components/Room/Mediaform';
 
 function App() {
 
@@ -25,13 +25,13 @@ function App() {
 
         <Route path = "/newroom">
           <Header />
-          <NewRoom />
+          <Room />
         </Route>
-        <Route path = "/create">
+        <Route path = "/createplaylist">
           <NewPlaylist/>
         </Route>
 
-        <Route path = "/playlist/:id">
+        <Route path = "/playlist/:url">
           <Mediaform/>
         </Route>
        

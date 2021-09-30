@@ -18,12 +18,12 @@ INSERT INTO users (username, email, password, avatar)
             ('charlie', 'charlie@gmail.com', '123','https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png'),
             ('delta', 'delta@gmail.com', '123','https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg');
 
-INSERT INTO playlists( name , rating, thumbnail, queue)
-            VALUES('Party time', 4, 'https://assets.smoothradio.com/2017/26/ed-sheeran-1498662806-editorial-short-form-0.jpg', true),
-            ('Spooky movies', 5,'https://media1.popsugar-assets.com/files/thumbor/wNhs3Orm_ob0T6fsFhqfRgMRCEw/1346x474:4298x3426/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/10/31/972/n/1922283/b80874af5dbb5e357a48b0.76757692_/i/Best-Young-Music-Artists-2019.jpg' , false),
-            ('Summer music', 4,'https://www.grammy.com/sites/com/files/styles/news_detail_header/public/gettyimages-1014868608.jpg?itok=eLyDCDbM' , false),
-            ('LHL Lectures', 5,'https://i.insider.com/5b21452f1ae6623b008b5306?width=750&format=jpeg&auto=webp' , false),
-            ('Study music', 4,'https://www.liveabout.com/thmb/CXNryNO4dxhyT13v41hVmKXHq1Q=/3000x2000/filters:no_upscale():max_bytes(150000):strip_icc()/weeknd-56a96cf75f9b58b7d0fb536c.jpg' , false);
+INSERT INTO playlists( name , rating, thumbnail, queue, url)
+            VALUES('Party time', 4, 'https://assets.smoothradio.com/2017/26/ed-sheeran-1498662806-editorial-short-form-0.jpg', true, 'tzb8KttazzZ7PZb'),
+            ('Spooky movies', 5,'https://media1.popsugar-assets.com/files/thumbor/wNhs3Orm_ob0T6fsFhqfRgMRCEw/1346x474:4298x3426/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/10/31/972/n/1922283/b80874af5dbb5e357a48b0.76757692_/i/Best-Young-Music-Artists-2019.jpg' , false,'wZz8ZAu2Zwa1txa'),
+            ('Summer music', 4,'https://www.grammy.com/sites/com/files/styles/news_detail_header/public/gettyimages-1014868608.jpg?itok=eLyDCDbM' , false,'a7ZPtt7n1e8KZxn'),
+            ('LHL Lectures', 5,'https://i.insider.com/5b21452f1ae6623b008b5306?width=750&format=jpeg&auto=webp' , false,'pAZ9el1ZF3GG37P'),
+            ('Study music', 4,'https://www.liveabout.com/thmb/CXNryNO4dxhyT13v41hVmKXHq1Q=/3000x2000/filters:no_upscale():max_bytes(150000):strip_icc()/weeknd-56a96cf75f9b58b7d0fb536c.jpg' , false, '7tFP23ptPPA3eau');
 
 INSERT INTO media (link, category, thumbnail, description)
             VALUES('https://www.youtube.com/watch?v=IfFhU3edLk4', 'video', 'https://images-prod.healthline.com/hlcmsresource/images/Dog-Breeds-Health-Problems/3180-Pug_green_grass-1284x400-BANNER10.jpg', 'Media 1'),

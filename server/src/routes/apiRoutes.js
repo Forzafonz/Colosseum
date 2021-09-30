@@ -7,7 +7,8 @@ const {
   searchUser,
   updateUserPlaylist,
   searchmedia,
-  getPlaylists
+  getPlaylists,
+  getNewPlaylist
 } = require('../db/rundb/api_queries');
 
 // Define a function which will mount router that was passed to it to specified paths.
@@ -32,12 +33,13 @@ module.exports = function(router, addText) {
       res.status(200).json(data);
     });
   });
-  //Route to create new playlist
-  router.put('/create', (req, res) => {
+  //Route to create new playlist --
+  router.put('/createplaylist', (req, res) => {
     const x = req.body.data;
+    //new entry for table playlists
     createPlaylist(x)
     .then((data) => {
-      // console.log("==--==>", data[0].id);
+      //to update table user-playlist with new playlist and its user data
       updateUserPlaylist(data[0].id, x)
         .then(() => {
           console.log("success");
@@ -46,7 +48,7 @@ module.exports = function(router, addText) {
     });
   });
 
-  //Route to search for user
+  //Route to search for user while creating playlist --
   router.get('/user/:id', (req,res) => {
     searchUser(req.params.id)
     .then((data) => {
@@ -54,14 +56,28 @@ module.exports = function(router, addText) {
     });
   });
 
-  //Route to add new media
+  //Route to add new media to new playlist --
   router.put('/addmedia', (req,res) => {
+    //searches for media and updates 2 tables
     searchmedia(req.body.data)
     .then((response) => {
       res.status(200).json({c:'Hello'});
 
     })
   })
+
+  //Route to load newly created playlist into mediaform to add media --
+  router.put('/searchPlaylist', (req,res) => {
+    console.log("---->data", req.body.data);
+    //gets new playlist data to show on page
+    getNewPlaylist(req.body.data)
+    .then((data) => {
+      res
+      .status(200)
+      .json(data)
+  })
+})
+
   //Route to get all playlists currently existing in the database.
   router.get('/playlists', (req, res) => {
 
@@ -71,7 +87,7 @@ module.exports = function(router, addText) {
         .status(200)
         .json(data)
       });
-  });
+  })
   
   // Route to post a new message to the database
   router.put(`/messages/new`, (req, res) => {

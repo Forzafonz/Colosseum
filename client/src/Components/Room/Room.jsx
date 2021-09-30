@@ -1,4 +1,4 @@
-import './NewRoom.scss';
+import './Room.scss';
 import Chat from './Chat/Chat';
 import Header from '../Header';
 import MediaPlayer from './MediaPlayer/MediaPlayer';
@@ -41,7 +41,7 @@ function reducer(state, action){
 
 }
 
-function NewRoom() {
+function Room() {
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
@@ -132,4 +132,4 @@ function NewRoom() {
   );
 }
 
-export default NewRoom;
+export default Room;
