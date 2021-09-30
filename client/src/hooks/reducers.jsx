@@ -1,6 +1,7 @@
 const SET_PLAYLIST = "SET_PLAYLIST";
 const SET_PLAYING_MEDIA = "SET_PLAYING_MEDIA";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+const ADD_MEDIA_TO_PLAYLIST = "ADD_MEDIA_TO_PLAYLIST";
 
 // A reducer function
 
@@ -58,11 +59,25 @@ const reducer = function (state, action) {
     return {...state, current_media: action.values }
   }
 
+  // Function to add a new media to playlist which was added to queue
+
+  const addMediaToPlaylist = () => {
+
+    const newMedia = action.values.media
+    const playlist_id = action.values.playlist_id
+    const updatedState = {...state}
+    const updated_playlists_for_user = 
+    {...updatedState.playlists_for_user, [playlist_id]:{playlist:{}, media:newMedia}}
+    const newState = {...state, playlists_for_user:updated_playlists_for_user}
+    return newState;
+  }
+
   const actions = {
 
     [SET_PLAYLIST]: setPlaylist,
     [SET_PLAYING_MEDIA]: setPlayingMedia,
     [SET_APPLICATION_DATA] : setApplicationData,
+    [ADD_MEDIA_TO_PLAYLIST] : addMediaToPlaylist,
   
     "default": () => {
       throw new Error(`Tried to reduce with unsupported action type: ${action.type}`)}
@@ -72,4 +87,4 @@ const reducer = function (state, action) {
 
 }
 
-export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA };
+export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST };

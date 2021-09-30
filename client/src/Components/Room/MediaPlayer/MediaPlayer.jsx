@@ -11,7 +11,7 @@ function MediaPlayer({state}){
       setMedia(state.current_media);
     }
     
-  }, [state.current_media])
+  }, [state])
 
   return (
     <section className="media-player-container">

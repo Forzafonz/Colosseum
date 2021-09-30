@@ -5,8 +5,6 @@ import ContainerItem from './ContainerItem';
 import NewMessage from './NewMessage';
 import axios from 'axios';
 
-import useApplicationData from '../../../hooks/useApplicationData'
-
 
 
 const REMOVE = 'remove'
@@ -85,7 +83,7 @@ function reducer (state, action) {
 
 }
 
-function Queue({setPlayingMedia}) {
+function Queue({state1, setPlayingMedia}) {
 
   // const {
   //   setPlayingMedia
@@ -109,7 +107,7 @@ function Queue({setPlayingMedia}) {
       dispatch({ type: INITIALIZE, values: response.data })
     })
 
-  }, []);
+  }, [state1['playlists_for_user']]);
 
 
   const refs = React.useMemo(

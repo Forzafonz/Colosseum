@@ -1,5 +1,5 @@
 import {useEffect, useReducer} from 'react';
-import reducer, { SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA } from './reducers';
+import reducer, { SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST } from './reducers';
 import axios from "axios";
 
 export default function useApplicationData(initial) {
@@ -9,8 +9,8 @@ export default function useApplicationData(initial) {
                       //  current_media:  link
                       // }
 
-   //state Object new =====> { playlists_for_user : {playlists id 1: {details : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}, 
-                                                 // {playlists id 2: {details : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}...} 
+   //state Object new =====> { playlists_for_user : {playlists id 1: {playlist : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}, 
+                                                 // {playlists id 2: {playlist : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}...} 
                           //  current_playlist: playlist_id,
                           //  current_media:  link
                           // }
@@ -47,10 +47,18 @@ export default function useApplicationData(initial) {
   };
 
   const setPlayingMedia = (mediaId) => {
-
     dispatch({ type: SET_PLAYING_MEDIA, values: mediaId })
   };
 
+  const addMediaToPlaylist = (data) =>{
+    axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
+      dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : res.data, playlist_id: data.playlist_id}})
+        if (state.current_media === null) {
+          dispatch({ type: SET_PLAYING_MEDIA, values: res.data.link})
+        }
+    });
+  }
+
   //Passed to App.js and passed down to each component from there
-  return { state, setPlaylist, setPlayingMedia }
+  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist }
 }
