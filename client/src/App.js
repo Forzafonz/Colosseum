@@ -27,7 +27,7 @@ function App() {
 
         <Route path = "/home">
           <Header />
-          <Home />
+          <Home state={state} setPlaylist={setPlaylist} />
         </Route>
 
         <Route path = "/room">

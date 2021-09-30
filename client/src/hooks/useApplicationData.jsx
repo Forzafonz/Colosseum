@@ -45,5 +45,6 @@ export default function useApplicationData(initial) {
     dispatch({ type: SET_PLAYING_MEDIA, values: mediaId })
   };
 
+  //Passed to App.js and passed down to each component from there
   return { state, setPlaylist, setPlayingMedia }
 }
