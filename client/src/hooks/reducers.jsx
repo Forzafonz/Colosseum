@@ -4,6 +4,7 @@ const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const ADD_MEDIA_TO_PLAYLIST = "ADD_MEDIA_TO_PLAYLIST";
 const REMOVE_MEDIA_FROM_PLAYLIST = "REMOVE_MEDIA_FROM_PLAYLIST";
 const UPDATE_NEW_PLAYLIST = "UPDATE_NEW_PLAYLIST";
+const SET_NEXT_MEDIA = "SET_NEXT_MEDIA";
 
 // A reducer function
 
@@ -113,6 +114,15 @@ const updatenewPlaylist = () => {
 
 }
 //
+
+  const setNextMedia = () => {
+
+    console.log("ended song");
+    return state;
+
+  }
+
+//
   const actions = {
 
     [SET_PLAYLIST]: setPlaylist,
@@ -121,6 +131,7 @@ const updatenewPlaylist = () => {
     [ADD_MEDIA_TO_PLAYLIST] : addMediaToPlaylist,
     [REMOVE_MEDIA_FROM_PLAYLIST] : removeMediaFromPlayList, 
     [UPDATE_NEW_PLAYLIST] : updatenewPlaylist,
+    [SET_NEXT_MEDIA] : setNextMedia,
   
     "default": () => {
       throw new Error(`Tried to reduce with unsupported action type: ${action.type}`)}
@@ -130,4 +141,4 @@ const updatenewPlaylist = () => {
 
 }
 
-export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST, UPDATE_NEW_PLAYLIST, REMOVE_MEDIA_FROM_PLAYLIST };
+export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST, UPDATE_NEW_PLAYLIST, REMOVE_MEDIA_FROM_PLAYLIST, SET_NEXT_MEDIA };

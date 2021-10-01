@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from 'react';
 import ReactPlayer from 'react-player'
 
-function MediaPlayer({state}){
+function MediaPlayer({state, setNextMedia}){
 
   const [media, setMedia] = useState("https://soundcloud.com/housemusicdj/lets-get-down-house-mix_0715");
 
@@ -15,7 +15,7 @@ function MediaPlayer({state}){
 
   return (
     <section className="media-player-container">
-       <ReactPlayer width="100%" height="100%" controls url={media} />
+       <ReactPlayer width="100%" height="100%" controls url={media} onEnded={()=> setNextMedia()} />
     </section>
   );
 }

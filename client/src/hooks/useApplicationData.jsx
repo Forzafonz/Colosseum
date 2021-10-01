@@ -5,7 +5,9 @@ import reducer, {
   SET_PLAYING_MEDIA, 
   ADD_MEDIA_TO_PLAYLIST, 
   REMOVE_MEDIA_FROM_PLAYLIST,
-  UPDATE_NEW_PLAYLIST } from './reducers';
+  UPDATE_NEW_PLAYLIST,
+  SET_NEXT_MEDIA
+} from './reducers';
 import axios from "axios";
 
 export default function useApplicationData(initial) {
@@ -108,6 +110,12 @@ export default function useApplicationData(initial) {
     });
   }
 
+  const setNextMedia = () => {
+    dispatch({type: SET_NEXT_MEDIA, values: {}})
+  }
+
+
+
   //Passed to App.js and passed down to each component from there
-  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist, removeMediaFromPlaylist, setStale }
+  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist, removeMediaFromPlaylist, setStale, setNextMedia }
 }

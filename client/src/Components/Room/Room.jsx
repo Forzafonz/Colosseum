@@ -40,7 +40,7 @@ function reducer(state, action){
 
 }
 
-function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist}) {
+function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist, setNextMedia}) {
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
@@ -123,7 +123,7 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
       <main className="layout">
         <section className="media-and-chat">
           {!empty ? 
-          <MediaPlayer  state = {state1} /> : 
+          <MediaPlayer  state = {state1} setNextMedia = {setNextMedia} /> : 
           <Mediaform addMediaToPlaylist = {addMediaToPlaylist} state = {state1} />}
           <section className="chat-container">
           {/* //Create a chat component and pass two props: 
