@@ -34,7 +34,9 @@ function App() {
           state={state} 
           setPlaylist={setPlaylist}
           updatenewPlaylist = {updatenewPlaylist}
-          setStale={setStale} />
+          setStale={setStale}
+          setPlayingMedia={setPlayingMedia}
+          />
         </Route>
 
         <Route path = "/room">

@@ -2,7 +2,7 @@ import React from 'react';
 import SavedPlaylistsItem from './SavedPlaylistsItem';
 import ListGroup from 'react-bootstrap/ListGroup'
 
-function SavedPlaylists({ setPlaylist, state }) {
+function SavedPlaylists({ setPlaylist, state, setPlayingMedia }) {
 
   //Create array of playlists for logged in user
   let playlistsArray = Object.values(state.playlists_for_user);
@@ -16,6 +16,7 @@ function SavedPlaylists({ setPlaylist, state }) {
     rating = { playlist.playlist.rating}
     thumbnail = {playlist.playlist.thumbnail} 
     setPlaylist={setPlaylist}
+    setPlayingMedia={setPlayingMedia}
   />);
 
   return (

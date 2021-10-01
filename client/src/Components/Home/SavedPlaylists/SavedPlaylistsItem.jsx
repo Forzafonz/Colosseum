@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import './SavedPlaylistsItem.scss'
 import ListGroup from 'react-bootstrap/ListGroup'
 
-function SavedPlaylistsItem({state, id, name, rating, thumbnail, setPlaylist }) {
+function SavedPlaylistsItem({state, id, name, rating, thumbnail, setPlaylist, setPlayingMedia }) {
 
   //To forward user to room when Play Playlist button is clicked
   let history = useHistory();
@@ -16,6 +16,20 @@ function SavedPlaylistsItem({state, id, name, rating, thumbnail, setPlaylist }) 
     } else {
       setPlaylist(id);
     } 
+
+  }
+
+  //When play is pressed, it updates the states current_media to first media in media object
+  // for the selected playlist and redirects to room
+  const playPlaylist = (id) => {
+
+    const mediaKeys = state.playlists_for_user[id].media;
+
+    const firstMediaObject = mediaKeys[Object.keys(mediaKeys)[0]];
+
+    setPlayingMedia(firstMediaObject.link);
+
+    history.push("/room")
 
   }
 
@@ -43,7 +57,7 @@ function SavedPlaylistsItem({state, id, name, rating, thumbnail, setPlaylist }) 
 
       
       </ListGroup.Item>
-      {state.current_playlist === id && <button onClick={()=> history.push("/room")}>Play Playlist</button> }
+      {state.current_playlist === id && <button onClick={()=> playPlaylist(id)}>Play Playlist</button> }
     </>
     
   )

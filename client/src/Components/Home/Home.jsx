@@ -5,7 +5,7 @@ import CurrentPlaylist from './CurrentPlaylist/CurrentPlaylist';
 import axios from 'axios';
 import NewPlaylist from './NewPlaylist/NewPlaylist';
 
-function Home({state, setPlaylist, updatenewPlaylist, setStale}) {
+function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}) {
 
   console.log("HOME STATE", state);
 
@@ -23,7 +23,7 @@ function Home({state, setPlaylist, updatenewPlaylist, setStale}) {
     <div className="home">
       <section className="saved-playlists-container">
         CURRENT USER ID LOGGED IN: {userId}
-        <SavedPlaylists setPlaylist={setPlaylist} state={state}/>
+        <SavedPlaylists setPlaylist={setPlaylist} state={state} setPlayingMedia={setPlayingMedia}/>
       </section>
       <section className="new-playlist-container">
 
