@@ -14,7 +14,8 @@ function App() {
     setPlayingMedia,
     setPlaylist, 
     addMediaToPlaylist,
-    removeMediaFromPlaylist
+    removeMediaFromPlaylist,
+    updatenewPlaylist
   } = useApplicationData();
 
   return (
@@ -29,7 +30,8 @@ function App() {
         <Route path = "/home">
           <Header />
           <Home state={state} 
-          setPlaylist={setPlaylist} />
+          setPlaylist={setPlaylist}
+          updatenewPlaylist = {updatenewPlaylist} />
         </Route>
 
         <Route path = "/room">
@@ -41,7 +43,9 @@ function App() {
           />
         </Route>
         <Route path = "/createplaylist">
-          <NewPlaylist/>
+          <NewPlaylist
+          updatenewPlaylist = {updatenewPlaylist}
+          />
         </Route>
 
         <Route path = "/playlist/:url">
@@ -62,4 +66,5 @@ function App() {
   )
 }
 
-export default App;
+export default App; updatenewPlaylist
+updatenewPlaylist

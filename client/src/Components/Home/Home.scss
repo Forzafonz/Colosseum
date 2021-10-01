@@ -15,4 +15,9 @@
   border: red;
   border-style: dotted;
   width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-content:stretch;
+  justify-content:flex-start;
+  padding:0;
 }

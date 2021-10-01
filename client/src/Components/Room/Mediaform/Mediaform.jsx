@@ -33,7 +33,18 @@ function Mediaform({addMediaToPlaylist}) {
   //     });
   // }, []);
 
-//To add media to playlist
+
+  //To get thumbnail from given youtube video url
+  const getThumbnail = function (url1) {
+    
+    const pre = 'https://img.youtube.com/vi/'
+    const post = '/default.jpg'
+    const only_url = url1.slice(-11); 
+    const result = pre + only_url + post;
+    return result;
+    
+  }
+  //To add media to playlist
   const addMedia = () => {
 
      if (!url.includes("http") && category === "youtube") {
@@ -55,8 +66,8 @@ function Mediaform({addMediaToPlaylist}) {
      } else if (!url.includes("http") && category === "soundcloud") {
         //  do something
      } else {
-        
-        submitMedia({url, desc})
+        const image = getThumbnail(url);
+        submitMedia({url, desc, image})
      }
 
     // axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {

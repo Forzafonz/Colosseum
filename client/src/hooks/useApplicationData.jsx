@@ -4,7 +4,8 @@ import reducer, {
   SET_PLAYLIST, 
   SET_PLAYING_MEDIA, 
   ADD_MEDIA_TO_PLAYLIST, 
-  REMOVE_MEDIA_FROM_PLAYLIST } from './reducers';
+  REMOVE_MEDIA_FROM_PLAYLIST,
+  UPDATE_NEW_PLAYLIST } from './reducers';
 import axios from "axios";
 
 export default function useApplicationData(initial) {
@@ -78,6 +79,21 @@ export default function useApplicationData(initial) {
 
   }
 
+  const updatenewPlaylist = (data) => {
+    let newURL ="";
+    axios
+    .put('http://localhost:8000/api/createplaylist', { data })
+    .then((res) => {
+      newURL = res.data[0].url;
+      alert(`Playlist created successfully. Link to playlist is http://localhost:3000/playlist/${newURL}`);
+      dispatch({type: UPDATE_NEW_PLAYLIST, values: {playlist_id: res.data[0].id}})
+      if (state.current_playlist === null) {
+        dispatch({ type: SET_PLAYLIST, values: res.data[0].id})
+      }
+    });
+  }
+
+
   //Passed to App.js and passed down to each component from there
-  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist }
+  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist, removeMediaFromPlaylist }
 }
