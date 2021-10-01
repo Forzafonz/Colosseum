@@ -4,6 +4,7 @@ const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const ADD_MEDIA_TO_PLAYLIST = "ADD_MEDIA_TO_PLAYLIST";
 const REMOVE_MEDIA_FROM_PLAYLIST = "REMOVE_MEDIA_FROM_PLAYLIST";
 const UPDATE_NEW_PLAYLIST = "UPDATE_NEW_PLAYLIST";
+const SET_NEXT_MEDIA = "SET_NEXT_MEDIA";
 
 // A reducer function
 
@@ -113,6 +114,50 @@ const updatenewPlaylist = () => {
 
 }
 //
+
+  const setNextMedia = () => {
+
+    //Set media that just played to played already
+    const newState = {...state};
+
+    const updatedMediaPlayedAlready = {...newState.playlists_for_user[state.current_playlist].media[state.current_media], played_already: true};
+
+    const updatedMedia = { ...newState.playlists_for_user[state.current_playlist].media, [state.current_media] : updatedMediaPlayedAlready };
+
+    const updatedPlaylist = {...newState.playlists_for_user[state.current_playlist], media : updatedMedia };
+
+    const updatedPlaylists = {...newState.playlists_for_user, [state.current_playlist] : updatedPlaylist  };
+
+    const updatedState = { ...newState, playlists_for_user : updatedPlaylists };
+
+    //Order ones that have not been played yet by play order
+    //Get media object for current playlist
+    const mediaCurrentPlaylistObject = updatedState.playlists_for_user[state.current_playlist].media;
+
+    //Get keys of object of media for current playlist
+    const mediaKeysCurrentPlaylistArray = Object.keys(mediaCurrentPlaylistObject);
+
+    //Return an array of media that has not already been played
+    const filterMediaNotAlreadyPlayedArray = mediaKeysCurrentPlaylistArray.filter((index) => {
+      return !mediaCurrentPlaylistObject[index].played_already
+    })
+
+    //Sort array by playorder
+    const sortedMediaByPlayOrderArray = filterMediaNotAlreadyPlayedArray.sort((ele1, ele2) => {
+
+      const ele1PlayOrder = mediaCurrentPlaylistObject[ele1].play_order
+      const ele2PlayOrder = mediaCurrentPlaylistObject[ele2].play_order
+
+      return ele1PlayOrder - ele2PlayOrder
+    })
+
+    //Get first entry in playorder array
+    updatedState.current_media = sortedMediaByPlayOrderArray[0];
+
+    return updatedState;
+  }
+
+//
   const actions = {
 
     [SET_PLAYLIST]: setPlaylist,
@@ -121,6 +166,7 @@ const updatenewPlaylist = () => {
     [ADD_MEDIA_TO_PLAYLIST] : addMediaToPlaylist,
     [REMOVE_MEDIA_FROM_PLAYLIST] : removeMediaFromPlayList, 
     [UPDATE_NEW_PLAYLIST] : updatenewPlaylist,
+    [SET_NEXT_MEDIA] : setNextMedia,
   
     "default": () => {
       throw new Error(`Tried to reduce with unsupported action type: ${action.type}`)}
@@ -130,4 +176,4 @@ const updatenewPlaylist = () => {
 
 }
 
-export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST, UPDATE_NEW_PLAYLIST, REMOVE_MEDIA_FROM_PLAYLIST };
+export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST, UPDATE_NEW_PLAYLIST, REMOVE_MEDIA_FROM_PLAYLIST, SET_NEXT_MEDIA };
