@@ -49,18 +49,14 @@ module.exports = function(router) {
   router.put('/:user_id/playlists/:playlist_id/active', (req,res) => {
 
     const playlistId = req.params.playlist_id;
+    const userId = req.params.user_id;
 
-    updatePlaylistToActive(playlistId)
+    updatePlaylistToActive(playlistId, userId)
       .then(() => {
         res
           .status(200)
       })
   })
-
-
-
-
-
 
   return router;
 

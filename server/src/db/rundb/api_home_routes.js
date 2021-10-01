@@ -55,21 +55,23 @@ const getMediaForUser = function (userId) {
    
 };
 
-const updatePlaylistToActive = function (playlistId) {
+const updatePlaylistToActive = function (playlistId, userId) {
   //Define query
-  const queryString = `
+  const queryString1 = `
   UPDATE users_playlists
-  SET active='false';
-
+  SET active='false'
+  WHERE user_id = $1;`
+  
+  const queryString2 = `
   UPDATE users_playlists
   SET active='true'
-  WHERE playlist_id = $1;`;
+  WHERE playlist_id = $1 AND user_id = $2;`;
 
   //Return promise for query
-  return pool.query(queryString, [playlistId])
-    //If result is found, return the object?
-    .then(() => console.log("Succesfully updated to active"))
-
+  return pool.query(queryString1, [userId])
+  .then(() => console.log(`Succesfully set user id ${userId} active to false`))
+  .then(() => pool.query(queryString2, [playlistId, userId]))
+  .then(() => console.log(`Succesfully updated user id ${userId} playlist id ${playlistId} to active`))
 };
 
 const getActivePlaylist = function (user_id) {

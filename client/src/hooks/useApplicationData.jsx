@@ -64,6 +64,7 @@ export default function useApplicationData(initial) {
 
   const setPlayingMedia = (mediaId) => {
     dispatch({ type: SET_PLAYING_MEDIA, values: mediaId })
+    axios.put(`/api/home/${userId}/playlists/${state.current_playlist}/active`)
   };
 
   const addMediaToPlaylist = (data) =>{
@@ -91,6 +92,9 @@ export default function useApplicationData(initial) {
 
   const updatenewPlaylist = (data) => {
     let newURL ="";
+
+
+
     axios
     .put('http://localhost:8000/api/createplaylist', { data })
     .then((res) => {
