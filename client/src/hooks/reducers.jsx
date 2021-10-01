@@ -2,6 +2,7 @@ const SET_PLAYLIST = "SET_PLAYLIST";
 const SET_PLAYING_MEDIA = "SET_PLAYING_MEDIA";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const ADD_MEDIA_TO_PLAYLIST = "ADD_MEDIA_TO_PLAYLIST";
+const REMOVE_MEDIA_FROM_PLAYLIST = "REMOVE_MEDIA_FROM_PLAYLIST";
 const UPDATE_NEW_PLAYLIST = "UPDATE_NEW_PLAYLIST";
 
 // A reducer function
@@ -35,13 +36,8 @@ const reducer = function (state, action) {
       };
       
     })
-
   
-
-    
     const newState = {...state, playlists_for_user: newPlaylistsForUser }
-
-    console.log("!!!!!!newSTATE!!!!!!", newState);
 
     return newState;
   }
@@ -67,9 +63,33 @@ const reducer = function (state, action) {
     const newMedia = action.values.media
     const playlist_id = action.values.playlist_id
     const updatedState = {...state}
+    const media_for_playlist = updatedState.playlists_for_user[playlist_id].media
     const updated_playlists_for_user = 
-    {...updatedState.playlists_for_user, [playlist_id]:{playlist:{}, media:newMedia}}
+    {...updatedState.playlists_for_user, [playlist_id]:{playlist:{}, media:{...media_for_playlist, [newMedia.id] : newMedia}}}
     const newState = {...state, playlists_for_user:updated_playlists_for_user}
+    return newState;
+  }
+
+  const removeMediaFromPlayList = () =>{
+    const playlist_id = action.values.playlist_id;
+    const updatedState = {...state};
+    const mediaIdToDelete = action.values.id;
+ 
+    const media_of_playlist_to_update = state['playlists_for_user'][playlist_id]['media'];
+    const newMediaList = {}
+    Object.keys(media_of_playlist_to_update).map(keyMedia => {
+      // console.log("bdaf", mediaIdToDelete, media_of_playlist_to_update[keyMedia]['media_id'] , media_of_playlist_to_update[keyMedia]['media_id'] !== mediaIdToDelete)
+      if (media_of_playlist_to_update[keyMedia]['media_id'] !== mediaIdToDelete){
+        
+        return newMediaList[keyMedia] = media_of_playlist_to_update[keyMedia]
+      }
+
+    })
+    const updated_playlist = {...updatedState.playlists_for_user[playlist_id], media: newMediaList}
+    const updated_playlists_for_user = 
+    {...updatedState.playlists_for_user, [playlist_id]:updated_playlist}
+    const newState = {...state, playlists_for_user:updated_playlists_for_user}
+ 
     return newState;
   }
 //
@@ -92,6 +112,7 @@ const updatenewPlaylist = () => {
     [SET_PLAYING_MEDIA]: setPlayingMedia,
     [SET_APPLICATION_DATA] : setApplicationData,
     [ADD_MEDIA_TO_PLAYLIST] : addMediaToPlaylist,
+    [REMOVE_MEDIA_FROM_PLAYLIST] : removeMediaFromPlayList, 
     [UPDATE_NEW_PLAYLIST] : updatenewPlaylist,
   
     "default": () => {
@@ -102,4 +123,4 @@ const updatenewPlaylist = () => {
 
 }
 
-export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST, UPDATE_NEW_PLAYLIST };
+export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST, UPDATE_NEW_PLAYLIST, REMOVE_MEDIA_FROM_PLAYLIST };

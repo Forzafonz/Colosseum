@@ -1,5 +1,11 @@
 import {useEffect, useReducer} from 'react';
-import reducer, { SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST, UPDATE_NEW_PLAYLIST } from './reducers';
+import reducer, { 
+  SET_APPLICATION_DATA, 
+  SET_PLAYLIST, 
+  SET_PLAYING_MEDIA, 
+  ADD_MEDIA_TO_PLAYLIST, 
+  REMOVE_MEDIA_FROM_PLAYLIST,
+  UPDATE_NEW_PLAYLIST } from './reducers';
 import axios from "axios";
 
 export default function useApplicationData(initial) {
@@ -35,11 +41,12 @@ export default function useApplicationData(initial) {
     ])
     .then(
       (result) => {
+        console.log('I RUN!')
         const [userPlaylists, userMedias] = result;
         dispatch({ type: SET_APPLICATION_DATA, values : { userPlaylists: userPlaylists.data ? userPlaylists.data : [] , userMedias: userMedias.data ? userMedias.data : [] } })
       }
     )
-  }, []);
+  }, [userId]);
 
 
   const setPlaylist = (playlistId) => {
@@ -52,11 +59,24 @@ export default function useApplicationData(initial) {
 
   const addMediaToPlaylist = (data) =>{
     axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
+      console.log("This is data!", res.data)
       dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : res.data, playlist_id: data.playlist_id}})
         if (state.current_media === null) {
           dispatch({ type: SET_PLAYING_MEDIA, values: res.data.link})
         }
     });
+  }
+
+  const removeMediaFromPlaylist = (id) =>{
+
+    //Remove it when current playlist is set up properly
+    if (state.current_playlist === null){
+      state.current_playlist = 6;
+    }
+    //REMOVE UP TO THIS LINE
+    
+    dispatch({type: REMOVE_MEDIA_FROM_PLAYLIST, values : {id, playlist_id: state.current_playlist}})
+
   }
 
   const updatenewPlaylist = (data) => {
@@ -70,12 +90,10 @@ export default function useApplicationData(initial) {
       if (state.current_playlist === null) {
         dispatch({ type: SET_PLAYLIST, values: res.data[0].id})
       }
-      
-   })
-return newURL;
-}
+    });
+  }
 
 
   //Passed to App.js and passed down to each component from there
-  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist }
+  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist, removeMediaFromPlaylist }
 }

@@ -16,7 +16,6 @@ export default function Container({children}) {
   
   // A hook used to update Bounding Boxes of Cointer Items on each Render
   useEffect(() => {
-    console.log('Children', children)
     const newBoundingBox = calculateBoundingBoxes(children);
 
     setBoundingBox(newBoundingBox);
@@ -67,8 +66,12 @@ export default function Container({children}) {
     React.Children.forEach(children, child => {
 
       const domNode = child.ref.current;
-      const nodeBoundingBox = domNode.getBoundingClientRect();
-      boundingBoxes[child.key] = nodeBoundingBox;
+      if (domNode) {
+
+        const nodeBoundingBox = domNode.getBoundingClientRect();
+        boundingBoxes[child.key] = nodeBoundingBox;
+
+      }
 
     });
   

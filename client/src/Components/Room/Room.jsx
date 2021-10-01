@@ -1,8 +1,6 @@
 import './Room.scss';
 import Chat from './Chat/Chat';
-import Header from '../Header';
 import MediaPlayer from './MediaPlayer/MediaPlayer';
-import MediaQue from './MediaQueue/MediaQueue';
 import React, { useReducer, useEffect, useState } from 'react';
 import Queue from './MediaQueue/Queue';
 import Mediaform from './Mediaform/Mediaform';
@@ -42,7 +40,7 @@ function reducer(state, action){
 
 }
 
-function NewRoom({state1, setPlayingMedia, addMediaToPlaylist}) {
+function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist}) {
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
@@ -86,7 +84,6 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist}) {
     axios.get(`/api/messages/${user_id}`)
     .then((response) => {
       // Dispacth command to reducer to initialize state with data pulled from the DB.
-      console.log(response.data)
       dispatch({ type: "initialize", values: response.data})
     })
   
@@ -153,9 +150,12 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist}) {
         setMedia = {setMedia}
         mediaList = {mediaList} 
         /> */}
-        <Queue 
+        <Queue
+          setEmpty = {setEmpty} 
           state1 = {state1} 
-          setPlayingMedia={setPlayingMedia} />
+          setPlayingMedia={setPlayingMedia}
+          removeMediaFromPlaylist = {removeMediaFromPlaylist}
+          />
       </main>
     </div>
   );

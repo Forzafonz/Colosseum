@@ -1,13 +1,13 @@
-import React, { useContext} from 'react'
-import { UserContext } from '../../../hooks/userContext';
+import React from 'react'
+
 
  const NewMessage = React.forwardRef((props, ref) => {
 
-  const {dispatch} = useContext(UserContext)
+  const {setEmpty} = props;
 
   const eventHandler = (event) => {
     event.preventDefault()
-    dispatch({ type: "ADDNEW", values: { msg: ""} })
+    setEmpty(true)
   }
 
   return (
