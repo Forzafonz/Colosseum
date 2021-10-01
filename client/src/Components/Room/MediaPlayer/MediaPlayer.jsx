@@ -3,12 +3,18 @@ import ReactPlayer from 'react-player'
 
 function MediaPlayer({state, setNextMedia}){
 
-  const [media, setMedia] = useState("https://soundcloud.com/housemusicdj/lets-get-down-house-mix_0715");
+ 
+
+  const initialState = state.playlist ? state.playlists_for_user[state.current_playlist].media[state.current_media].link : null
+
+  const [media, setMedia] = useState(initialState);
+
+
 
   useEffect(() => {
 
     if (state.current_media) {
-      setMedia(state.current_media);
+      setMedia(state.playlists_for_user[state.current_playlist].media[state.current_media].link);
     }
     
   }, [state])

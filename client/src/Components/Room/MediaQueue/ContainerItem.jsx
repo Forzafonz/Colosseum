@@ -28,7 +28,7 @@ const ContainerItem = React.forwardRef((props, ref) => {
         {/* {description} */}
       </div>
       <div>
-        <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(link)}/>
+        <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(media_id)}/>
       </div>
     </div>
       <img src = "Pillars2.png" /> 
