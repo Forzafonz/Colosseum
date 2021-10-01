@@ -39,7 +39,7 @@ INSERT INTO media (link, category, thumbnail, description)
 
 INSERT INTO users_playlists (is_host, user_id, playlist_id, active)
             VALUES(true, 1 , 1, false),
-            (false, 2 , 1, true),
+            (false, 2 , 1, false),
             (false, 3 , 1, true),
             (false, 4 , 1, true),
             (false, 1 , 2, false),

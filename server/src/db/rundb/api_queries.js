@@ -124,7 +124,7 @@ const updateUserPlaylist = function (id, x) {
   const { user_id, udata } = x;
   return pool
     .query(
-      'INSERT INTO users_playlists(is_host, user_id, playlist_id) VALUES (true, $1, $2)', //updating host user
+      'INSERT INTO users_playlists(is_host, user_id, playlist_id, active) VALUES (true, $1, $2, true)', //updating host user
       [user_id, id]
     )
     .then(() => {

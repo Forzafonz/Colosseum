@@ -10,7 +10,7 @@ const UPDATE_NEW_PLAYLIST = "UPDATE_NEW_PLAYLIST";
 const reducer = function (state, action) {
 
   const setApplicationData = () => {
-
+    const setPlaylist = action.values.current_playlist ? action.values.current_playlist.playlist_id : null
     //Initialize empty newState
     const newPlaylistsForUser = {};
      
@@ -37,7 +37,8 @@ const reducer = function (state, action) {
       
     })
   
-    const newState = {...state, playlists_for_user: newPlaylistsForUser }
+    const newState = {...state, playlists_for_user: newPlaylistsForUser, current_playlist: setPlaylist}
+    console.log("Here is a new state in init:", newState)
 
     return newState;
   }
@@ -45,8 +46,9 @@ const reducer = function (state, action) {
 
   //Function to set current playlist
   const setPlaylist = () =>{
-
-    return {...state, current_playlist: action.values}
+    const newState = {...state}
+    const updatedState = {...newState, current_playlist: action.values}
+    return updatedState;
 
   }
 
@@ -99,10 +101,10 @@ const updatenewPlaylist = () => {
   const updatedState = {...state}
     const updated_playlists_for_user = 
     {...updatedState.playlists_for_user, [newPlaylist_id]:{playlist:{}, media:{}}}
-    const newState = {...state, playlists_for_user:updated_playlists_for_user}
+    const newState = {...state, playlists_for_user:updated_playlists_for_user, current_playlist: newPlaylist_id}
+    // const setPlaylistState = {...newState, }
     console.log("=====>newstate", newState);
     return newState;
-
 
 }
 //
