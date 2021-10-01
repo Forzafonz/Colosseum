@@ -101,7 +101,6 @@ function Queue({state1, setPlayingMedia, setEmpty, removeMediaFromPlaylist}) {
 
   //Initialize data in state (Grab media from api on page load)
   useEffect(() => {
-    console.log("I RUUUUUUUUUUUUN")
     if(Object.keys(state1.playlists_for_user).length) {
         dispatch({ type: INITIALIZE, values: state1.playlists_for_user[state1.current_playlist ? state1.current_playlist : 6]['media'] })
     }

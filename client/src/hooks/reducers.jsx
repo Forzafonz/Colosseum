@@ -73,13 +73,13 @@ const reducer = function (state, action) {
     const playlist_id = action.values.playlist_id;
     const updatedState = {...state};
     const mediaIdToDelete = action.values.id;
-    // console.log("Media and PL",mediaIdToDelete , playlist_id)
+ 
     const media_of_playlist_to_update = state['playlists_for_user'][playlist_id]['media'];
     const newMediaList = {}
     Object.keys(media_of_playlist_to_update).map(keyMedia => {
       // console.log("bdaf", mediaIdToDelete, media_of_playlist_to_update[keyMedia]['media_id'] , media_of_playlist_to_update[keyMedia]['media_id'] !== mediaIdToDelete)
       if (media_of_playlist_to_update[keyMedia]['media_id'] !== mediaIdToDelete){
-        console.log("Me key media", keyMedia)
+        
         return newMediaList[keyMedia] = media_of_playlist_to_update[keyMedia]
       }
 
@@ -88,7 +88,7 @@ const reducer = function (state, action) {
     const updated_playlists_for_user = 
     {...updatedState.playlists_for_user, [playlist_id]:updated_playlist}
     const newState = {...state, playlists_for_user:updated_playlists_for_user}
-    // console.log("NEW STATE:", newState)
+ 
     return newState;
   }
 
