@@ -3,12 +3,14 @@ import '../homestyle.scss';
 import Addeditems from './Addeditems';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
-function NewPlaylist({updatenewPlaylist}) {
+function NewPlaylist({updatenewPlaylist, setPlaylist}) {
   const [name, setName] = useState(''); //Playlist name
   const [tnail, setTnail] = useState(''); //Playlist Thumbnail
   const [user, setUser] = useState(''); //User to be added to list
   const [udata, setUdata] = useState([]); //Array of objects to contain users data
+  const history = useHistory();
 
   const user_id = localStorage.getItem('user_id');
 
@@ -67,6 +69,7 @@ function NewPlaylist({updatenewPlaylist}) {
       udata,
       user_id,
     };
+    // setPlaylist()
     updatenewPlaylist(data);
 
    
@@ -74,10 +77,8 @@ function NewPlaylist({updatenewPlaylist}) {
       setTnail('');
       setUdata([]);
       setUser('');
+      history.push("/room");
       
-      
-    
-
     
     // axios
     //   .put('http://localhost:8000/api/createplaylist', { data })
