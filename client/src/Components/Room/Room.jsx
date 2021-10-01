@@ -60,14 +60,13 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
     let currentPlaylist = state1.current_playlist;
     
     // REMOVE ONCE currentPlaylist is utilized in other components
-    if (!currentPlaylist) {
-      currentPlaylist = 6;
-    }
-    // REMOVE ALL ABOVE THIS LINE ONLY
-
-    if (Object.keys(state1.playlists_for_user).length){
-      if (Object.keys(state1.playlists_for_user[currentPlaylist]['media']).length) {
-        setEmpty(false)
+    if (currentPlaylist) {
+      // REMOVE ALL ABOVE THIS LINE ONLY
+      console.log("HERE IS THE REUSUT:", state1, currentPlaylist)
+      if (Object.keys(state1.playlists_for_user).length){
+        if (Object.keys(state1.playlists_for_user[currentPlaylist]['media']).length) {
+          setEmpty(false)
+        }
       }
     }
       
@@ -136,6 +135,7 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
           /> : 
           <Mediaform
             addMediaToPlaylist = {addMediaToPlaylist}
+            state = {state1}
           />}
           <section className="chat-container">
           {/* //Create a chat component and pass two props: 

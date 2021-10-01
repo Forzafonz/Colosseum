@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './mediaform.scss';
 import axios from 'axios';
@@ -6,7 +6,8 @@ import { Button } from 'react-bootstrap';
 import SearchResultsContainer from './SearchResultsContainer';
 
 
-function Mediaform({addMediaToPlaylist}) {
+function Mediaform({state, addMediaToPlaylist}) {
+  console.log("STATE HERE", state)
   const params = useParams();
   const [url, setUrl] = useState(''); //url to be added to playlist
   const [category, setCategory] = useState('youtube'); //youtube or soundcloud
@@ -16,9 +17,9 @@ function Mediaform({addMediaToPlaylist}) {
   const [searchResults, setSearchResults] = useState({})
 
   // UPDATE INITIAL STATE ONCE FIXED CURRENT INITIAL STATE FOR TEST ONLY
-  const [playlistName, setPlaylistName] = useState("Lolo"); 
+  const [playlistName, setPlaylistName] = useState(state.current_playlist); 
   // UPDATE INITIAL STATE ONCE FIXED CURRENT INITIAL STATE FOR TEST ONLY
-  const [currentplaylist_id, setCurrentplaylistId] = useState("6");
+  const [currentplaylist_id, setCurrentplaylistId] = useState(state.current_playlist);
 
   //Gets playlist data from url
   // useEffect(() => {
@@ -44,6 +45,10 @@ function Mediaform({addMediaToPlaylist}) {
     return result;
     
   }
+
+  useEffect(() => {
+    setPlaylistName(state.current_playlist)
+  }, [state])
   //To add media to playlist
   const addMedia = () => {
 

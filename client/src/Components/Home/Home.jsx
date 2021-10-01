@@ -50,7 +50,9 @@ function Home({state, setPlaylist, updatenewPlaylist}) {
       <section className="new-playlist-container">
         
 
-        {!playlistId && <NewPlaylist updatenewPlaylist = {updatenewPlaylist}/>} 
+        {!playlistId && <NewPlaylist 
+        updatenewPlaylist = {updatenewPlaylist}
+        setPlaylist = {setPlaylist}/>} 
         {playlistId && <CurrentPlaylist medias={medias} playlistId={playlistId} playlistName={playlistName}/>}
         
         </section>

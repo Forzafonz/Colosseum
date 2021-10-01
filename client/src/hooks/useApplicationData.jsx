@@ -37,16 +37,20 @@ export default function useApplicationData(initial) {
     // /api/home/${userId}/media is an array of objects
     Promise.all([
       axios.get(`/api/home/${userId}/playlists`),
-      axios.get(`/api/home/${userId}/media`)  
+      axios.get(`/api/home/${userId}/media`),
+      axios.get(`/api/home/${userId}/activeplaylist`)  
     ])
     .then(
       (result) => {
-        console.log('I RUN!')
-        const [userPlaylists, userMedias] = result;
-        dispatch({ type: SET_APPLICATION_DATA, values : { userPlaylists: userPlaylists.data ? userPlaylists.data : [] , userMedias: userMedias.data ? userMedias.data : [] } })
+       
+        const [userPlaylists, userMedias, activePlaylist] = result;
+        console.log('I RUN!', activePlaylist)
+        dispatch({ type: SET_APPLICATION_DATA, values : { userPlaylists: userPlaylists.data ? userPlaylists.data : [] , 
+            userMedias: userMedias.data ? userMedias.data : [], 
+            current_playlist: activePlaylist.data ?  activePlaylist.data : null} })
       }
     )
-  }, [userId]);
+  }, []);
 
 
   const setPlaylist = (playlistId) => {
@@ -86,10 +90,11 @@ export default function useApplicationData(initial) {
     .then((res) => {
       newURL = res.data[0].url;
       alert(`Playlist created successfully. Link to playlist is http://localhost:3000/playlist/${newURL}`);
+      // dispatch({ type: SET_PLAYLIST, values: res.data[0].id})
       dispatch({type: UPDATE_NEW_PLAYLIST, values: {playlist_id: res.data[0].id}})
-      if (state.current_playlist === null) {
-        dispatch({ type: SET_PLAYLIST, values: res.data[0].id})
-      }
+      // if (state.current_playlist === null) {
+      //   console.log("I do my job!!")
+      // }
     });
   }
 
