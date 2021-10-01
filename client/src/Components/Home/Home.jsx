@@ -6,7 +6,7 @@ import axios from 'axios';
 import NewPlaylist from './NewPlaylist/NewPlaylist';
 // import useApplicationData from '../../hooks/useApplicationData'
 
-function Home({state, setPlaylist}) {
+function Home({state, setPlaylist, updatenewPlaylist}) {
 
   console.log("HOME STATE", state);
 
@@ -14,7 +14,7 @@ function Home({state, setPlaylist}) {
 
   const [playlists, setPlaylists] = useState([]);
   const [medias, setMedias] = useState([]);
-  const [playlistId, setPlaylistId] = useState(0);
+  const [playlistId, setPlaylistId] = useState();
 
   //Get the playlists for the current user (empty array to only run on page load)
   useEffect(() => {
@@ -48,13 +48,13 @@ function Home({state, setPlaylist}) {
         <SavedPlaylists playlists={playlists} setPlaylistId={setPlaylistId}/>
       </section>
       <section className="new-playlist-container">
-        {/* NEW PLAYLIST ALSO GOES HERE */}
-        <CurrentPlaylist medias={medias} playlistId={playlistId} playlistName={playlistName}/>
-      </section>
-      {/* <section className="new-playlist-container">
+        
 
-        <NewPlaylist/>
-      </section> */}
+        {!playlistId && <NewPlaylist updatenewPlaylist = {updatenewPlaylist}/>} 
+        {playlistId && <CurrentPlaylist medias={medias} playlistId={playlistId} playlistName={playlistName}/>}
+        
+        </section>
+
 
 
     </div>
