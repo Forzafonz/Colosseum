@@ -34,9 +34,6 @@ const reducer = function (state, action) {
       
     })
 
-  
-
-    
     const newState = {...state, playlists_for_user: newPlaylistsForUser }
 
     console.log("!!!!!!newSTATE!!!!!!", newState);
@@ -58,11 +55,13 @@ const reducer = function (state, action) {
     return {...state, current_media: action.values }
   }
 
+
   const actions = {
 
     [SET_PLAYLIST]: setPlaylist,
     [SET_PLAYING_MEDIA]: setPlayingMedia,
     [SET_APPLICATION_DATA] : setApplicationData,
+
   
     "default": () => {
       throw new Error(`Tried to reduce with unsupported action type: ${action.type}`)}

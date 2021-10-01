@@ -1,12 +1,16 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './SavedPlaylistsItem.scss'
 import ListGroup from 'react-bootstrap/ListGroup'
 
+function SavedPlaylistsItem({id, name, rating, thumbnail, setPlaylist }) {
 
-function SavedPlaylistsItem({id, name, rating, thumbnail, setPlaylistId }) {
+  //To forward user to room when Play Playlist button is clicked
+  let history = useHistory();
+  
   return (
 
-    <ListGroup.Item action variant="Primary" className='playlist__item' onClick={()=> setPlaylistId(id)}>
+    <ListGroup.Item action variant="Primary" className='playlist__item' onClick={()=> setPlaylist(id)}>
       <img
         className="playlist__image"
         src={thumbnail}
@@ -24,7 +28,7 @@ function SavedPlaylistsItem({id, name, rating, thumbnail, setPlaylistId }) {
         {rating}/10
       </div>
 
-      <button onClick={()=> console.log(`redirect to playlist ${id}`)}>PLAY</button>
+      <button onClick={()=> history.push("/room")}>Play Playlist</button>
      
     </ListGroup.Item>
     

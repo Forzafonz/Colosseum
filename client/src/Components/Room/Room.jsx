@@ -2,7 +2,7 @@ import './Room.scss';
 import Chat from './Chat/Chat';
 import Header from '../Header';
 import MediaPlayer from './MediaPlayer/MediaPlayer';
-import MediaQue from './MediaQueue/MediaQueue';
+// import MediaQue from './MediaQueue/MediaQueue';
 import React, { useReducer, useEffect, useState } from 'react';
 import Queue from './MediaQueue/Queue';
 
@@ -48,10 +48,6 @@ function NewRoom({state1, setPlayingMedia}) {
 
   const user_id = localStorage.getItem('user_id')
 
-  //TEMPORARY, WILL REFACTOR WITH useReducer
-  const [mediaList, setMediaList] = useState([])
-  const [media, setMedia] = useState('https://soundcloud.com/housemusicdj/lets-get-down-house-mix_0715')
-
   // Initilize io-socket connection (Required for synchronious updates)
   useEffect(() => {
     const socket = io('http://localhost:8000');
@@ -69,18 +65,18 @@ function NewRoom({state1, setPlayingMedia}) {
   
   },[])
 
-  //REFACTOR INTO ONE useEffect TO PULL ALL APP DATA FROM BACKEND
-  // On the first render pulls media data from the database;
-  useEffect(() => {
-    axios.get('/api/media')
-    .then((response) => {
+  // //REFACTOR INTO ONE useEffect TO PULL ALL APP DATA FROM BACKEND
+  // // On the first render pulls media data from the database;
+  // useEffect(() => {
+  //   axios.get('/api/media')
+  //   .then((response) => {
       
-      //Set media to the media in the db
-      setMediaList(response.data);
+  //     //Set media to the media in the db
+  //     setMediaList(response.data);
 
-    })
+  //   })
   
-  },[])
+  // },[])
 
   // Listen to any changes to connection and trigger dispatch if message type is "UPDATE CHAT"
   useEffect(() => {
@@ -111,7 +107,6 @@ function NewRoom({state1, setPlayingMedia}) {
       <main className="layout">
         <section className="media-and-chat">
           <MediaPlayer 
-          media = {media} 
           state = {state1}
           />
           <section className="chat-container">
@@ -127,7 +122,7 @@ function NewRoom({state1, setPlayingMedia}) {
         setMedia = {setMedia}
         mediaList = {mediaList} 
         /> */}
-        <Queue state = {state1} setPlayingMedia={setPlayingMedia} />
+        <Queue state1 = {state1} setPlayingMedia={setPlayingMedia} />
       </main>
     </div>
   );

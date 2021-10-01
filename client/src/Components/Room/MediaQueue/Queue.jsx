@@ -85,7 +85,7 @@ function reducer (state, action) {
 
 }
 
-function Queue({setPlayingMedia}) {
+function Queue({setPlayingMedia, state1}) {
 
   // const {
   //   setPlayingMedia
@@ -110,6 +110,13 @@ function Queue({setPlayingMedia}) {
     })
 
   }, []);
+
+
+
+
+  console.log("QUEUE STATE", state);
+
+  console.log("STATE1 QUEUE", state1);
 
 
   const refs = React.useMemo(
