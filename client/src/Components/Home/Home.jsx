@@ -5,7 +5,7 @@ import CurrentPlaylist from './CurrentPlaylist/CurrentPlaylist';
 import axios from 'axios';
 import NewPlaylist from './NewPlaylist/NewPlaylist';
 
-function Home({state, setPlaylist, setStale}) {
+function Home({state, setPlaylist, updatenewPlaylist, setStale}) {
 
   console.log("HOME STATE", state);
 
@@ -14,7 +14,7 @@ function Home({state, setPlaylist, setStale}) {
 
   //Triggers useEffect with new user (useEffect before would only run on initial page render)
   setStale(false);
-
+ 
   //Grabs whatever playlist is clicked on 
   const playlistId = state.current_playlist;
 
@@ -26,13 +26,12 @@ function Home({state, setPlaylist, setStale}) {
         <SavedPlaylists setPlaylist={setPlaylist} state={state}/>
       </section>
       <section className="new-playlist-container">
-        {/* NEW PLAYLIST ALSO GOES HERE */}
-        <CurrentPlaylist playlistId={playlistId} state={state}/>
-      </section>
-      {/* <section className="new-playlist-container">
 
-        <NewPlaylist/>
-      </section> */}
+        {!playlistId && <NewPlaylist updatenewPlaylist = {updatenewPlaylist} setPlaylist = {setPlaylist}/>} 
+        {playlistId && <CurrentPlaylist playlistId={playlistId} state={state}/>}
+        
+        </section>
+
 
 
     </div>

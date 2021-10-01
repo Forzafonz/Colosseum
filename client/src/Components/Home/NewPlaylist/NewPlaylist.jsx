@@ -3,12 +3,14 @@ import '../homestyle.scss';
 import Addeditems from './Addeditems';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
-function NewPlaylist() {
+function NewPlaylist({updatenewPlaylist, setPlaylist}) {
   const [name, setName] = useState(''); //Playlist name
   const [tnail, setTnail] = useState(''); //Playlist Thumbnail
   const [user, setUser] = useState(''); //User to be added to list
   const [udata, setUdata] = useState([]); //Array of objects to contain users data
+  const history = useHistory();
 
   const user_id = localStorage.getItem('user_id');
 
@@ -67,19 +69,30 @@ function NewPlaylist() {
       udata,
       user_id,
     };
-    axios
-      .put('http://localhost:8000/api/createplaylist', { data })
-      .then((res) => {
-        setName('');
-        setTnail('');
-        setUdata([]);
-        setUser('');
-        alert(
-          `Playlist created successfully. Link to playlist is http://localhost:3000/playlist/${res.data[0].url}`
-        );
-        console.log('```````res', res.data[0]);
-      })
-      .catch((error) => console.log(error.message));
+    // setPlaylist()
+    updatenewPlaylist(data);
+
+   
+      setName('');
+      setTnail('');
+      setUdata([]);
+      setUser('');
+      history.push("/room");
+      
+    
+    // axios
+    //   .put('http://localhost:8000/api/createplaylist', { data })
+    //   .then((res) => {
+    //     setName('');
+    //     setTnail('');
+    //     setUdata([]);
+    //     setUser('');
+    //     alert(
+    //       `Playlist created successfully. Link to playlist is http://localhost:3000/playlist/${res.data[0].url}`
+    //     );
+    //     console.log('```````res', res.data[0]);
+    //   })
+    //   .catch((error) => console.log(error.message));
   };
 
   return (

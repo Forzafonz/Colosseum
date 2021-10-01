@@ -124,7 +124,7 @@ const updateUserPlaylist = function (id, x) {
   const { user_id, udata } = x;
   return pool
     .query(
-      'INSERT INTO users_playlists(is_host, user_id, playlist_id) VALUES (true, $1, $2)', //updating host user
+      'INSERT INTO users_playlists(is_host, user_id, playlist_id, active) VALUES (true, $1, $2, true)', //updating host user
       [user_id, id]
     )
     .then(() => {
@@ -144,7 +144,7 @@ exports.updateUserPlaylist = updateUserPlaylist;
 
 //Searches for media and updates if doesnt exist. updates media and playlists_media tables--
 const searchmedia = function (data) {
-  const { url, category, playlist_id, desc } = data;
+  const { url, category, playlist_id, desc, thumbnail } = data;
   let req_id = '';
   const queryString = 'SELECT * FROM media where link LIKE $1';
   return pool
@@ -153,8 +153,8 @@ const searchmedia = function (data) {
       if (result.rows.length === 0) {
         console.log('Media not found');
         const qs1 =
-          'INSERT INTO media(link, category, description) VALUES ($1, $2, $3) RETURNING *';
-        return pool.query(qs1, [url, category, desc]).then((result2) => {
+          'INSERT INTO media(link, category, description, thumbnail) VALUES ($1, $2, $3, $4) RETURNING *';
+        return pool.query(qs1, [url, category, desc, thumbnail]).then((result2) => {
           console.log('Media added');
           req_id = result2.rows[0].id;
           const qs2 =
@@ -181,7 +181,7 @@ const searchmedia = function (data) {
           }
         });
       }
-    })
+    }).then(() => req_id)
     .catch((error) => console.log(error.message));
 };
 

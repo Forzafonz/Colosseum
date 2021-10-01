@@ -10,6 +10,7 @@ function SavedPlaylists({ setPlaylist, state }) {
   //Create array of components
   let savedPlaylists = playlistsArray.map( (playlist) => 
   <SavedPlaylistsItem
+    state = {state}
     id = {playlist.playlist.id}
     name = {playlist.playlist.name}
     rating = { playlist.playlist.rating}

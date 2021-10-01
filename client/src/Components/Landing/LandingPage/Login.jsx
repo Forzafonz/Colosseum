@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 import './login.scss'
 import {Button, Form, FloatingLabel, Alert} from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login({setPlaylist, setStale}) {

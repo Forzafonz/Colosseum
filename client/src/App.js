@@ -1,11 +1,10 @@
-import React, { useReducer, useEffect, useState } from 'react';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import React from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Room from './Components/Room/Room';
 import Header from './Components/Header';
 import Landing from './Components/Landing/Landing';
 import Home from './Components/Home/Home';
 import NewPlaylist from './Components/Home/NewPlaylist/NewPlaylist';
-import Mediaform from './Components/Room/Mediaform';
 import useApplicationData from './hooks/useApplicationData'
 
 function App() {
@@ -13,7 +12,10 @@ function App() {
   const {
     state,
     setPlayingMedia,
-    setPlaylist,
+    setPlaylist, 
+    addMediaToPlaylist,
+    removeMediaFromPlaylist,
+    updatenewPlaylist,
     setStale
   } = useApplicationData();
 
@@ -28,19 +30,29 @@ function App() {
 
         <Route path = "/home">
           <Header />
-          <Home state={state} setPlaylist={setPlaylist} setStale={setStale}/>
+          <Home 
+          state={state} 
+          setPlaylist={setPlaylist}
+          updatenewPlaylist = {updatenewPlaylist}
+          setStale={setStale} />
         </Route>
 
         <Route path = "/room">
           <Header />
-          <Room state1={state} setPlayingMedia={setPlayingMedia}/>
+          <Room state1={state} 
+          setPlayingMedia={setPlayingMedia}
+          addMediaToPlaylist = {addMediaToPlaylist}
+          removeMediaFromPlaylist = {removeMediaFromPlaylist}
+          />
         </Route>
         <Route path = "/createplaylist">
-          <NewPlaylist/>
+          <NewPlaylist
+          updatenewPlaylist = {updatenewPlaylist}
+          />
         </Route>
 
         <Route path = "/playlist/:url">
-          <Mediaform/>
+          {/* <Mediaform/> */}
         </Route>
        
         <Route path = "/">
@@ -57,4 +69,4 @@ function App() {
   )
 }
 
-export default App;
+export default App; 

@@ -1,5 +1,5 @@
-import React, { useReducer, useEffect, useState } from 'react';
-import MainLanding from './LandingPage/MainLanding';
+import React from 'react';
+// import MainLanding from './LandingPage/MainLanding';
 import Login from './LandingPage/Login';
 
 
