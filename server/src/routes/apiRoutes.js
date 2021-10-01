@@ -8,8 +8,12 @@ const {
   updateUserPlaylist,
   searchmedia,
   getPlaylists,
-  getNewPlaylist
+  getNewPlaylist,
 } = require('../db/rundb/api_queries');
+
+const {
+  getMediaWithMediaIDandUserID
+} = require('../db/rundb/api_room_routes')
 
 // Define a function which will mount router that was passed to it to specified paths.
 // Add text function is required here to update all clients semulteneosly using socket.io
@@ -59,10 +63,15 @@ module.exports = function(router, addText) {
   //Route to add new media to new playlist --
   router.put('/addmedia', (req,res) => {
     //searches for media and updates 2 tables
+    const playlist_id = req.body.data.playlist_id;
     searchmedia(req.body.data)
-    .then((response) => {
-      res.status(200).json({c:'Hello'});
-
+    .then((media_id) => {
+    getMediaWithMediaIDandUserID(playlist_id, media_id)
+    .then((media) =>{
+      res
+      .status(200)
+      .json(media);
+    })
     })
   })
 

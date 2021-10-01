@@ -5,6 +5,7 @@ import MediaPlayer from './MediaPlayer/MediaPlayer';
 import MediaQue from './MediaQueue/MediaQueue';
 import React, { useReducer, useEffect, useState } from 'react';
 import Queue from './MediaQueue/Queue';
+import Mediaform from './Mediaform/Mediaform';
 
 import axios from 'axios';
 import { io } from "socket.io-client"
@@ -41,16 +42,38 @@ function reducer(state, action){
 
 }
 
-function NewRoom({state1, setPlayingMedia}) {
+function NewRoom({state1, setPlayingMedia, addMediaToPlaylist}) {
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
+  const [empty, setEmpty] = useState(true)
 
   const user_id = localStorage.getItem('user_id')
 
   //TEMPORARY, WILL REFACTOR WITH useReducer
   const [mediaList, setMediaList] = useState([])
   const [media, setMedia] = useState('https://soundcloud.com/housemusicdj/lets-get-down-house-mix_0715')
+
+
+  //This useEffect checks if current playlist is empty, and if so, it sets "empty" state to true, esle it sets it to false;
+
+  useEffect(()=>{
+
+    let currentPlaylist = state1.current_playlist;
+    
+    // REMOVE ONCE currentPlaylist is utilized in other components
+    if (!currentPlaylist) {
+      currentPlaylist = 6;
+    }
+    // REMOVE ALL ABOVE THIS LINE ONLY
+
+    if (Object.keys(state1.playlists_for_user).length){
+      if (Object.keys(state1.playlists_for_user[currentPlaylist]['media']).length) {
+        setEmpty(false)
+      }
+    }
+      
+  }, [state1])
 
   // Initilize io-socket connection (Required for synchronious updates)
   useEffect(() => {
@@ -110,10 +133,13 @@ function NewRoom({state1, setPlayingMedia}) {
       {/* <Header /> */}
       <main className="layout">
         <section className="media-and-chat">
-          <MediaPlayer 
+          {!empty ? <MediaPlayer 
           media = {media} 
           state = {state1}
-          />
+          /> : 
+          <Mediaform
+            addMediaToPlaylist = {addMediaToPlaylist}
+          />}
           <section className="chat-container">
           {/* //Create a chat component and pass two props: 
           addMessage and the entire state */}
@@ -127,7 +153,9 @@ function NewRoom({state1, setPlayingMedia}) {
         setMedia = {setMedia}
         mediaList = {mediaList} 
         /> */}
-        <Queue state = {state1} setPlayingMedia={setPlayingMedia} />
+        <Queue 
+          state1 = {state1} 
+          setPlayingMedia={setPlayingMedia} />
       </main>
     </div>
   );

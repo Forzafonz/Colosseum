@@ -5,7 +5,6 @@ import Header from './Components/Header';
 import Landing from './Components/Landing/Landing';
 import Home from './Components/Home/Home';
 import NewPlaylist from './Components/Home/NewPlaylist/NewPlaylist';
-import Mediaform from './Components/Room/Mediaform';
 import useApplicationData from './hooks/useApplicationData'
 
 function App() {
@@ -13,7 +12,9 @@ function App() {
   const {
     state,
     setPlayingMedia,
-    setPlaylist
+    setPlaylist, 
+    addMediaToPlaylist,
+    updatenewPlaylist
   } = useApplicationData();
 
   return (
@@ -27,19 +28,26 @@ function App() {
 
         <Route path = "/home">
           <Header />
-          <Home />
+          <Home state={state} 
+          setPlaylist={setPlaylist}
+          updatenewPlaylist = {updatenewPlaylist} />
         </Route>
 
         <Route path = "/room">
           <Header />
-          <Room state1={state} setPlayingMedia={setPlayingMedia}/>
+          <Room state1={state} 
+          setPlayingMedia={setPlayingMedia}
+          addMediaToPlaylist = {addMediaToPlaylist}
+          />
         </Route>
         <Route path = "/createplaylist">
-          <NewPlaylist/>
+          <NewPlaylist
+          updatenewPlaylist = {updatenewPlaylist}
+          />
         </Route>
 
         <Route path = "/playlist/:url">
-          <Mediaform/>
+          {/* <Mediaform/> */}
         </Route>
        
         <Route path = "/">

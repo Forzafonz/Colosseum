@@ -23,8 +23,8 @@ INSERT INTO playlists( name , rating, thumbnail, queue, url)
             ('Spooky movies', 5,'https://media1.popsugar-assets.com/files/thumbor/wNhs3Orm_ob0T6fsFhqfRgMRCEw/1346x474:4298x3426/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/10/31/972/n/1922283/b80874af5dbb5e357a48b0.76757692_/i/Best-Young-Music-Artists-2019.jpg' , false,'wZz8ZAu2Zwa1txa'),
             ('Summer music', 4,'https://www.grammy.com/sites/com/files/styles/news_detail_header/public/gettyimages-1014868608.jpg?itok=eLyDCDbM' , false,'a7ZPtt7n1e8KZxn'),
             ('LHL Lectures', 5,'https://i.insider.com/5b21452f1ae6623b008b5306?width=750&format=jpeg&auto=webp' , false,'pAZ9el1ZF3GG37P'),
-            ('Study music', 4,'https://www.liveabout.com/thmb/CXNryNO4dxhyT13v41hVmKXHq1Q=/3000x2000/filters:no_upscale():max_bytes(150000):strip_icc()/weeknd-56a96cf75f9b58b7d0fb536c.jpg' , false, '7tFP23ptPPA3eau');
-
+            ('Study music', 4,'https://www.liveabout.com/thmb/CXNryNO4dxhyT13v41hVmKXHq1Q=/3000x2000/filters:no_upscale():max_bytes(150000):strip_icc()/weeknd-56a96cf75f9b58b7d0fb536c.jpg' , false, '7tFP23ptPPA3eau'),
+            ('Test for newForm', 4,'https://www.liveabout.com/thmb/CXNryNO4dxhyT13v41hVmKXHq1Q=/3000x2000/filters:no_upscale():max_bytes(150000):strip_icc()/weeknd-56a96cf75f9b58b7d0fb536c.jpg' , false, '7tFP23ptPPA3eau');
 INSERT INTO media (link, category, thumbnail, description)
             VALUES('https://www.youtube.com/watch?v=IfFhU3edLk4', 'video', 'https://images-prod.healthline.com/hlcmsresource/images/Dog-Breeds-Health-Problems/3180-Pug_green_grass-1284x400-BANNER10.jpg', 'Media 1'),
             ('https://www.youtube.com/watch?v=dwDns8x3Jb4', 'video', 'https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGRvZ3N8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80', 'Media 2'),
@@ -38,7 +38,7 @@ INSERT INTO media (link, category, thumbnail, description)
             ( 'https://www.youtube.com/watch?v=h4UqMyldS7Q', 'video', 't', 'Media 10');
 
 INSERT INTO users_playlists (is_host, user_id, playlist_id, active)
-            VALUES(true, 1 , 1, true),
+            VALUES(true, 1 , 1, false),
             (false, 2 , 1, true),
             (false, 3 , 1, true),
             (false, 4 , 1, true),
@@ -47,6 +47,7 @@ INSERT INTO users_playlists (is_host, user_id, playlist_id, active)
             (false, 3 , 2, false),
             (false, 4 , 2, false),
             (false, 1 , 3, false),
+            (true, 1 , 6, true),
             (false, 2 , 3, false);
 
 INSERT INTO playlists_media (media_rating, play_order, played_already, played_length, media_id, playlist_id)

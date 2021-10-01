@@ -14,6 +14,7 @@ const resetRoute = require("./routes/resetRoutes")
 const loginRegisterRoutes = require("./routes/loginRegisterRoutes")
 const homeRoutes = require("./routes/homeRoutes")
 const roomRoutes = require("./routes/roomRoutes")
+const youtubeRoutes = require("./routes/youtubeApi")
 
 //Middleware assinged
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +35,8 @@ const loginRegisterRouter = express.Router();
 const homeRouter = express.Router();
 // A router for room page requests
 const roomRouter = express.Router();
+// A router for room page requests
+const youtubeRouter = express.Router();
 
 module.exports = function application( actions = { addText: () => {} } ) {
   //Enable cors on the server
@@ -42,10 +45,12 @@ module.exports = function application( actions = { addText: () => {} } ) {
   loginRegisterRoutes(loginRegisterRouter);
   homeRoutes(homeRouter);
   roomRoutes(roomRouter);
+  youtubeRoutes(youtubeRouter);
 
   // Mount apiRouter to specified routes in the routes/apiRouters.js file and pass addText function which was declared in the index.js
   apiRoutes(apiRouter, actions.addText);
   app.use("/api/login", loginRegisterRouter)
+  app.use("/api/youtube", youtubeRouter)
   app.use("/reset", resetRouter)
   app.use("/api/home", homeRouter)
   app.use("/api/room", roomRouter)
