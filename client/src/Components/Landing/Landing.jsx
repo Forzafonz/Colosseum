@@ -3,13 +3,13 @@ import React from 'react';
 import Login from './LandingPage/Login';
 
 
-function Landing() {
+function Landing({setStale, setPlaylist}) {
 
   const mode = 1;
 
   return (
     <>
-    <Login />
+    <Login setStale={setStale} setPlaylist={setPlaylist}/>
     {/* {!mode && <Login />}
     {mode && <div> LANDING PAGE! </div>} */}
     </>

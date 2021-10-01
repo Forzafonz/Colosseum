@@ -62,9 +62,14 @@ const reducer = function (state, action) {
 
   const addMediaToPlaylist = () => {
 
+    
     const newMedia = action.values.media
     const playlist_id = action.values.playlist_id
     const updatedState = {...state}
+
+    console.log("UPDATED Addmedia state", updatedState);
+    console.log("UPDATED Addmedia plylistID", playlist_id);
+
     const media_for_playlist = updatedState.playlists_for_user[playlist_id].media
     const updated_playlists_for_user = 
     {...updatedState.playlists_for_user, [playlist_id]:{playlist:{}, media:{...media_for_playlist, [newMedia.id] : newMedia}}}
@@ -100,7 +105,7 @@ const updatenewPlaylist = () => {
   const newPlaylist_id = action.values.playlist_id;
   const updatedState = {...state}
     const updated_playlists_for_user = 
-    {...updatedState.playlists_for_user, [newPlaylist_id]:{playlist:{}, media:{}}}
+    {...updatedState.playlists_for_user, [newPlaylist_id]:{playlist:{id: newPlaylist_id}, media:{}}}
     const newState = {...state, playlists_for_user:updated_playlists_for_user, current_playlist: newPlaylist_id}
     // const setPlaylistState = {...newState, }
     console.log("=====>newstate", newState);

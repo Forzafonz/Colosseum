@@ -18,9 +18,7 @@ function Mediaform({state, addMediaToPlaylist}) {
 
   // UPDATE INITIAL STATE ONCE FIXED CURRENT INITIAL STATE FOR TEST ONLY
   const [playlistName, setPlaylistName] = useState(state.current_playlist); 
-  // UPDATE INITIAL STATE ONCE FIXED CURRENT INITIAL STATE FOR TEST ONLY
-  const [currentplaylist_id, setCurrentplaylistId] = useState(state.current_playlist);
-
+  
   //Gets playlist data from url
   // useEffect(() => {
   //   const data = params.url;
@@ -45,10 +43,11 @@ function Mediaform({state, addMediaToPlaylist}) {
     return result;
     
   }
-
+  
   useEffect(() => {
     setPlaylistName(state.current_playlist)
   }, [state])
+
   //To add media to playlist
   const addMedia = () => {
 
@@ -74,17 +73,12 @@ function Mediaform({state, addMediaToPlaylist}) {
         const image = getThumbnail(url);
         submitMedia({url, desc, image})
      }
-
-    // axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
-    //   alert('Playlist updated');
-    //   setUrl('');
-    //   setDesc('');
-    // });
+     
   };
 
   const submitMedia = ({url, desc, image}) => {
 
-    const playlist_id = currentplaylist_id;
+    const playlist_id = state.current_playlist;
     const data = {
       url,
       category,
@@ -92,6 +86,8 @@ function Mediaform({state, addMediaToPlaylist}) {
       desc,
       thumbnail : image
     };
+
+    console.log("SUBMIT MEDIA DATA:",data);
     addMediaToPlaylist(data)
     setUrl('');
     setDesc('');

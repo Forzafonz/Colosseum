@@ -48,21 +48,14 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
 
   const user_id = localStorage.getItem('user_id')
 
-  //TEMPORARY, WILL REFACTOR WITH useReducer
-  const [mediaList, setMediaList] = useState([])
-  const [media, setMedia] = useState('https://soundcloud.com/housemusicdj/lets-get-down-house-mix_0715')
-
 
   //This useEffect checks if current playlist is empty, and if so, it sets "empty" state to true, esle it sets it to false;
-
   useEffect(()=>{
 
     let currentPlaylist = state1.current_playlist;
     
-    // REMOVE ONCE currentPlaylist is utilized in other components
     if (currentPlaylist) {
-      // REMOVE ALL ABOVE THIS LINE ONLY
-      console.log("HERE IS THE REUSUT:", state1, currentPlaylist)
+
       if (Object.keys(state1.playlists_for_user).length){
         if (Object.keys(state1.playlists_for_user[currentPlaylist]['media']).length) {
           setEmpty(false)
@@ -88,18 +81,18 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
   
   },[])
 
-  //REFACTOR INTO ONE useEffect TO PULL ALL APP DATA FROM BACKEND
-  // On the first render pulls media data from the database;
-  useEffect(() => {
-    axios.get('/api/media')
-    .then((response) => {
+  // //REFACTOR INTO ONE useEffect TO PULL ALL APP DATA FROM BACKEND
+  // // On the first render pulls media data from the database;
+  // useEffect(() => {
+  //   axios.get('/api/media')
+  //   .then((response) => {
       
-      //Set media to the media in the db
-      setMediaList(response.data);
+  //     //Set media to the media in the db
+  //     setMediaList(response.data);
 
-    })
+  //   })
   
-  },[])
+  // },[])
 
   // Listen to any changes to connection and trigger dispatch if message type is "UPDATE CHAT"
   useEffect(() => {
@@ -129,14 +122,9 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
       {/* <Header /> */}
       <main className="layout">
         <section className="media-and-chat">
-          {!empty ? <MediaPlayer 
-          media = {media} 
-          state = {state1}
-          /> : 
-          <Mediaform
-            addMediaToPlaylist = {addMediaToPlaylist}
-            state = {state1}
-          />}
+          {!empty ? 
+          <MediaPlayer  state = {state1} /> : 
+          <Mediaform addMediaToPlaylist = {addMediaToPlaylist} state = {state1} />}
           <section className="chat-container">
           {/* //Create a chat component and pass two props: 
           addMessage and the entire state */}
@@ -146,10 +134,6 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
             />
           </section>
         </section>
-        {/* <MediaQue 
-        setMedia = {setMedia}
-        mediaList = {mediaList} 
-        /> */}
         <Queue
           setEmpty = {setEmpty} 
           state1 = {state1} 

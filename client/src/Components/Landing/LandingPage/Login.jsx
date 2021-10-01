@@ -4,13 +4,17 @@ import {Button, Form, FloatingLabel, Alert} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Login() {
+export default function Login({setPlaylist, setStale}) {
   const password = useRef();
   const login = useRef();
   const history = useHistory();
   const [show, setShow] = useState(false);
 
+  
+
   //const cat = localStorage.getItem('myCat');
+
+  const userId = localStorage.user_id;
 
   const submitHandler = (event) =>{
     event.preventDefault();
@@ -20,6 +24,8 @@ export default function Login() {
       localStorage.setItem('user_id', response.data.id);
       localStorage.setItem('user_avatar', response.data.avatar);
       localStorage.setItem('user_username', response.data.username);
+      setStale(true);
+      setPlaylist(null);
       history.push('/home')
     })
     .catch((error) => {
@@ -38,6 +44,7 @@ export default function Login() {
     <>
     <div className = "form">
     <div className = "header">
+      LOGGED IN USER: {userId}
       <div className = "close-button" onClick = {cancelHandler}><div>✕</div></div>
     </div>
     <Form className = "form-main">

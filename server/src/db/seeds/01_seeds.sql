@@ -40,14 +40,14 @@ INSERT INTO media (link, category, thumbnail, description)
 INSERT INTO users_playlists (is_host, user_id, playlist_id, active)
             VALUES(true, 1 , 1, false),
             (false, 2 , 1, false),
-            (false, 3 , 1, true),
-            (false, 4 , 1, true),
+            (false, 3 , 1, false),
+            (false, 4 , 1, false),
             (false, 1 , 2, false),
             (true, 2 , 2, false),
             (false, 3 , 2, false),
             (false, 4 , 2, false),
             (false, 1 , 3, false),
-            (true, 1 , 6, true),
+            (true, 1 , 6, false),
             (false, 2 , 3, false);
 
 INSERT INTO playlists_media (media_rating, play_order, played_already, played_length, media_id, playlist_id)

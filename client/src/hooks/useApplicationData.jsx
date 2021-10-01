@@ -1,4 +1,4 @@
-import {useEffect, useReducer} from 'react';
+import {useEffect, useReducer, useState} from 'react';
 import reducer, { 
   SET_APPLICATION_DATA, 
   SET_PLAYLIST, 
@@ -15,11 +15,13 @@ export default function useApplicationData(initial) {
                       //  current_media:  link
                       // }
 
-   //state Object new =====> { playlists_for_user : {playlists id 1: {playlist : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}, 
-                                                 // {playlists id 2: {playlist : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}...} 
-                          //  current_playlist: playlist_id,
-                          //  current_media:  link
+   //state Object new =====> { playlists_for_user :   {playlists id 1: {playlist : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}, 
+                                                 //   {playlists id 2: {playlist : { all playlist details }, media :{ media_id 1: {media details}, media_id 2: {media details} ...}}...} 
+                          //      current_playlist:   playlist_id,
+                          //         current_media:   link
                           // }
+
+  const userId = localStorage.getItem("user_id");
 
   const initialState = { 
     playlists_for_user: {},
@@ -29,7 +31,10 @@ export default function useApplicationData(initial) {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const userId = localStorage.getItem("user_id");
+  const [stale, setStale] = useState(false);
+
+
+  // useLayoutEffect?
 
   // Called on initial launch to retrieve information from the database
   useEffect(() => {
@@ -48,10 +53,10 @@ export default function useApplicationData(initial) {
         dispatch({ type: SET_APPLICATION_DATA, values : { userPlaylists: userPlaylists.data ? userPlaylists.data : [] , 
             userMedias: userMedias.data ? userMedias.data : [], 
             current_playlist: activePlaylist.data ?  activePlaylist.data : null} })
+        setStale(false);
       }
     )
-  }, []);
-
+  }, [stale]);
 
   const setPlaylist = (playlistId) => {
     dispatch({ type: SET_PLAYLIST, values: playlistId })
@@ -59,9 +64,11 @@ export default function useApplicationData(initial) {
 
   const setPlayingMedia = (mediaId) => {
     dispatch({ type: SET_PLAYING_MEDIA, values: mediaId })
+    axios.put(`/api/home/${userId}/playlists/${state.current_playlist}/active`)
   };
 
   const addMediaToPlaylist = (data) =>{
+    console.log("DAATAAAAAA", data);
     axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
       console.log("This is data!", res.data)
       dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : res.data, playlist_id: data.playlist_id}})
@@ -85,6 +92,9 @@ export default function useApplicationData(initial) {
 
   const updatenewPlaylist = (data) => {
     let newURL ="";
+
+
+
     axios
     .put('http://localhost:8000/api/createplaylist', { data })
     .then((res) => {
@@ -98,7 +108,6 @@ export default function useApplicationData(initial) {
     });
   }
 
-
   //Passed to App.js and passed down to each component from there
-  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist, removeMediaFromPlaylist }
+  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist, removeMediaFromPlaylist, setStale }
 }

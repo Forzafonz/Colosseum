@@ -1,32 +1,64 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './SavedPlaylistsItem.scss'
 import ListGroup from 'react-bootstrap/ListGroup'
 
+function SavedPlaylistsItem({state, id, name, rating, thumbnail, setPlaylist, setPlayingMedia }) {
 
-function SavedPlaylistsItem({id, name, rating, thumbnail, setPlaylistId }) {
+  //To forward user to room when Play Playlist button is clicked
+  let history = useHistory();
+
+  //Enables toggle on playlist to show songs or new playlist form
+  const changePlaylistId = (id) => {
+
+    if (state.current_playlist) {
+      setPlaylist(null);
+    } else {
+      setPlaylist(id);
+    } 
+
+  }
+
+  //When play is pressed, it updates the states current_media to first media in media object
+  // for the selected playlist and redirects to room
+  const playPlaylist = (id) => {
+
+    const mediaKeys = state.playlists_for_user[id].media;
+
+    const firstMediaObject = mediaKeys[Object.keys(mediaKeys)[0]];
+
+    setPlayingMedia(firstMediaObject.link);
+
+    history.push("/room")
+
+  }
+
+  
   return (
 
-    <ListGroup.Item action variant="Primary" className='playlist__item' onClick={()=> setPlaylistId(id)}>
-      <img
-        className="playlist__image"
-        src={thumbnail}
-        size
-      />
-      <div>
-        playlist id: {id}  
-      </div>
+    <>
+      <ListGroup.Item action variant="Primary" className='playlist__item' onClick={()=> changePlaylistId(id)}>
+        <img
+          className="playlist__image"
+          src={thumbnail}
+          size
+        />
+        <div>
+          playlist id: {id}  
+        </div>
 
-      <div>
-        {name}
-      </div>
+        <div>
+          {name}
+        </div>
 
-      <div>
-        {rating}/10
-      </div>
+        <div>
+          {rating}/10
+        </div>
 
-      <button onClick={()=> console.log(`redirect to playlist ${id}`)}>PLAY</button>
-     
-    </ListGroup.Item>
+      
+      </ListGroup.Item>
+      {state.current_playlist === id && <button onClick={()=> playPlaylist(id)}>Play Playlist</button> }
+    </>
     
   )
 }

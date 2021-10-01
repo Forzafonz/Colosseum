@@ -15,7 +15,8 @@ function App() {
     setPlaylist, 
     addMediaToPlaylist,
     removeMediaFromPlaylist,
-    updatenewPlaylist
+    updatenewPlaylist,
+    setStale
   } = useApplicationData();
 
   return (
@@ -29,9 +30,13 @@ function App() {
 
         <Route path = "/home">
           <Header />
-          <Home state={state} 
+          <Home 
+          state={state} 
           setPlaylist={setPlaylist}
-          updatenewPlaylist = {updatenewPlaylist} />
+          updatenewPlaylist = {updatenewPlaylist}
+          setStale={setStale}
+          setPlayingMedia={setPlayingMedia}
+          />
         </Route>
 
         <Route path = "/room">
@@ -53,7 +58,7 @@ function App() {
         </Route>
        
         <Route path = "/">
-         <Landing />
+         <Landing setStale={setStale} setPlaylist={setPlaylist} />
         </Route>
       </Switch>
     

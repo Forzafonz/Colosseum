@@ -5,8 +5,6 @@ import ContainerItem from './ContainerItem';
 import NewMessage from './NewMessage';
 import axios from 'axios';
 
-
-
 const REMOVE = 'remove'
 const ADD = "modify"
 const ADDNEW = 'ADDNEW'
@@ -107,6 +105,13 @@ function Queue({state1, setPlayingMedia, setEmpty, removeMediaFromPlaylist}) {
     }
       
   }, [state1]);
+
+
+
+
+  console.log("QUEUE STATE", state);
+
+  console.log("STATE1 QUEUE", state1);
 
 
   const refs = React.useMemo(
