@@ -1,5 +1,5 @@
-import React, { useReducer, useEffect, useState } from 'react';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import React from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Room from './Components/Room/Room';
 import Header from './Components/Header';
 import Landing from './Components/Landing/Landing';
@@ -13,7 +13,8 @@ function App() {
     state,
     setPlayingMedia,
     setPlaylist, 
-    addMediaToPlaylist
+    addMediaToPlaylist,
+    removeMediaFromPlaylist
   } = useApplicationData();
 
   return (
@@ -36,6 +37,7 @@ function App() {
           <Room state1={state} 
           setPlayingMedia={setPlayingMedia}
           addMediaToPlaylist = {addMediaToPlaylist}
+          removeMediaFromPlaylist = {removeMediaFromPlaylist}
           />
         </Route>
         <Route path = "/createplaylist">

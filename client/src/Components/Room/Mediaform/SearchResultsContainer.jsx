@@ -3,7 +3,6 @@ import {Navbar, Container, Row, Col} from 'react-bootstrap';
 import SearchResultsItem from "./SearchResultsItem"
 
 export default function SearchResultsContainer({searchResults, submitMedia}) {
-  console.log("THIS IS SEACRH RESULTS:", searchResults)
 
   const results = Object.keys(searchResults).map(resultKey => {
 

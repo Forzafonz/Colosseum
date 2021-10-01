@@ -12,7 +12,7 @@ export default function SearchResultsItem({link, thumbnail, title, description, 
     <div className = "search-result-item">
       <Button variant="success" onClick = {clickHandler}>SELECT!!!!!!</Button>
       <div>{link}</div>
-      <div><img src = {thumbnail.url} /></div>
+      <div><img src = {thumbnail.url} alt = "thumbnail"/></div>
       <div>{title}</div>
       <div>{description}</div>
     </div>

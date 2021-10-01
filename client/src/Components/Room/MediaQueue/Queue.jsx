@@ -26,9 +26,9 @@ function reducer (state, action) {
 
   const remove = (input) => {
     
-    const { id } = input.values;
+    const { media_id } = input.values;
     const newState = {...state};
-    delete newState[id];
+    delete newState[media_id];
     return newState;
 
   }
@@ -57,12 +57,13 @@ function reducer (state, action) {
   
   const initialize = (input) => {
 
-    const updatedState = {...state};
+    const updatedState = {...state, ...input.values};
+      console.log("input.value", input.values)
+    // input.values.forEach(media => {
+    //   updatedState[media.id] = {...media};
+    // })
 
-    input.values.forEach(media => {
-      updatedState[media.id] = {...media};
-    })
-
+    console.log("updated state", updatedState)
     return updatedState;
     
   }
@@ -83,7 +84,7 @@ function reducer (state, action) {
 
 }
 
-function Queue({state1, setPlayingMedia}) {
+function Queue({state1, setPlayingMedia, setEmpty, removeMediaFromPlaylist}) {
 
   // const {
   //   setPlayingMedia
@@ -91,7 +92,7 @@ function Queue({state1, setPlayingMedia}) {
 
 
   //The 0 key is the + button. Want to display it last after all playlist media (1000 is arbitrary high number)
-  const initialState = {0: {play_order: 1000, id: 0}};
+  const initialState = {0: {play_order: 1000, media_id: 0}};
    
   const [state, dispatch] = useReducer(reducer, initialState)
   //ItemsRef return array of currents, like that: {current: [{current: ref}, {current: ref}]}
@@ -100,14 +101,12 @@ function Queue({state1, setPlayingMedia}) {
 
   //Initialize data in state (Grab media from api on page load)
   useEffect(() => {
-
-    axios.get(`api/room/${userId}/activeplaylist/media`)
-    .then((response) => {
-     
-      dispatch({ type: INITIALIZE, values: response.data })
-    })
-
-  }, [state1['playlists_for_user']]);
+    console.log("I RUUUUUUUUUUUUN")
+    if(Object.keys(state1.playlists_for_user).length) {
+        dispatch({ type: INITIALIZE, values: state1.playlists_for_user[state1.current_playlist ? state1.current_playlist : 6]['media'] })
+    }
+      
+  }, [state1]);
 
 
   const refs = React.useMemo(
@@ -123,7 +122,8 @@ function Queue({state1, setPlayingMedia}) {
     if (container === "0") {
       return <NewMessage 
       ref = {refs[i]} 
-      id = {container} 
+      setEmpty = {setEmpty}
+      media_id = {container} 
       key = {container}/>
     }
     return <ContainerItem
@@ -132,14 +132,13 @@ function Queue({state1, setPlayingMedia}) {
     {...state[container]}
     dispatch = {dispatch}
     setPlayingMedia = {setPlayingMedia}
+    removeMediaFromPlaylist = {removeMediaFromPlaylist}
     />
-
   });
 
   containers.sort((firstEl, secondEl) => { 
-
-    const firstId = firstEl.props.id;
-    const secondId = secondEl.props.id;
+    const firstId = firstEl.props.media_id;
+    const secondId = secondEl.props.media_id;
     const firstElPlayOrder = Number(state[firstId].play_order);
     const secondElPlayOrder = Number(state[secondId].play_order);
    

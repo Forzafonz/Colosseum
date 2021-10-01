@@ -3,12 +3,16 @@ import './ContainerItem.scss'
 
 const ContainerItem = React.forwardRef((props, ref) => {
 
-  const {id, dispatch, play_order, thumbnail, description, media_rating, setPlayingMedia, link} = props;
+  const {id, dispatch, thumbnail, media_rating, setPlayingMedia, link, removeMediaFromPlaylist, media_id} = props;
 
   const addLike = () => {
     dispatch({ type: "LIKE", values : {id}})
   }
 
+  const deleteFromQueue = () => {
+    removeMediaFromPlaylist(media_id)
+    dispatch({ type: "remove" , values: {media_id}})
+  }
 
 
   return (
@@ -16,12 +20,12 @@ const ContainerItem = React.forwardRef((props, ref) => {
     <div className= "pillar">
     <div
       id = {id} className = "main-block" ref = {ref}>
-      <div className = "remove-button" onClick = {() => dispatch({ type: "remove" , values: {id}})}>✕</div>
+      <div className = "remove-button" onClick = {() => deleteFromQueue()}>✕</div>
       <span className = "likes-dislikes">
-        <div className = "social-button social-likes" onClick = {() => addLike()}>  {media_rating}/10</div>
+        <div className = "social-button social-likes" onClick = {() => addLike()}> {media_rating}/10</div>
       </span>
       <div>
-        {description}
+        {/* {description} */}
       </div>
       <div>
         <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(link)}/>
