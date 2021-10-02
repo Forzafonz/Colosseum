@@ -30,7 +30,9 @@ function App() {
       <Switch>        
 
         <Route path = "/home">
-          <Header />
+          <Header 
+          setPlaylist={setPlaylist}
+          />
           <Home 
           state={state} 
           setPlaylist={setPlaylist}
@@ -41,7 +43,9 @@ function App() {
         </Route>
 
         <Route path = "/room">
-          <Header />
+          <Header
+          setPlaylist={setPlaylist} 
+          />
           <Room state1={state} 
           setPlayingMedia={setPlayingMedia}
           addMediaToPlaylist = {addMediaToPlaylist}

@@ -17,18 +17,20 @@ function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}
  
   //Grabs whatever playlist is clicked on 
   const playlistId = state.current_playlist;
+  const [clicked, setClicked] = useState(false)
+
 
   return (
 
     <div className="home">
       <section className="saved-playlists-container">
         CURRENT USER ID LOGGED IN: {userId}
-        <SavedPlaylists setPlaylist={setPlaylist} state={state} setPlayingMedia={setPlayingMedia}/>
+        <SavedPlaylists setPlaylist={setPlaylist} state={state} setPlayingMedia={setPlayingMedia} setClicked = {setClicked} clicked = {clicked}/>
       </section>
       <section className="new-playlist-container">
 
-        {!playlistId && <NewPlaylist updatenewPlaylist = {updatenewPlaylist} setPlaylist = {setPlaylist}/>} 
-        {playlistId && <CurrentPlaylist playlistId={playlistId} state={state}/>}
+        {!clicked && <NewPlaylist updatenewPlaylist = {updatenewPlaylist} setPlaylist = {setPlaylist}/>} 
+        {clicked && <CurrentPlaylist playlistId={playlistId} state={state}/>}
         
         </section>
 
