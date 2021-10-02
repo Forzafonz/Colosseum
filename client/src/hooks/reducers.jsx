@@ -73,6 +73,7 @@ const reducer = function (state, action) {
   //Function to set current media
   const setPlayingMedia = () => {
 
+    console.log("ID in set Playlign Media", action)
     if (action.values.media) {
       return {...state, current_media: action.values.media }    
     } else {
@@ -84,7 +85,6 @@ const reducer = function (state, action) {
 
       if (Object.keys(state.playlists_for_user[action.values.playlist_id].media).length) {
 
-        
         Object.keys(mediaForPlaylisObject).map((mediaKey) => {
           
           if (mediaForPlaylisObject[mediaKey].play_order < min_play_order) {
@@ -116,8 +116,10 @@ const reducer = function (state, action) {
     console.log("UPDATED Addmedia plylistID", playlist_id);
 
     const media_for_playlist = updatedState.playlists_for_user[playlist_id].media
+
     const updated_playlists_for_user = 
-    {...updatedState.playlists_for_user, [playlist_id]:{playlist:{}, media:{...media_for_playlist, [newMedia.id] : newMedia}}}
+    {...updatedState.playlists_for_user, [playlist_id]:{playlist:{...updatedState.playlists_for_user[playlist_id].playlist}, 
+    media:{...media_for_playlist, [newMedia.id] : newMedia}}}
     const newState = {...state, playlists_for_user:updated_playlists_for_user}
     return newState;
   }

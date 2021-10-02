@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import SearchResultsContainer from './SearchResultsContainer';
 
 
-function Mediaform({state, addMediaToPlaylist}) {
+function Mediaform({state, addMediaToPlaylist, setEmpty}) {
   console.log("STATE HERE", state)
   const params = useParams();
   const [url, setUrl] = useState(''); //url to be added to playlist
@@ -71,9 +71,16 @@ function Mediaform({state, addMediaToPlaylist}) {
         //  do something
      } else {
         const image = getThumbnail(url);
-        submitMedia({url, desc, image})
+        if (desc) {
+          submitMedia({ url, desc, image });
+        } else {
+          let urlstring = 'https://noembed.com/embed?url=' + url;
+          axios.get(urlstring).then((res) => {
+            const desc = res.data.title;
+            submitMedia({ url, desc, image });
+          });
+        }
      }
-     
   };
 
   const submitMedia = ({url, desc, image}) => {
@@ -91,6 +98,7 @@ function Mediaform({state, addMediaToPlaylist}) {
     addMediaToPlaylist(data)
     setUrl('');
     setDesc('');
+    setEmpty(false);
     alert('Playlist updated');
 
   }
