@@ -5,6 +5,7 @@ const ADD_MEDIA_TO_PLAYLIST = "ADD_MEDIA_TO_PLAYLIST";
 const REMOVE_MEDIA_FROM_PLAYLIST = "REMOVE_MEDIA_FROM_PLAYLIST";
 const UPDATE_NEW_PLAYLIST = "UPDATE_NEW_PLAYLIST";
 const SET_NEXT_MEDIA = "SET_NEXT_MEDIA";
+const SET_ORDER_FROM_LIKES = 'SET_ORDER_FROM_LIKES';
 
 // A reducer function
 
@@ -205,6 +206,12 @@ const updatenewPlaylist = () => {
     return updatedState;
   }
 
+  const setOrderFromLikes = () => {
+
+    console.log(`SET ORDER!!!!! ${action.values.mediaId}`);
+    return state;
+  };
+
 //
   const actions = {
 
@@ -215,6 +222,7 @@ const updatenewPlaylist = () => {
     [REMOVE_MEDIA_FROM_PLAYLIST] : removeMediaFromPlayList, 
     [UPDATE_NEW_PLAYLIST] : updatenewPlaylist,
     [SET_NEXT_MEDIA] : setNextMedia,
+    [SET_ORDER_FROM_LIKES] : setOrderFromLikes,
   
     "default": () => {
       throw new Error(`Tried to reduce with unsupported action type: ${action.type}`)}
@@ -224,4 +232,13 @@ const updatenewPlaylist = () => {
 
 }
 
-export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST, UPDATE_NEW_PLAYLIST, REMOVE_MEDIA_FROM_PLAYLIST, SET_NEXT_MEDIA };
+export { reducer as default, 
+  SET_APPLICATION_DATA, 
+  SET_PLAYLIST, 
+  SET_PLAYING_MEDIA, 
+  ADD_MEDIA_TO_PLAYLIST, 
+  UPDATE_NEW_PLAYLIST, 
+  REMOVE_MEDIA_FROM_PLAYLIST, 
+  SET_NEXT_MEDIA, 
+  SET_ORDER_FROM_LIKES 
+};

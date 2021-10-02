@@ -6,7 +6,8 @@ import reducer, {
   ADD_MEDIA_TO_PLAYLIST, 
   REMOVE_MEDIA_FROM_PLAYLIST,
   UPDATE_NEW_PLAYLIST,
-  SET_NEXT_MEDIA
+  SET_NEXT_MEDIA,
+  SET_ORDER_FROM_LIKES
 } from './reducers';
 import axios from "axios";
 
@@ -118,7 +119,14 @@ export default function useApplicationData(initial) {
   }
 
 
+  const setOrderFromLikes = (mediaId) => {
+
+    dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId}})
+
+  };
+
+
 
   //Passed to App.js and passed down to each component from there
-  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist, removeMediaFromPlaylist, setStale, setNextMedia }
+  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist, removeMediaFromPlaylist, setStale, setNextMedia, setOrderFromLikes }
 }
