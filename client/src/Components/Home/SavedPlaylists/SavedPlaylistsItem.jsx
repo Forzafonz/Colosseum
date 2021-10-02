@@ -27,8 +27,8 @@ function SavedPlaylistsItem({state, id, name, rating, thumbnail, setPlaylist, se
     const mediaObjectForPlaylist = state.playlists_for_user[id].media;
 
     const firstMediaObject = mediaObjectForPlaylist[Object.keys(mediaObjectForPlaylist)[0]];
-
-    setPlayingMedia(firstMediaObject.media_id);
+    setPlaylist(id)
+    firstMediaObject ? setPlayingMedia(firstMediaObject.media_id) : setPlayingMedia(null)
 
     history.push("/room")
 

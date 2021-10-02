@@ -58,7 +58,7 @@ CREATE TABLE playlists_media(
   id SERIAL PRIMARY KEY NOT NULL,
   media_rating INTEGER,
   play_order Integer,
-  played_already BOOLEAN,
+  played_already BOOLEAN DEFAULT FALSE,
   played_length FLOAT,
   media_id INTEGER REFERENCES media(id) ON DELETE CASCADE,
   playlist_id INTEGER REFERENCES playlists(id) ON DELETE CASCADE

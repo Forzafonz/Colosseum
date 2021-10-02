@@ -48,8 +48,25 @@ const reducer = function (state, action) {
   //Function to set current playlist
   const setPlaylist = () =>{
     const newState = {...state}
-    const updatedState = {...newState, current_playlist: action.values}
-    return updatedState;
+    // const updatedState = {...newState, current_playlist: action.values}
+    if (action.values) {
+    console.log("AAAA", action.values)
+    const updatedMedia = {...newState.playlists_for_user[action.values].media}
+
+    Object.keys(updatedMedia).forEach((element) => {
+      return updatedMedia[element].played_already = false
+    })
+    
+    const updatedPlaylist = {...newState.playlists_for_user[action.values], media : updatedMedia };
+
+    const updatedPlaylists = {...newState.playlists_for_user, [action.values] : updatedPlaylist  };
+
+    const updatedState = { ...newState, playlists_for_user : updatedPlaylists };
+
+    return {...updatedState, current_playlist: action.values};
+    }
+
+    return {...newState, current_playlist: action.values}
 
   }
 
@@ -121,7 +138,7 @@ const updatenewPlaylist = () => {
     const newState = {...state};
 
     const updatedMediaPlayedAlready = {...newState.playlists_for_user[state.current_playlist].media[state.current_media], played_already: true};
-
+    
     const updatedMedia = { ...newState.playlists_for_user[state.current_playlist].media, [state.current_media] : updatedMediaPlayedAlready };
 
     const updatedPlaylist = {...newState.playlists_for_user[state.current_playlist], media : updatedMedia };
@@ -129,6 +146,8 @@ const updatenewPlaylist = () => {
     const updatedPlaylists = {...newState.playlists_for_user, [state.current_playlist] : updatedPlaylist  };
 
     const updatedState = { ...newState, playlists_for_user : updatedPlaylists };
+
+    console.log("updatedState", updatedState)
 
     //Order ones that have not been played yet by play order
     //Get media object for current playlist
