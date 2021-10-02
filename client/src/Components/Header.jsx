@@ -4,12 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 import './Header.scss'
 
 
-function Header(){
+function Header({setPlaylist}){
   const history = useHistory();
   const username = localStorage.getItem('user_username');
   const avatar = localStorage.getItem('user_avatar');
 
   const logOut = () => {
+    setPlaylist(null)
     localStorage.clear();
     history.push(`/`);
   }
