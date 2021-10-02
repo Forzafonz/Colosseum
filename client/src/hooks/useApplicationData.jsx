@@ -75,7 +75,7 @@ export default function useApplicationData(initial) {
       console.log("This is data!", res.data)
       dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : res.data, playlist_id: data.playlist_id}})
         if (state.current_media === null) {
-          dispatch({ type: SET_PLAYING_MEDIA, values: res.data.link})
+          dispatch({ type: SET_PLAYING_MEDIA, values: res.data.media_id})
         }
     });
   }
