@@ -23,11 +23,13 @@ function SavedPlaylistsItem({state, id, name, rating, thumbnail, setPlaylist, se
   // for the selected playlist and redirects to room
   const playPlaylist = (id) => {
 
+
+    console.log("playPlaylist:", state.playlists_for_user, id)
     const mediaKeys = state.playlists_for_user[id].media;
 
     const firstMediaObject = mediaKeys[Object.keys(mediaKeys)[0]];
 
-    setPlayingMedia(firstMediaObject.link);
+    setPlayingMedia(firstMediaObject.media_id);
 
     history.push("/room")
 

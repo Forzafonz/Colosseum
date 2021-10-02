@@ -5,14 +5,14 @@ function MediaPlayer({state, setNextMedia}){
 
  
 
-  const initialState = state.playlist ? state.playlists_for_user[state.current_playlist].media[state.current_media].link : null
 
-  const [media, setMedia] = useState(initialState);
+  const [media, setMedia] = useState(state.playlist ? state.playlists_for_user[state.current_playlist].media[state.current_media].link : null);
 
 
 
   useEffect(() => {
 
+    console.log("mediaplayer:", state.playlists_for_user[state.current_playlist])
     if (state.current_media) {
       setMedia(state.playlists_for_user[state.current_playlist].media[state.current_media].link);
     }
