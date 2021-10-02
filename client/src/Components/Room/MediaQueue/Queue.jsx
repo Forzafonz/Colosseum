@@ -55,13 +55,17 @@ function reducer (state, action) {
   
   const initialize = (input) => {
 
-    const updatedState = {...state, ...input.values};
-      console.log("input.value", input.values)
-    // input.values.forEach(media => {
-    //   updatedState[media.id] = {...media};
-    // })
+    const queueObject = input.values
+    console.log(input.values)
+    const updatedState = {0:state['0']};
 
-    console.log("updated state", updatedState)
+    Object.keys(queueObject).forEach((element) => {
+      if (!queueObject[element].played_already) {
+        return updatedState[element] = queueObject[element]
+      }
+    })
+    const newState = {...state, ...updatedState} 
+    console.log(newState)
     return updatedState;
     
   }
@@ -101,15 +105,11 @@ function Queue({state1, setPlayingMedia, setEmpty, removeMediaFromPlaylist}) {
   useEffect(() => {
     console.log("THIS IS THE STATE:", state1)
     if(Object.keys(state1.playlists_for_user).length && state1.current_playlist) {
-        dispatch({ type: INITIALIZE, values: state1.playlists_for_user[state1.current_playlist ? state1.current_playlist : 6]['media'] })
+        dispatch({ type: INITIALIZE, values: state1.playlists_for_user[state1.current_playlist]['media'] })
     }
       
   }, [state1]);
 
-
-
-
-  console.log("QUEUE STATE", state);
 
   console.log("STATE1 QUEUE", state1);
 

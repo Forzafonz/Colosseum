@@ -61,12 +61,16 @@ export default function useApplicationData(initial) {
   }, [stale]);
 
   const setPlaylist = (playlistId) => {
+    
     dispatch({ type: SET_PLAYLIST, values: playlistId })
+    if (playlistId) {
+      axios.put(`http://localhost:8000/api/room/${userId}/playlist/${playlistId}/startplaylist`)
+    }
   };
 
   const setPlayingMedia = (mediaId) => {
-    dispatch({ type: SET_PLAYING_MEDIA, values: mediaId })
     axios.put(`/api/home/${userId}/playlists/${state.current_playlist}/active`)
+    dispatch({ type: SET_PLAYING_MEDIA, values: mediaId })
   };
 
   const addMediaToPlaylist = (data) =>{
@@ -94,9 +98,6 @@ export default function useApplicationData(initial) {
 
   const updatenewPlaylist = (data) => {
     let newURL ="";
-
-
-
     axios
     .put('http://localhost:8000/api/createplaylist', { data })
     .then((res) => {
@@ -112,6 +113,7 @@ export default function useApplicationData(initial) {
 
   const setNextMedia = () => {
     dispatch({type: SET_NEXT_MEDIA, values: {}})
+    axios.put(`http://localhost:8000/api/room/${userId}/playlist/${state.current_playlist}/media/${state.current_media}`)
   }
 
 

@@ -53,4 +53,36 @@ const getMediaWithMediaIDandUserID = function (playlist_id, media_id) {
  
 };
 
-module.exports = { getMediaForPlaylist, getActivePlaylistIdForUser, getMediaWithMediaIDandUserID }; 
+const setMediaToPlayedAlreadyTrue = function (playlist_id, media_id) {
+
+  const queryString = `
+  UPDATE playlists_media
+  SET played_already ='true'
+  WHERE playlist_id = $1 AND media_id = $2;
+  `;
+
+  //Return promise for query
+  return pool.query(queryString, [playlist_id, media_id])
+    .then(result => result)
+    .catch(error => console.log(error.message));
+ 
+};
+
+const setAllMediaToPlayedAlreadyFalse = function (user_id, playlist_id) {
+
+  const queryString = `
+  UPDATE playlists_media
+  SET played_already ='false'
+  WHERE playlist_id = $1;
+  `;
+
+  //Return promise for query
+  return pool.query(queryString, [playlist_id])
+    .then(result => result)
+    .catch(error => console.log(error.message));
+ 
+};
+
+
+
+module.exports = { getMediaForPlaylist, getActivePlaylistIdForUser, getMediaWithMediaIDandUserID, setMediaToPlayedAlreadyTrue, setAllMediaToPlayedAlreadyFalse }; 
