@@ -34,13 +34,19 @@ function CurrentPlaylist({ playlistId, state }) {
       media_thumbnail = {media.thumbnail}
     />);
 
+    const sortedCurrentPlaylistItems = currentPlaylistItems.sort((media1, media2) => {
+      const media1PlayOrder = media1.props.play_order;
+      const media2PlayOrder = media2.props.play_order;
+      return media1PlayOrder - media2PlayOrder;
+    })
+
   return (
     <>
       PLAYLIST ID: {playlistId}
       <h1>{playlistName}</h1>
       <ul>
         
-        {currentPlaylistItems}
+        {sortedCurrentPlaylistItems}
       </ul>
   
 

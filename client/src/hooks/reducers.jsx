@@ -73,7 +73,34 @@ const reducer = function (state, action) {
   //Function to set current media
   const setPlayingMedia = () => {
 
-    return {...state, current_media: action.values }
+    if (action.values.media) {
+      return {...state, current_media: action.values.media }    
+    } else {
+
+      const mediaForPlaylisObject = state.playlists_for_user[action.values.playlist_id].media;   
+
+      let min_media_id = 0;
+      let min_play_order = 100000;
+
+      if (Object.keys(state.playlists_for_user[action.values.playlist_id].media).length) {
+
+        
+        Object.keys(mediaForPlaylisObject).map((mediaKey) => {
+          
+          if (mediaForPlaylisObject[mediaKey].play_order < min_play_order) {
+            min_play_order = mediaForPlaylisObject[mediaKey].play_order;
+            min_media_id = mediaKey
+          }
+        })
+      } else {
+        min_media_id = null;
+      }
+      console.log("THIS IS MEDIA ID IN SPM", min_media_id)
+      return {...state, current_media: min_media_id }  
+
+    }
+
+
   }
 
   // Function to add a new media to playlist which was added to queue
@@ -127,7 +154,7 @@ const updatenewPlaylist = () => {
     const newState = {...state, playlists_for_user:updated_playlists_for_user, current_playlist: newPlaylist_id}
     // const setPlaylistState = {...newState, }
     console.log("=====>newstate", newState);
-    return newState;
+    return {...newState, current_media:null};
 
 }
 //

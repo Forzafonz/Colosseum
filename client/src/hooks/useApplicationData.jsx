@@ -69,8 +69,9 @@ export default function useApplicationData(initial) {
   };
 
   const setPlayingMedia = (mediaId) => {
+    console.log("This is media_id!!!!", mediaId)
     axios.put(`/api/home/${userId}/playlists/${state.current_playlist}/active`)
-    dispatch({ type: SET_PLAYING_MEDIA, values: mediaId })
+    dispatch({ type: SET_PLAYING_MEDIA, values: {media: mediaId, playlist_id: state.current_playlist}})
   };
 
   const addMediaToPlaylist = (data) =>{
