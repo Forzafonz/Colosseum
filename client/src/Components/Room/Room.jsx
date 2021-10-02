@@ -44,7 +44,7 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
-  const [empty, setEmpty] = useState(true)
+  const [empty, setEmpty] = useState(false)
 
   const user_id = localStorage.getItem('user_id')
 
@@ -53,12 +53,17 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
   useEffect(()=>{
 
     let currentPlaylist = state1.current_playlist;
-    
+    console.log("STATE1 in room which makes fishy things", state1)
+    console.log(currentPlaylist)
+    console.log(state1.playlists_for_user[currentPlaylist]['media'])
+    console.log("END OF FISHY THINGS")
+
     if (currentPlaylist) {
 
       if (Object.keys(state1.playlists_for_user).length){
-        if (Object.keys(state1.playlists_for_user[currentPlaylist]['media']).length) {
-          setEmpty(false)
+        if (!Object.keys(state1.playlists_for_user[currentPlaylist]['media']).length) {
+          console.log("I am here because", !Object.keys(state1.playlists_for_user[currentPlaylist]['media']).length)
+          setEmpty(true)
         }
       }
     }
@@ -124,7 +129,7 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
         <section className="media-and-chat">
           {!empty ? 
           <MediaPlayer  state = {state1} setNextMedia = {setNextMedia} /> : 
-          <Mediaform addMediaToPlaylist = {addMediaToPlaylist} state = {state1} />}
+          <Mediaform addMediaToPlaylist = {addMediaToPlaylist} state = {state1} setEmpty = {setEmpty}/>}
           <section className="chat-container">
           {/* //Create a chat component and pass two props: 
           addMessage and the entire state */}

@@ -19,7 +19,6 @@ function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}
   const playlistId = state.current_playlist;
   const [clicked, setClicked] = useState(false)
 
-
   return (
 
     <div className="home">
@@ -33,8 +32,6 @@ function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}
         {clicked && <CurrentPlaylist playlistId={playlistId} state={state}/>}
         
         </section>
-
-
 
     </div>
     

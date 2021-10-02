@@ -5,7 +5,6 @@ function MediaPlayer({state, setNextMedia}){
 
   //MIGHT MOVE TO REDUCERS/USEAPPPLICATION DATA ONCE SOCKET.IO
   const findFirstPlayOrderLink = () => {
-
     if (Object.keys(state.playlists_for_user[state.current_playlist].media).length) {
 
       //object of media for playlist
@@ -40,7 +39,7 @@ function MediaPlayer({state, setNextMedia}){
 
 
   useEffect(() => {
-
+    console.log("Current media:", state.current_media)
     if (state.current_media) {
 
        setMedia(state.playlists_for_user[state.current_playlist].media[state.current_media].link);

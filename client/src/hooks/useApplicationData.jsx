@@ -78,9 +78,9 @@ export default function useApplicationData(initial) {
     console.log("DAATAAAAAA", data);
     axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
       console.log("This is data!", res.data)
-      dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : res.data, playlist_id: data.playlist_id}})
+      dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : res.data, playlist_id: state.current_playlist}})
         if (state.current_media === null) {
-          dispatch({ type: SET_PLAYING_MEDIA, values: res.data.media_id})
+          dispatch({ type: SET_PLAYING_MEDIA, values: {media: res.data.media_id}})
         }
     });
   }
