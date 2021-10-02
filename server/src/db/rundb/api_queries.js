@@ -181,11 +181,32 @@ const searchmedia = function (data) {
           }
         });
       }
-    }).then(() => req_id)
+    }).then(() =>
+      getMediaCountInPlaylist(playlist_id).then((count) =>{
+        const queryString = `
+        UPDATE playlists_media 
+        SET play_order = $1 
+        WHERE media_id = $2 
+        AND playlist_id = $3
+        `
+        return pool.query(queryString, [Number(count) + 1, req_id, playlist_id])}))
+    .then(() => req_id)
     .catch((error) => console.log(error.message));
 };
 
 exports.searchmedia = searchmedia;
+
+const getMediaCountInPlaylist = function(playlist_id) {
+  const queryString = `
+  SELECT count(id) as count
+  FROM playlists_media
+  WHERE playlist_id = $1
+  `
+  return pool.query(queryString, [playlist_id]).then((result) => {
+    return result.rows[0].count
+  })
+}
+
 
 //Searching user to add for creating playlist--
 const searchUser = function (id) {
