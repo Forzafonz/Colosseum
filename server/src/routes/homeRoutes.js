@@ -38,7 +38,7 @@ module.exports = function(router) {
           .status(200)
           .json(data)
       })
-      .catch((res) => {
+      .catch((response) => {
         res.status(200)
         .json(null)
       })
