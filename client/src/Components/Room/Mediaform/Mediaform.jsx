@@ -5,20 +5,19 @@ import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import SearchResultsContainer from './SearchResultsContainer';
 
-
-function Mediaform({state, addMediaToPlaylist}) {
-  console.log("STATE HERE", state)
+function Mediaform({ state, addMediaToPlaylist }) {
+  console.log('STATE HERE', state);
   const params = useParams();
   const [url, setUrl] = useState(''); //url to be added to playlist
   const [category, setCategory] = useState('youtube'); //youtube or soundcloud
   const [desc, setDesc] = useState(''); //Description for media
-  const [buttonLabel, setButtonLabel] = useState('Search')
+  const [buttonLabel, setButtonLabel] = useState('Search');
   // State to keep search result to display them in SearchResultsItem
-  const [searchResults, setSearchResults] = useState({})
+  const [searchResults, setSearchResults] = useState({});
 
   // UPDATE INITIAL STATE ONCE FIXED CURRENT INITIAL STATE FOR TEST ONLY
-  const [playlistName, setPlaylistName] = useState(state.current_playlist); 
-  
+  const [playlistName, setPlaylistName] = useState(state.current_playlist);
+
   //Gets playlist data from url
   // useEffect(() => {
   //   const data = params.url;
@@ -32,86 +31,90 @@ function Mediaform({state, addMediaToPlaylist}) {
   //     });
   // }, []);
 
-
   //To get thumbnail from given youtube video url
   const getThumbnail = function (url1) {
-    
-    const pre = 'https://img.youtube.com/vi/'
-    const post = '/default.jpg'
-    const only_url = url1.slice(-11); 
+    const pre = 'https://img.youtube.com/vi/';
+    const post = '/default.jpg';
+    const only_url = url1.slice(-11);
     const result = pre + only_url + post;
     return result;
-    
-  }
-  
+  };
+
+
   useEffect(() => {
-    setPlaylistName(state.current_playlist)
-  }, [state])
+    setPlaylistName(state.current_playlist);
+  }, [state]);
 
   //To add media to playlist
   const addMedia = () => {
-
-     if (!url.includes("http") && category === "youtube") {
-        axios.get(`/api/youtube/${url}`). then((result) => {
+    if (!url.includes('http') && category === 'youtube') {
+      axios
+        .get(`/api/youtube/${url}`)
+        .then((result) => {
           const newResults = {};
-          result.data.forEach((result, index) =>{
-            const {id, snippet} = result;
-            const {thumbnails, title, description} = snippet;
-            newResults[index] ={
-              link:`https://www.youtube.com/watch?v=${id.videoId}`,
-              thumbnail : thumbnails.default,
+          result.data.forEach((result, index) => {
+            const { id, snippet } = result;
+            const { thumbnails, title, description } = snippet;
+            newResults[index] = {
+              link: `https://www.youtube.com/watch?v=${id.videoId}`,
+              thumbnail: thumbnails.default,
               title,
-              description
-            }
-          })
+              description,
+            };
+          });
           setSearchResults(newResults);
         })
-        .catch((error) => console.error("This is error", error))
-     } else if (!url.includes("http") && category === "soundcloud") {
-        //  do something
-     } else {
-        const image = getThumbnail(url);
-        submitMedia({url, desc, image})
-     }
-     
+        .catch((error) => console.error('This is error', error));
+    } else if (!url.includes('http') && category === 'soundcloud') {
+      //  do something
+    } else {
+      const image = getThumbnail(url);
+
+      if (desc) {
+        submitMedia({ url, desc, image });
+      } else {
+        let urlstring = 'https://noembed.com/embed?url=' + url;
+        axios.get(urlstring).then((res) => {
+          const desc = res.data.title;
+          submitMedia({ url, desc, image });
+        });
+      }
+    }
   };
 
-  const submitMedia = ({url, desc, image}) => {
-
+  const submitMedia = ({ url, desc, image }) => {
     const playlist_id = state.current_playlist;
     const data = {
       url,
       category,
       playlist_id,
       desc,
-      thumbnail : image
+      thumbnail: image,
     };
 
-    console.log("SUBMIT MEDIA DATA:",data);
-    addMediaToPlaylist(data)
+    console.log('SUBMIT MEDIA DATA:', data);
+    addMediaToPlaylist(data);
     setUrl('');
     setDesc('');
     alert('Playlist updated');
+  };
 
-  }
-
-  const newSearch = (e) =>{
-    if (e.target.value.includes("http")){
-      setButtonLabel("Add")
+  const newSearch = (e) => {
+    if (e.target.value.includes('http')) {
+      setButtonLabel('Add');
     } else {
-      setButtonLabel("Search")
+      setButtonLabel('Search');
     }
-    setUrl(e.target.value)
-  }
+    setUrl(e.target.value);
+  };
 
   return (
     <div className="new-p-container">
-      <br/>      
+      <br />
 
-      <h1 className ="h-pl">Playlist : {playlistName} </h1>
+      <h1 className="h-pl">Playlist : {playlistName} </h1>
 
-      <br/>
-
+      <br />
 
       <table name="new-table">
         <tr>
@@ -170,23 +173,29 @@ function Mediaform({state, addMediaToPlaylist}) {
             </form>
           </td>
         </tr>
-<br></br>
+        <br></br>
         <tr>
           <td></td>
           <td>
             <label> </label>
-            <Button type="submit" name="add-url" variant="success" type="submit"  onClick={addMedia}>
+            <Button
+              type="submit"
+              name="add-url"
+              variant="success"
+              type="submit"
+              onClick={addMedia}
+            >
               {buttonLabel}
             </Button>
           </td>
         </tr>
       </table>
 
-      <section className = "search-results-container">
-           <SearchResultsContainer
-            searchResults = {searchResults}
-            submitMedia = {submitMedia}
-            /> 
+      <section className="search-results-container">
+        <SearchResultsContainer
+          searchResults={searchResults}
+          submitMedia={submitMedia}
+        />
       </section>
     </div>
   );
@@ -194,11 +203,9 @@ function Mediaform({state, addMediaToPlaylist}) {
 
 export default Mediaform;
 
-
-
 // YOUTUBE RESPONSE:
 // array of objects:[{}, {}, {}]
-// 0: 
+// 0:
 //  {etag: "xWucDJa1s76RtOIFkiX_Fv5yCl8"
 // id:
 //  {kind: "youtube#video"
