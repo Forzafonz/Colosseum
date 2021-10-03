@@ -56,7 +56,7 @@ CREATE TABLE media(
 
 CREATE TABLE playlists_media(
   id SERIAL PRIMARY KEY NOT NULL,
-  media_rating INTEGER,
+  media_rating INTEGER DEFAULT 0,
   play_order Integer,
   played_already BOOLEAN DEFAULT FALSE,
   played_length FLOAT,
