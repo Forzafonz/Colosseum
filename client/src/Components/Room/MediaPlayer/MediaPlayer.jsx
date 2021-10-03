@@ -50,7 +50,7 @@ function MediaPlayer({state, setNextMedia}){
 
   return (
     <section className="media-player-container">
-       <ReactPlayer width="100%" height="100%" controls url={media} onEnded={()=> setNextMedia()} />
+       <ReactPlayer width="100%" height="100%" playing = "true" controls url={media} onEnded={()=> setNextMedia() }   />
     </section>
   );
 }
