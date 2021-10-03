@@ -53,10 +53,6 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
   useEffect(()=>{
 
     let currentPlaylist = state1.current_playlist;
-    console.log("STATE1 in room which makes fishy things", state1)
-    console.log(currentPlaylist)
-    console.log(state1.playlists_for_user[currentPlaylist]['media'])
-    console.log("END OF FISHY THINGS")
 
     if (currentPlaylist) {
 

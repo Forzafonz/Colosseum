@@ -211,57 +211,26 @@ const updatenewPlaylist = () => {
 
     //------Get the current media rating------//
     const newState = {...state};
+    console.log(newState)
 
-    let currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating
-
-    currentMediaRating = currentMediaRating + 2;
-
-
-    console.log("newState", newState);
+    const currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating + 1
 
     const updatedMediaMediaRating = {...newState.playlists_for_user[state.current_playlist].media[action.values.mediaId], 
                                       media_rating: currentMediaRating};
 
-    console.log("updatedMediaMediaRating", updatedMediaMediaRating);
 
-    console.log("action.values.mediaId", action.values.mediaId);
-    
     const updatedMedia = { ...newState.playlists_for_user[state.current_playlist].media, 
                           [action.values.mediaId] : updatedMediaMediaRating };
 
-    const keyArray = Object.keys(updatedMedia);
-
-    const valueArray = Object.values(updatedMedia);
-
-    console.log("KEYARRAY", keyArray);
-
-    console.log("valueArrrrr", valueArray );
-
-    console.log("updatedMedia", updatedMedia);
-
-
-    const updatedMediaWithoutUndefined = {};
-
-    keyArray.map((key) => {
-      console.log("KEYKEYKEY", key);
-      if (key !== undefined || key !== "undefined") {
-
-        updatedMediaWithoutUndefined[key] = updatedMedia[key];
-      }
-    })
-
-    console.log("updatedMediaWithoutUndefined", updatedMediaWithoutUndefined);
-    console.log("updatedMedia", updatedMedia);
-
 
     const updatedPlaylist = {...newState.playlists_for_user[state.current_playlist], 
-                              media : updatedMediaWithoutUndefined };
+                              media : updatedMedia };
 
     const updatedPlaylists = {...newState.playlists_for_user, [state.current_playlist] : updatedPlaylist  };
 
     const updatedState = { ...newState, playlists_for_user : updatedPlaylists };
 
-
+      console.log("UPDATED STATE", updatedState)
     //-------Filter out played already------//
 
     //Array of all media keys
@@ -306,19 +275,21 @@ const updatenewPlaylist = () => {
     })
 
     //Sorted based on votes (media rating)
-    const sortedArrayOfMediaObjects = sortedByVotesArrayOfMediaObjectsNotPlayedAlready.map((mediaObjElement, mediaObjIndex) => {
-      return mediaObjElement.play_order = intialPlayOrderArray[mediaObjIndex];
+    sortedByVotesArrayOfMediaObjectsNotPlayedAlready.forEach((mediaObjElement, mediaObjIndex) => {
+      mediaObjElement.play_order = intialPlayOrderArray[mediaObjIndex];
     })
 
-    console.log("SORTED MEDIA OBJ ARRAY", sortedArrayOfMediaObjects);
+    console.log("SORTED MEDIA OBJ ARRAY", sortedByVotesArrayOfMediaObjectsNotPlayedAlready);
 
     //------update state based on new play order------//
 
-    //Update stated based on new playorder
-    sortedArrayOfMediaObjects.forEach((ele) => {
+    // Update stated based on new playorder
+
+    sortedByVotesArrayOfMediaObjectsNotPlayedAlready.forEach((ele) => {
 
       updatedState.playlists_for_user[state.current_playlist].media[ele.media_id] = ele;
     })
+
 
     return updatedState;
   };

@@ -51,6 +51,7 @@ function reducer (state, action) {
     const updatedState = {0:state['0']};
 
     Object.keys(queueObject).forEach((element) => {
+
       if (!queueObject[element].played_already) {
         return updatedState[element] = queueObject[element]
       }

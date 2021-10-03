@@ -5,7 +5,8 @@ function MediaPlayer({state, setNextMedia}){
 
   //MIGHT MOVE TO REDUCERS/USEAPPPLICATION DATA ONCE SOCKET.IO
   const findFirstPlayOrderLink = () => {
-    if (Object.keys(state.playlists_for_user[state.current_playlist].media).length) {
+    
+    if (state.playlists_for_user[state.current_playlist] && Object.keys(state.playlists_for_user[state.current_playlist].media).length) {
 
       //object of media for playlist
       const mediaObj = state.playlists_for_user[state.current_playlist].media
