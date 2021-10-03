@@ -40,7 +40,7 @@ function reducer(state, action){
 
 }
 
-function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist, setNextMedia}) {
+function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist, setNextMedia, setOrderFromLikes}) {
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   const [conn, setConn] = useState(undefined);
@@ -144,6 +144,7 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
           state1 = {state1} 
           setPlayingMedia={setPlayingMedia}
           removeMediaFromPlaylist = {removeMediaFromPlaylist}
+          setOrderFromLikes = {setOrderFromLikes}
           />
       </main>
     </div>

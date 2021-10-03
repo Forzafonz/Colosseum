@@ -8,7 +8,6 @@ import axios from 'axios';
 const REMOVE = 'remove'
 const ADD = "modify"
 const ADDNEW = 'ADDNEW'
-const LIKE = "LIKE"
 const DISLIKE = "DISLIKE"
 const INITIALIZE = "INITIALIZE"
 
@@ -34,14 +33,6 @@ function reducer (state, action) {
   const addnew = (message) => {
     const id = Date.now()
     return {...state, [id]: { msg: message.values.msg , 'id' : id, votes: 0, dislikes: 0}}
-  }
-
-  const addlike = (input) => {
-    const {id} = input.values;
-    const newState = {...state};
-    const updatedPost = {...newState[id], 'votes': newState[id].votes + 1};
-    const updatedState = {...state, [id] : updatedPost};
-    return updatedState;
   }
 
   const adddislike = (input) => {
@@ -76,7 +67,6 @@ function reducer (state, action) {
     [ADD]         :  add,
     [REMOVE]      :  remove,
     [ADDNEW]      :  addnew,
-    [LIKE]        :  addlike,
     [DISLIKE]     :  adddislike,
     [INITIALIZE]  :  initialize
 
@@ -86,7 +76,7 @@ function reducer (state, action) {
 
 }
 
-function Queue({state1, setPlayingMedia, setEmpty, removeMediaFromPlaylist}) {
+function Queue({state1, setPlayingMedia, setEmpty, removeMediaFromPlaylist, setOrderFromLikes}) {
 
   // const {
   //   setPlayingMedia
@@ -138,6 +128,7 @@ function Queue({state1, setPlayingMedia, setEmpty, removeMediaFromPlaylist}) {
     dispatch = {dispatch}
     setPlayingMedia = {setPlayingMedia}
     removeMediaFromPlaylist = {removeMediaFromPlaylist}
+    setOrderFromLikes = {setOrderFromLikes}
     />
   });
 

@@ -5,6 +5,7 @@ const ADD_MEDIA_TO_PLAYLIST = "ADD_MEDIA_TO_PLAYLIST";
 const REMOVE_MEDIA_FROM_PLAYLIST = "REMOVE_MEDIA_FROM_PLAYLIST";
 const UPDATE_NEW_PLAYLIST = "UPDATE_NEW_PLAYLIST";
 const SET_NEXT_MEDIA = "SET_NEXT_MEDIA";
+const SET_ORDER_FROM_LIKES = 'SET_ORDER_FROM_LIKES';
 
 // A reducer function
 
@@ -205,6 +206,123 @@ const updatenewPlaylist = () => {
     return updatedState;
   }
 
+  //Change play order for playlist based on number of likes 
+  const setOrderFromLikes = () => {
+
+    //------Get the current media rating------//
+    const newState = {...state};
+
+    let currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating
+
+    currentMediaRating = currentMediaRating + 2;
+
+
+    console.log("newState", newState);
+
+    const updatedMediaMediaRating = {...newState.playlists_for_user[state.current_playlist].media[action.values.mediaId], 
+                                      media_rating: currentMediaRating};
+
+    console.log("updatedMediaMediaRating", updatedMediaMediaRating);
+
+    console.log("action.values.mediaId", action.values.mediaId);
+    
+    const updatedMedia = { ...newState.playlists_for_user[state.current_playlist].media, 
+                          [action.values.mediaId] : updatedMediaMediaRating };
+
+    const keyArray = Object.keys(updatedMedia);
+
+    const valueArray = Object.values(updatedMedia);
+
+    console.log("KEYARRAY", keyArray);
+
+    console.log("valueArrrrr", valueArray );
+
+    console.log("updatedMedia", updatedMedia);
+
+
+    const updatedMediaWithoutUndefined = {};
+
+    keyArray.map((key) => {
+      console.log("KEYKEYKEY", key);
+      if (key !== undefined || key !== "undefined") {
+
+        updatedMediaWithoutUndefined[key] = updatedMedia[key];
+      }
+    })
+
+    console.log("updatedMediaWithoutUndefined", updatedMediaWithoutUndefined);
+    console.log("updatedMedia", updatedMedia);
+
+
+    const updatedPlaylist = {...newState.playlists_for_user[state.current_playlist], 
+                              media : updatedMediaWithoutUndefined };
+
+    const updatedPlaylists = {...newState.playlists_for_user, [state.current_playlist] : updatedPlaylist  };
+
+    const updatedState = { ...newState, playlists_for_user : updatedPlaylists };
+
+
+    //-------Filter out played already------//
+
+    //Array of all media keys
+    const mediaKeysArray = Object.keys(updatedState.playlists_for_user[state.current_playlist].media)
+
+    const arrayOfMediaObjects = mediaKeysArray.map( media => updatedState.playlists_for_user[state.current_playlist].media[media])
+
+    const arrayOfMediaObjectsNotPlayedAlready = arrayOfMediaObjects.filter( media => media.played_already === false)
+
+    console.log("arrayOfMediaObjectsNotPlayedAlready",arrayOfMediaObjectsNotPlayedAlready);
+
+    //------Update play order based on media rating------//
+
+
+    //ARRAY OF PLAY ORDER
+    // initial array looks like this:                  [11,6,12,7,8,14,13,11,9,10]
+    // sort it like this:                              [5,6,7,8,9,10,11,12,13,14]
+
+    const sortedByPlayOrderArrayOfMediaObjectsNotPlayedAlready = arrayOfMediaObjectsNotPlayedAlready.sort((ele1, ele2) => {
+
+      const firstElement = ele1.play_order;
+      const secondElement = ele2.play_order;
+
+      return firstElement - secondElement
+    })
+
+    console.log("sortedByPlayOrderArrayOfMediaObjectsNotPlayedAlready", sortedByPlayOrderArrayOfMediaObjectsNotPlayedAlready );
+    
+
+    //array of playorder: [5,6,7,8,9,10,11,12,13,14]
+    const intialPlayOrderArray = sortedByPlayOrderArrayOfMediaObjectsNotPlayedAlready.map(mediaObj => mediaObj.play_order );
+
+    console.log("INITIAL PLAY ORDER", intialPlayOrderArray );
+
+    //Now need to sort by votes (media rating)
+    const sortedByVotesArrayOfMediaObjectsNotPlayedAlready = arrayOfMediaObjectsNotPlayedAlready.sort((ele1, ele2) => {
+
+      const firstElement = ele1.media_rating;
+      const secondElement = ele2.media_rating;
+      //Sort by descending order of votes
+      return  secondElement - firstElement;
+    })
+
+    //Sorted based on votes (media rating)
+    const sortedArrayOfMediaObjects = sortedByVotesArrayOfMediaObjectsNotPlayedAlready.map((mediaObjElement, mediaObjIndex) => {
+      return mediaObjElement.play_order = intialPlayOrderArray[mediaObjIndex];
+    })
+
+    console.log("SORTED MEDIA OBJ ARRAY", sortedArrayOfMediaObjects);
+
+    //------update state based on new play order------//
+
+    //Update stated based on new playorder
+    sortedArrayOfMediaObjects.forEach((ele) => {
+
+      updatedState.playlists_for_user[state.current_playlist].media[ele.media_id] = ele;
+    })
+
+    return updatedState;
+  };
+
 //
   const actions = {
 
@@ -215,6 +333,7 @@ const updatenewPlaylist = () => {
     [REMOVE_MEDIA_FROM_PLAYLIST] : removeMediaFromPlayList, 
     [UPDATE_NEW_PLAYLIST] : updatenewPlaylist,
     [SET_NEXT_MEDIA] : setNextMedia,
+    [SET_ORDER_FROM_LIKES] : setOrderFromLikes,
   
     "default": () => {
       throw new Error(`Tried to reduce with unsupported action type: ${action.type}`)}
@@ -224,4 +343,13 @@ const updatenewPlaylist = () => {
 
 }
 
-export { reducer as default, SET_APPLICATION_DATA, SET_PLAYLIST, SET_PLAYING_MEDIA, ADD_MEDIA_TO_PLAYLIST, UPDATE_NEW_PLAYLIST, REMOVE_MEDIA_FROM_PLAYLIST, SET_NEXT_MEDIA };
+export { reducer as default, 
+  SET_APPLICATION_DATA, 
+  SET_PLAYLIST, 
+  SET_PLAYING_MEDIA, 
+  ADD_MEDIA_TO_PLAYLIST, 
+  UPDATE_NEW_PLAYLIST, 
+  REMOVE_MEDIA_FROM_PLAYLIST, 
+  SET_NEXT_MEDIA, 
+  SET_ORDER_FROM_LIKES 
+};
