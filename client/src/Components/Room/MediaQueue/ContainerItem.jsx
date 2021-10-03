@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './ContainerItem.scss'
 
 const ContainerItem = React.forwardRef((props, ref) => {
+
+  const [liked, setLiked] = useState(false)
 
   const {
     id, 
@@ -21,6 +23,15 @@ const ContainerItem = React.forwardRef((props, ref) => {
     dispatch({ type: "remove" , values: {media_id}})
   }
 
+  const voteAction = () => {
+    let like = false
+    if (!liked) {
+      like = true
+    }
+    setOrderFromLikes(media_id, like)
+    setLiked(!liked)
+  }
+
 
   return (
 
@@ -29,7 +40,7 @@ const ContainerItem = React.forwardRef((props, ref) => {
       id = {id} className = "main-block" ref = {ref}>
       <div className = "remove-button" onClick = {() => deleteFromQueue()}>✕</div>
       <span className = "likes-dislikes">
-        <div className = "social-button social-likes" onClick = {() => setOrderFromLikes(media_id)}> {media_rating}/10</div>
+        <div className = "social-button social-likes" onClick = {() => voteAction()}> {media_rating}/10</div>
       </span>
       <div>
         {/* {description} */}
