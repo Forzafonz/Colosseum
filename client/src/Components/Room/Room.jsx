@@ -125,15 +125,15 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
         <section className="media-and-chat">
           
           <MediaPlayer  state = {state1} setNextMedia = {setNextMedia} /> 
-          
+          {empty && <Mediaform addMediaToPlaylist = {addMediaToPlaylist} state = {state1} setEmpty = {setEmpty}/>}
+
           <section className="chat-container">
           {/* //Create a chat component and pass two props: 
           addMessage and the entire state */}
-            {!empty ? <Chat
+            <Chat
             state = {state}
             addMessage = {addMessage}
-            /> :
-            <Mediaform addMediaToPlaylist = {addMediaToPlaylist} state = {state1} setEmpty = {setEmpty}/>}
+            /> 
           </section>
         </section>
         <Queue

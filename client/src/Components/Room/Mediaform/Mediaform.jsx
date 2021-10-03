@@ -186,6 +186,9 @@ function Mediaform({state, addMediaToPlaylist, setEmpty}) {
             <Button type="submit" name="add-url" variant="success" type="submit"  onClick={addMedia}>
               {buttonLabel}
             </Button>
+            <Button type="button" variant="danger" onClick={() => setEmpty(false)}>
+              Close form
+            </Button>
           </td>
         </tr>
       </table>
