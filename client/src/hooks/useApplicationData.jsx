@@ -1,4 +1,5 @@
 import {useEffect, useReducer, useState} from 'react';
+import { io } from "socket.io-client"
 import reducer, { 
   SET_APPLICATION_DATA, 
   SET_PLAYLIST, 
@@ -119,9 +120,9 @@ export default function useApplicationData(initial) {
   }
 
 
-  const setOrderFromLikes = (mediaId) => {
+  const setOrderFromLikes = (mediaId, like) => {
 
-    dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId}})
+    dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId, like}})
 
   };
 

@@ -211,9 +211,11 @@ const updatenewPlaylist = () => {
 
     //------Get the current media rating------//
     const newState = {...state};
-    console.log(newState)
-
-    const currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating + 1
+    
+    let currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating + 1
+    if (!action.values.like) {
+      currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating - 1
+    }
 
     const updatedMediaMediaRating = {...newState.playlists_for_user[state.current_playlist].media[action.values.mediaId], 
                                       media_rating: currentMediaRating};
