@@ -40,7 +40,8 @@ export default function useApplicationData(initial) {
   const [conn, setConn] = useState(undefined);
   const [stale, setStale] = useState(false);
 
-
+  const [elapsedTimeOther, setElapsedTimeOther] = useState(0);
+  
   // useLayoutEffect?
 
   // Called on initial launch to retrieve information from the database
@@ -76,18 +77,45 @@ export default function useApplicationData(initial) {
   }, [])
 
   useEffect(() => {
+
     if (conn) {
       console.log(conn)
       //check if message chat is "UPDATE_CHAT" and dispatch
       conn.on("UPDATE_CHAT", data => {
         dispatch({ type : ADD_NEW_MESSAGE, values : data.msg})
       
+      })
+
       conn.on("play_media", data => {
         console.log("i am here with data", data)
         dispatch({ type: SET_PLAYING_MEDIA, values: {media: data.media,  playlist_id: data.playlistId }})
       })
+
+      
+
+      //When playing time recieved from other player, 
+      // Update the current media playing time if the difference 
+      // in time played in other window is more than 2 seconds
+
+      let dataArr = [];
+
+      conn.on("update_media_playing_time", data => {
+
+        dataArr.push(data);
+
+        if (dataArr.length > 2 ) {
+          dataArr.shift();
+        }
+
+        if ( Math.abs(dataArr[1] - dataArr[0]) > 2) {
+
+          setElapsedTimeOther(dataArr[1]);
+
+          console.log("!!!!!!!!!!!CHANGE THE CURRENT MEDIA!!!!!")
+        }
+       
       })
-    
+   
       return () => {
         conn.disconnect();
       };
@@ -186,7 +214,9 @@ export default function useApplicationData(initial) {
   }
 
   //Passed to App.js and passed down to each component from there
-  return { state, setPlaylist, 
+  return { 
+    state, 
+    setPlaylist, 
     setPlayingMedia, 
     addMediaToPlaylist, 
     updatenewPlaylist, 
@@ -194,5 +224,8 @@ export default function useApplicationData(initial) {
     setStale, 
     setNextMedia, 
     setOrderFromLikes,
-    addMessage }
+    addMessage,
+    elapsedTimeOther, 
+    conn
+  }
 }

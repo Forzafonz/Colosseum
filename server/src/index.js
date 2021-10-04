@@ -30,11 +30,19 @@ function addText(msg) {
 
 io.on("connection", (socket) => {
   console.log("Connected with", socket.id)
+
   socket.on("play_media", ({media, playlistId}) =>{
     console.log("play media", media, playlistId)
     socket.broadcast.emit("play_media", { media, playlistId })
   })
 
+  //To sync two media players playing time when different spot clicked in playbar
+  socket.on("playing_time", (playingTime) => {
+    console.log("PLAYING TIME:", playingTime)
+    socket.broadcast.emit("update_media_playing_time", playingTime)
+
+  })
+  
 })
 
 
