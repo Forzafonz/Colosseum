@@ -1,6 +1,8 @@
 import React from 'react';
 
 import CurrentPlaylistItem from './CurrentPlaylistItem';
+import './CurrentPlaylistItem.scss'
+
 
 
 function CurrentPlaylist({ playlistId, state }) {
@@ -41,16 +43,14 @@ function CurrentPlaylist({ playlistId, state }) {
     })
 
   return (
-    <>
-      PLAYLIST ID: {playlistId}
-      <h1>{playlistName}</h1>
-      <ul>
-        
-        {sortedCurrentPlaylistItems}
-      </ul>
-  
+    <div className = "current-playlist"> 
+    <div className = "playlist-heading"> 
 
-    </>
+      Playlist No: {playlistId}
+      <h1 className="heading">{playlistName}</h1>
+    </div>
+            {sortedCurrentPlaylistItems}
+        </div>
    
   )
 }

@@ -115,11 +115,7 @@ function Mediaform({state, addMediaToPlaylist, setEmpty}) {
   return (
     <div className="new-p-container">
       <br/>      
-
-      <h1 className ="h-pl">Playlist : {playlistName} </h1>
-
-      <br/>
-
+      <h1 className ="h-pl">{state.playlists_for_user[playlistName].playlist.name} </h1>
 
       <table name="new-table">
         <tr>
@@ -137,14 +133,7 @@ function Mediaform({state, addMediaToPlaylist, setEmpty}) {
           </td>
         </tr>
         <br></br>
-        {/* <tr>
-          <td>
-            <label>Search :</label>
-          </td>
-          <td>
-            <input type="text"></input>
-          </td>
-        </tr> */}
+
 
         <tr>
           <td>

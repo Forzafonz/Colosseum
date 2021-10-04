@@ -1,6 +1,8 @@
 import React from 'react'
 import {Button} from 'react-bootstrap';
 import './searchResultsItem.scss'
+import {Navbar, Container, Row, Col} from 'react-bootstrap';
+
 
 export default function SearchResultsItem({link, thumbnail, title, description, submitMedia}) {
   
@@ -10,9 +12,12 @@ export default function SearchResultsItem({link, thumbnail, title, description, 
   
   return (
     <div className = "search-result-item">
-      <Button variant="success" onClick = {clickHandler}>SELECT!!!!!!</Button>
-      <div>{link}</div>
-      <div><img src = {thumbnail.url} alt = "thumbnail"/></div>
+      {/* <div>{link}</div> */}
+      <div className = "button-image">
+      <Button variant="outline-warning" onClick = {clickHandler}>Select this</Button>
+        <img src = {thumbnail.url} alt = "thumbnail"/>
+      </div>
+        <hr/>
       <div>{title}</div>
       <div>{description}</div>
     </div>

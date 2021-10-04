@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 function NewPlaylist({updatenewPlaylist, setPlaylist}) {
   const [name, setName] = useState(''); //Playlist name
-  const [tnail, setTnail] = useState(''); //Playlist Thumbnail
+  const [tnail1, setTnail1] = useState(); //Playlist Thumbnail
   const [user, setUser] = useState(''); //User to be added to list
   const [udata, setUdata] = useState([]); //Array of objects to contain users data
   const history = useHistory();
@@ -63,6 +63,13 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
 
   //Function to create playlist
   const createPlaylist = function (e) {
+    let tnail;
+    if(tnail1) {
+      tnail = tnail1;
+    } else {
+      tnail = 'https://media.istockphoto.com/vectors/treble-clef-silhouette-in-fire-flames-vector-id1270088759?k=20&m=1270088759&s=612x612&w=0&h=HCX1Y65Jlg5NtalLkFirYPw8v2uLfpnQza2B1KlHpQY=';
+    }
+
     const data = {
       name,
       tnail,
@@ -74,7 +81,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
 
    
       setName('');
-      setTnail('');
+      setTnail1('');
       setUdata([]);
       setUser('');
       history.push("/room");
@@ -118,8 +125,8 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
           <td>
             <input
               type="text"
-              value={tnail}
-              onChange={(e) => setTnail(e.target.value)}
+              value={tnail1}
+              onChange={(e) => setTnail1(e.target.value)}
             ></input>
           </td>
         </tr>

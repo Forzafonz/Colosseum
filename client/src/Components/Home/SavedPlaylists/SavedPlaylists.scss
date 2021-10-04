@@ -7,24 +7,17 @@
     align-items: center;
     justify-content: space-between;
     padding-right: 10vw;
-    border: red;
-    border-style: dotted;
+    // border: red;
+    // border-style: dotted;
     padding-right: 2rem;
   
   }
  
   &__image {
 
-    width: 15vh;
-    height: 15vh;
+    width: 12vh;
+    height: 12vh;
     border-radius: 50%;
-
-
-
-
-
-
-
     // &--selected {
     //   color: $dark-background;
     //   background-color: $white;
@@ -44,4 +37,17 @@
     // }
 
   }
+}
+
+.savedPlaylist {
+  text-align: center;
+
+table {
+  width: 100%;
+  margin:0%;
+}
+
+}
+.heading {
+  color:rgb(255, 85, 0)
 }
