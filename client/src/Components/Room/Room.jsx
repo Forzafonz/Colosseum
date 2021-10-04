@@ -40,7 +40,7 @@ function reducer(state, action){
 
 }
 
-function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist, setNextMedia, setOrderFromLikes, addMessage}) {
+function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist, setNextMedia, setOrderFromLikes, addMessage, elapsedTimeOther, conn}) {
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
   // const [conn, setConn] = useState(undefined);
@@ -119,12 +119,17 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
   // }
 
   return (
-    <div className="App">
+    <div className="room">
       {/* <Header /> */}
-      <main className="layout">
+    
         <section className="media-and-chat">
           
-          <MediaPlayer  state = {state1} setNextMedia = {setNextMedia} /> 
+          <MediaPlayer  
+          state = {state1} 
+          setNextMedia = {setNextMedia} 
+          elapsedTimeOther = {elapsedTimeOther}
+          conn = {conn}
+          /> 
           {empty && <Mediaform addMediaToPlaylist = {addMediaToPlaylist} state = {state1} setEmpty = {setEmpty}/>}
 
           <section className="chat-container">
@@ -144,7 +149,7 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
           setOrderFromLikes = {setOrderFromLikes}
           addMessage = {addMessage}
           />
-      </main>
+     
     </div>
   );
 }

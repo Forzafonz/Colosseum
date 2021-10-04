@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from 'react';
 import ReactPlayer from 'react-player'
 
-function MediaPlayer({state, setNextMedia}){
+function MediaPlayer({state, setNextMedia, elapsedTimeOther, conn }){
 
   //MIGHT MOVE TO REDUCERS/USEAPPPLICATION DATA ONCE SOCKET.IO
   const findFirstPlayOrderLink = () => {
@@ -41,6 +41,10 @@ function MediaPlayer({state, setNextMedia}){
 
 
 
+
+
+
+
   useEffect(() => {
     console.log("Current media:", state, state.current_media)
     if (state.current_media) {
@@ -52,10 +56,33 @@ function MediaPlayer({state, setNextMedia}){
     
   }, [state.current_media])
 
+
+  const ref = React.createRef()
+
+  //To update the time of media currently playing based on other window playing
+  useEffect(() => {
+
+    //Sets current media players time to whatever time is in elapsedTimeOTher
+    ref.current.seekTo(elapsedTimeOther)
+    
+  }, [elapsedTimeOther])
+ 
+
   return (
-    <section className="media-player-container">
-       <ReactPlayer width="100%" height="100%" playing = "true" controls url={media} onEnded={()=> setNextMedia() }   />
-    </section>
+
+    <>
+      <section className="media-player-container">
+        <ReactPlayer
+        ref={ref}
+        width="100%" 
+        height="100%" 
+        playing = "true" 
+        controls url={media} 
+        onEnded={()=> setNextMedia() }
+        onProgress = {(test) => conn.emit("playing_time", test.playedSeconds)}
+        />
+      </section>
+    </>
   );
 }
 

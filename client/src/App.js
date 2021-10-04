@@ -19,7 +19,9 @@ function App() {
     setStale,
     setNextMedia,
     setOrderFromLikes,
-    addMessage
+    addMessage,
+    elapsedTimeOther, 
+    conn
   } = useApplicationData();
 
   return (
@@ -55,6 +57,8 @@ function App() {
           setNextMedia = {setNextMedia}
           setOrderFromLikes = {setOrderFromLikes}
           addMessage = {addMessage}
+          elapsedTimeOther = {elapsedTimeOther}
+          conn = {conn}
           />
         </Route>
         <Route path = "/createplaylist">
