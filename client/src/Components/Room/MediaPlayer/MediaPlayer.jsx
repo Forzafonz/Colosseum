@@ -70,10 +70,6 @@ function MediaPlayer({state, setNextMedia, elapsedTimeOther, conn, playing }){
   }, [elapsedTimeOther])
 
   
-
-  
-
-  
   
   return (
 

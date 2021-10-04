@@ -129,7 +129,24 @@ export default function useApplicationData(initial) {
       conn.on("pause_client", () => {
         setPlaying(false);
       })
-   
+
+
+      conn.on("SET_ORDER_FROM_LIKES", (data) =>{
+        dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId : data.mediaId, like:data.like}})
+      })
+
+      conn.on("REMOVE_MEDIA_FROM_PLAYLIST_CLIENT", (data) => {
+        dispatch({type: REMOVE_MEDIA_FROM_PLAYLIST, values : {id : data.mediaId, playlist_id: data.playlist_id}})
+      })
+
+      conn.on("ADD_MEDIA_TO_PLAYLIST_CLIENT", (data) =>{
+        console.log("ADD_MEDIA_TO_PLAYLIST_CLIENT: ", data)
+        dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : data.media, playlist_id: data.playlist_id}})
+        if (state.current_media === null) {
+          dispatch({ type: SET_PLAYING_MEDIA, values: {media: data.media.media_id}})
+        }
+      })
+
       return () => {
         conn.disconnect();
       };
@@ -169,7 +186,10 @@ export default function useApplicationData(initial) {
   const addMediaToPlaylist = (data) =>{
    
     axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
-     
+      conn.emit("ADD_MEDIA_TO_PLAYLIST_CLIENT", {
+        media: res.data,
+        playlist_id: state.current_playlist
+      })
       dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : res.data, playlist_id: state.current_playlist}})
         if (state.current_media === null) {
           dispatch({ type: SET_PLAYING_MEDIA, values: {media: res.data.media_id}})
@@ -179,12 +199,10 @@ export default function useApplicationData(initial) {
 
   const removeMediaFromPlaylist = (id) =>{
 
-    //Remove it when current playlist is set up properly
-    if (state.current_playlist === null){
-      state.current_playlist = 6;
-    }
-    //REMOVE UP TO THIS LINE
-    
+    conn.emit("REMOVE_MEDIA_FROM_PLAYLIST_CLIENT", {
+      mediaId : id,
+      playlist_id: state.current_playlist
+    })
     dispatch({type: REMOVE_MEDIA_FROM_PLAYLIST, values : {id, playlist_id: state.current_playlist}})
 
   }
@@ -211,7 +229,10 @@ export default function useApplicationData(initial) {
 
 
   const setOrderFromLikes = (mediaId, like) => {
-
+    conn.emit("SET_ORDER_FROM_LIKES", {
+      mediaId,
+      like
+    })
     dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId, like}})
 
   };
