@@ -1,6 +1,7 @@
 import React from 'react';
 import SavedPlaylistsItem from './SavedPlaylistsItem';
 import ListGroup from 'react-bootstrap/ListGroup'
+import './SavedPlaylists.scss'
 
 function SavedPlaylists({ setPlaylist, state, setPlayingMedia, setClicked, clicked }) {
 
@@ -24,12 +25,27 @@ function SavedPlaylists({ setPlaylist, state, setPlayingMedia, setClicked, click
   />);
 
   return (
-    <>
-    <h1>Saved Playlists</h1>
+    <div className = "savedPlaylist">
+    <h1 className="heading">Your Playlists</h1>
+    <br/>
+
       <ListGroup>
+        {/* <ListGroup horizontal>
+
+        <ListGroup.Item       action
+        variant="info"
+        className="playlist__item"
+       >
+          <div>Image</div>
+          <div>Rating</div>
+          <div>Playlist Id</div>
+          <div>Playlist name</div>
+        </ListGroup.Item>
+        </ListGroup> */}
+
         {savedPlaylists}
       </ListGroup>
-    </>
+    </div>
      
  
   

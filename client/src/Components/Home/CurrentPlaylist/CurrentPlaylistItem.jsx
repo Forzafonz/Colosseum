@@ -5,26 +5,58 @@ function CurrentPlaylistItem({play_order, media_rating, media_description, media
   
   return (
 
-    <li className='media__item'>
+    // <li className='media__item'>
+    //   <img
+    //     className="media__image"
+    //     src={media_thumbnail}
+    //     size
+    //     />
+    //   <div className>
+    //     play order: {play_order}  
+    //   </div>
+
+    //   <div className>
+    //     desc: {media_description}
+    //   </div>
+
+    //   <div className>
+    //     rating: {media_rating}
+    //   </div>
+    //     </li>
+    
+
+    <main className = 'listmedia'>
+      <div className = "m-item">
       <img
-        className="media__image"
+        className="mediaimage"
         src={media_thumbnail}
         size
-      />
-      <div className>
-        play order: {play_order}  
+        />
+        </div>
+        <div className = "gap"> </div>
+        <div className = "items-three">
+        <hr></hr>
+
+
+      <div className = "m-item">
+        Play order: {play_order}  
+      </div>
+      <div className = "m-item">
+        Rating: {media_rating}
       </div>
 
-      <div className>
-        desc: {media_description}
+      <div className = "m-item">
+        Title: {media_description}
       </div>
+      <hr></hr>
+        </div>      
+    </main>
 
-      <div className>
-        rating: {media_rating}
-      </div>
-    
-    </li>
-    
+
+
+
+
+
   )
 }
 

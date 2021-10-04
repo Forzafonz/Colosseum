@@ -29,6 +29,12 @@ function Header({setPlaylist}){
       <Nav.Item className= "ms-4 mt-0 pt-0 mt-0 mb-0">
         <Nav.Link as={Link} to="/home">Home</Nav.Link>
       </Nav.Item>
+      <Nav.Item className= "ms-4 mt-0 pt-0 mt-0 mb-0">
+        <Nav.Link as={Link} to="/home">About us</Nav.Link>
+      </Nav.Item>
+      <Nav.Item className= "ms-4 mt-0 pt-0 mt-0 mb-0">
+        <Nav.Link as={Link} to="/home">Help</Nav.Link>
+      </Nav.Item>
       </Nav>
       <Nav>
       <Navbar.Text className="ms-0 me-4 pt-2">

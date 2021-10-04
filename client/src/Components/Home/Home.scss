@@ -5,19 +5,31 @@
 }
 
 .saved-playlists-container {
-  border: blueviolet;
-  border-style: dotted;
+  // border: blueviolet;
+  // border-style: dotted;
   // height:80vh;
+  border-right: 3px solid rgb(135, 13, 13);
+
   width: 50vw;
+  text-align: center;
+  color:rgb(205, 179, 179);
+  overflow-y: auto;
+  overflow-x:hidden;
+  scroll-behavior: smooth;
+
 }
 
 .new-playlist-container {
-  border: red;
-  border-style: dotted;
+  // border: red;
+  // border-style: dotted;
   width: 50vw;
   display: flex;
   flex-direction: column;
   align-content:stretch;
   justify-content:flex-start;
-  padding:0;
+  color:rgb(205, 179, 179);
+  overflow-y: auto;
+  overflow-x:hidden;
+  scroll-behavior: smooth;
+  white-space:nowrap;
 }

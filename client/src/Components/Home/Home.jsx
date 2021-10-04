@@ -23,7 +23,7 @@ function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}
 
     <div className="home">
       <section className="saved-playlists-container">
-        CURRENT USER ID LOGGED IN: {userId}
+        <br/>
         <SavedPlaylists setPlaylist={setPlaylist} state={state} setPlayingMedia={setPlayingMedia} setClicked = {setClicked} clicked = {clicked}/>
       </section>
       <section className="new-playlist-container">

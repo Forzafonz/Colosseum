@@ -1,7 +1,10 @@
 .navbar{
   position: fixed;
   top:0;
-  height: 5vh;
+  height: 8vh;
+  z-index: 5;
+  margin-top:1px;
+
 }
 
 .username{
