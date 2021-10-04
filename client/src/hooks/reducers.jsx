@@ -247,10 +247,10 @@ const updatenewPlaylist = () => {
     const mediaKeysArray = Object.keys(updatedState.playlists_for_user[state.current_playlist].media)
 
     const arrayOfMediaObjects = mediaKeysArray.map( media => updatedState.playlists_for_user[state.current_playlist].media[media])
-
+    const currentMediaArray = [...arrayOfMediaObjects]
     const arrayOfMediaObjectsNotPlayedAlready = arrayOfMediaObjects.filter( media => media.played_already === false && media.media_id !== state.current_media )
-
-
+    //------Extracting the playing element from the media Array.
+    const currentMedia = currentMediaArray.filter(media => media.media_id === state.current_media)
 
     //------Update play order based on media rating------//
 
@@ -293,9 +293,13 @@ const updatenewPlaylist = () => {
 
     // Update stated based on new playorder
 
+    //------Add the previously extracted currently playing media and add it back to the currentMedia array.
+    //------This way it does not participate in sorting by votes, thus holds its queue position.
+    sortedByVotesArrayOfMediaObjectsNotPlayedAlready.unshift(currentMedia[0])
+  
+
     sortedByVotesArrayOfMediaObjectsNotPlayedAlready.forEach((ele) => {
      
-
       updatedState.playlists_for_user[state.current_playlist].media[ele.media_id] = ele;
     })
 
