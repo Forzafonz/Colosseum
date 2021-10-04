@@ -248,7 +248,7 @@ const updatenewPlaylist = () => {
 
     const arrayOfMediaObjects = mediaKeysArray.map( media => updatedState.playlists_for_user[state.current_playlist].media[media])
 
-    const arrayOfMediaObjectsNotPlayedAlready = arrayOfMediaObjects.filter( media => media.played_already === false)
+    const arrayOfMediaObjectsNotPlayedAlready = arrayOfMediaObjects.filter( media => media.played_already === false && media.media_id !== state.current_media )
 
 
 

@@ -52,7 +52,21 @@ io.on("connection", (socket) => {
   socket.on("pause", () => {
     socket.broadcast.emit("pause_client",)
   })
+
+  socket.on("SET_ORDER_FROM_LIKES", ({ mediaId, like }) => {
+    socket.broadcast.emit("SET_ORDER_FROM_LIKES", { mediaId, like })
+  })
+
+  socket.on("REMOVE_MEDIA_FROM_PLAYLIST_CLIENT", ({ mediaId, playlist_id }) => {
+    socket.broadcast.emit("REMOVE_MEDIA_FROM_PLAYLIST_CLIENT", { mediaId, playlist_id })
+  })
+
+  socket.on("ADD_MEDIA_TO_PLAYLIST_CLIENT", ({ media, playlist_id }) => {
+    console.log("ADD_MEDIA_TO_PLAYLIST_CLIENT", media, playlist_id)
+    socket.broadcast.emit("ADD_MEDIA_TO_PLAYLIST_CLIENT", { media, playlist_id })
+  })
   
+
 })
 
 
