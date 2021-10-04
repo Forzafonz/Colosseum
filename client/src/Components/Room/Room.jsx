@@ -6,7 +6,7 @@ import Queue from './MediaQueue/Queue';
 import Mediaform from './Mediaform/Mediaform';
 
 import axios from 'axios';
-import { io } from "socket.io-client"
+// import { io } from "socket.io-client"
 
 const NEWMESSAGE = 'newmessage'
 const INITIALIZE = 'initialize'
