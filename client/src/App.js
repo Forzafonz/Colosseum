@@ -21,7 +21,8 @@ function App() {
     setOrderFromLikes,
     addMessage,
     elapsedTimeOther, 
-    conn
+    conn,
+    playing
   } = useApplicationData();
 
   return (
@@ -59,6 +60,7 @@ function App() {
           addMessage = {addMessage}
           elapsedTimeOther = {elapsedTimeOther}
           conn = {conn}
+          playing = {playing}
           />
         </Route>
         <Route path = "/createplaylist">
