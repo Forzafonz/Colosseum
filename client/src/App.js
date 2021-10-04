@@ -18,7 +18,8 @@ function App() {
     updatenewPlaylist,
     setStale,
     setNextMedia,
-    setOrderFromLikes
+    setOrderFromLikes,
+    addMessage
   } = useApplicationData();
 
   return (
@@ -53,6 +54,7 @@ function App() {
           removeMediaFromPlaylist = {removeMediaFromPlaylist}
           setNextMedia = {setNextMedia}
           setOrderFromLikes = {setOrderFromLikes}
+          addMessage = {addMessage}
           />
         </Route>
         <Route path = "/createplaylist">

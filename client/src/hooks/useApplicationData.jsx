@@ -8,7 +8,8 @@ import reducer, {
   REMOVE_MEDIA_FROM_PLAYLIST,
   UPDATE_NEW_PLAYLIST,
   SET_NEXT_MEDIA,
-  SET_ORDER_FROM_LIKES
+  SET_ORDER_FROM_LIKES,
+  ADD_NEW_MESSAGE
 } from './reducers';
 import axios from "axios";
 
@@ -30,11 +31,13 @@ export default function useApplicationData(initial) {
   const initialState = { 
     playlists_for_user: {},
     current_playlist: null,
-    current_media: null
+    current_media: null,
+    messages: { msg: "Placeholder", sent: "Placeholder", date: Date.now()}
+
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const [conn, setConn] = useState(undefined);
   const [stale, setStale] = useState(false);
 
 
@@ -47,23 +50,58 @@ export default function useApplicationData(initial) {
     Promise.all([
       axios.get(`/api/home/${userId}/playlists`),
       axios.get(`/api/home/${userId}/media`),
-      axios.get(`/api/home/${userId}/activeplaylist`)  
+      axios.get(`/api/home/${userId}/activeplaylist`),
+      axios.get(`/api/messages/${userId}`) 
     ])
     .then(
       (result) => {
        
-        const [userPlaylists, userMedias, activePlaylist] = result;
-        console.log('I RUN!', activePlaylist)
+        const [userPlaylists, userMedias, activePlaylist, chatMessages] = result;
+       
         dispatch({ type: SET_APPLICATION_DATA, values : { userPlaylists: userPlaylists.data ? userPlaylists.data : [] , 
             userMedias: userMedias.data ? userMedias.data : [], 
-            current_playlist: activePlaylist.data ?  activePlaylist.data : null} })
+            current_playlist: activePlaylist.data ?  activePlaylist.data : null,
+            messages: chatMessages.data ? chatMessages.data : null
+          } })
         setStale(false);
       }
     )
   }, [stale]);
 
-  const setPlaylist = (playlistId) => {
+  ////// SOCKET IO IMPLEMENTATION
+
+  useEffect(() => {
+    const socket = io('http://localhost:8000');
+    setConn(socket);
+  }, [])
+
+  useEffect(() => {
+    if (conn) {
+      console.log(conn)
+      //check if message chat is "UPDATE_CHAT" and dispatch
+      conn.on("UPDATE_CHAT", data => {
+        dispatch({ type : ADD_NEW_MESSAGE, values : data.msg})
+      
+      conn.on("play_media", data => {
+        console.log("i am here with data", data)
+        dispatch({ type: SET_PLAYING_MEDIA, values: {media: data.media,  playlist_id: data.playlistId }})
+      })
+      })
     
+      return () => {
+        conn.disconnect();
+      };
+
+    }
+  }, [conn])
+
+
+  /////////////////END OF SOCKET IO IMPLEMENTATION////////////////
+
+  const setPlaylist = (playlistId) => {
+    if (!state.current_playlist) {
+    axios.put(`/api/home/${userId}/playlists/${state.current_playlist}/active`)
+    }
     dispatch({ type: SET_PLAYLIST, values: playlistId })
     if (playlistId) {
       axios.put(`http://localhost:8000/api/room/${userId}/playlist/${playlistId}/startplaylist`)
@@ -71,15 +109,20 @@ export default function useApplicationData(initial) {
   };
 
   const setPlayingMedia = (mediaId) => {
-    console.log("This is media_id!!!!", mediaId)
-    axios.put(`/api/home/${userId}/playlists/${state.current_playlist}/active`)
+
+      conn.emit("play_media", {
+        playlistId: state.current_playlist,
+        media: mediaId
+      })
+   
+    
     dispatch({ type: SET_PLAYING_MEDIA, values: {media: mediaId, playlist_id: state.current_playlist}})
   };
 
   const addMediaToPlaylist = (data) =>{
-    console.log("DAATAAAAAA", data);
+   
     axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
-      console.log("This is data!", res.data)
+     
       dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : res.data, playlist_id: state.current_playlist}})
         if (state.current_media === null) {
           dispatch({ type: SET_PLAYING_MEDIA, values: {media: res.data.media_id}})
@@ -126,8 +169,25 @@ export default function useApplicationData(initial) {
 
   };
 
-
+  const addMessage = (message) => {
+    //  Send a put request to add a new message
+    return axios.put('/api/messages/new', {message})
+    .then((result) => {
+      // Dispathing a command to reducer with type 'newmessage'. Message argument already have a form of {type: ..., value: ...}
+      dispatch({type: ADD_NEW_MESSAGE, values: message.values})
+    })
+    .catch((error) => console.log(error.response.data))
+  
+  }
 
   //Passed to App.js and passed down to each component from there
-  return { state, setPlaylist, setPlayingMedia, addMediaToPlaylist, updatenewPlaylist, removeMediaFromPlaylist, setStale, setNextMedia, setOrderFromLikes }
+  return { state, setPlaylist, 
+    setPlayingMedia, 
+    addMediaToPlaylist, 
+    updatenewPlaylist, 
+    removeMediaFromPlaylist, 
+    setStale, 
+    setNextMedia, 
+    setOrderFromLikes,
+    addMessage }
 }

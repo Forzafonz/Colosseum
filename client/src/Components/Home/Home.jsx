@@ -7,7 +7,7 @@ import NewPlaylist from './NewPlaylist/NewPlaylist';
 
 function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}) {
 
-  console.log("HOME STATE", state);
+  // console.log("HOME STATE", state);
 
   //REMOVE LATER, ONLY USED FOR DISPLAYLING LOGGED IN USER ID ON HOME PAGE
   const userId = localStorage.user_id;

@@ -7,7 +7,7 @@ function SavedPlaylists({ setPlaylist, state, setPlayingMedia, setClicked, click
 
   //Create array of playlists for logged in user
   let playlistsArray = Object.values(state.playlists_for_user);
-  console.log("Home state", state)
+  // console.log("Home state", state)
 
 
   //Create array of components

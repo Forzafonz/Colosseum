@@ -15,7 +15,7 @@ const server = require("http").Server(app);
 // Create io instance using http server
 const io = socketio(server, {
   cors: {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000"],
   methods: ["GET", "POST"],
   }
 });
@@ -27,6 +27,16 @@ function addText(msg) {
   io.emit("UPDATE_CHAT", { msg });
  
 }
+
+io.on("connection", (socket) => {
+  console.log("Connected with", socket.id)
+  socket.on("play_media", ({media, playlistId}) =>{
+    console.log("play media", media, playlistId)
+    socket.broadcast.emit("play_media", { media, playlistId })
+  })
+
+})
+
 
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

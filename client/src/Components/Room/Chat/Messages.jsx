@@ -58,7 +58,7 @@ export default function Messages({addMessage, state}) {
     // Remove me later  
     // check if message if not empty then calls addMessage function  with specified type. AddMessage function is defined in App.
     if (msg !== 0){
-      addMessage({type: 'newmessage', values : { msg: msg, 'user_id': Number(user_id), date: Date.now(), avatar, username}})
+      addMessage({values : { msg: msg, 'user_id': Number(user_id), date: Date.now(), avatar, username}})
     }
   }
   // this function is invoked every time any button is pressed in textarrea of a newMessage

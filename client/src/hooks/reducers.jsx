@@ -6,6 +6,7 @@ const REMOVE_MEDIA_FROM_PLAYLIST = "REMOVE_MEDIA_FROM_PLAYLIST";
 const UPDATE_NEW_PLAYLIST = "UPDATE_NEW_PLAYLIST";
 const SET_NEXT_MEDIA = "SET_NEXT_MEDIA";
 const SET_ORDER_FROM_LIKES = 'SET_ORDER_FROM_LIKES';
+const ADD_NEW_MESSAGE = 'ADD_NEW_MESSAGE'
 
 // A reducer function
 
@@ -38,9 +39,19 @@ const reducer = function (state, action) {
       };
       
     })
-  
-    const newState = {...state, playlists_for_user: newPlaylistsForUser, current_playlist: setPlaylist}
-    console.log("Here is a new state in init:", newState)
+
+    const newMessages = {};
+
+    if (action.values.messages !== null) {
+
+      action.values.messages.forEach(element => {
+        
+        const date = Number(element.date);
+        newMessages[date] = {msg: element.text, date: date, user_id : element.user_id, avatar: element.avatar, username: element.username}
+      });
+    }
+
+    const newState = {...state, playlists_for_user: newPlaylistsForUser, current_playlist: setPlaylist, messages: newMessages}
 
     return newState;
   }
@@ -51,7 +62,6 @@ const reducer = function (state, action) {
     const newState = {...state}
     // const updatedState = {...newState, current_playlist: action.values}
     if (action.values) {
-    console.log("AAAA", action.values)
     const updatedMedia = {...newState.playlists_for_user[action.values].media}
 
     Object.keys(updatedMedia).forEach((element) => {
@@ -74,7 +84,7 @@ const reducer = function (state, action) {
   //Function to set current media
   const setPlayingMedia = () => {
 
-    console.log("ID in set Playlign Media", action)
+    // console.log("ID in set Playlign Media", action)
     if (action.values.media) {
       return {...state, current_media: action.values.media }    
     } else {
@@ -96,7 +106,7 @@ const reducer = function (state, action) {
       } else {
         min_media_id = null;
       }
-      console.log("THIS IS MEDIA ID IN SPM", min_media_id)
+      // console.log("THIS IS MEDIA ID IN SPM", min_media_id)
       return {...state, current_media: min_media_id }  
 
     }
@@ -113,8 +123,8 @@ const reducer = function (state, action) {
     const playlist_id = action.values.playlist_id
     const updatedState = {...state}
 
-    console.log("UPDATED Addmedia state", updatedState);
-    console.log("UPDATED Addmedia plylistID", playlist_id);
+    // console.log("UPDATED Addmedia state", updatedState);
+    // console.log("UPDATED Addmedia plylistID", playlist_id);
 
     const media_for_playlist = updatedState.playlists_for_user[playlist_id].media
 
@@ -156,7 +166,7 @@ const updatenewPlaylist = () => {
     {...updatedState.playlists_for_user, [newPlaylist_id]:{playlist:{id: newPlaylist_id}, media:{}}}
     const newState = {...state, playlists_for_user:updated_playlists_for_user, current_playlist: newPlaylist_id}
     // const setPlaylistState = {...newState, }
-    console.log("=====>newstate", newState);
+    // console.log("=====>newstate", newState);
     return {...newState, current_media:null};
 
 }
@@ -176,8 +186,6 @@ const updatenewPlaylist = () => {
     const updatedPlaylists = {...newState.playlists_for_user, [state.current_playlist] : updatedPlaylist  };
 
     const updatedState = { ...newState, playlists_for_user : updatedPlaylists };
-
-    console.log("updatedState", updatedState)
 
     //Order ones that have not been played yet by play order
     //Get media object for current playlist
@@ -211,7 +219,7 @@ const updatenewPlaylist = () => {
 
     //------Get the current media rating------//
     const newState = {...state};
-    
+ 
     let currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating + 1
     if (!action.values.like) {
       currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating - 1
@@ -232,7 +240,7 @@ const updatenewPlaylist = () => {
 
     const updatedState = { ...newState, playlists_for_user : updatedPlaylists };
 
-      console.log("UPDATED STATE", updatedState)
+    
     //-------Filter out played already------//
 
     //Array of all media keys
@@ -242,7 +250,7 @@ const updatenewPlaylist = () => {
 
     const arrayOfMediaObjectsNotPlayedAlready = arrayOfMediaObjects.filter( media => media.played_already === false)
 
-    console.log("arrayOfMediaObjectsNotPlayedAlready",arrayOfMediaObjectsNotPlayedAlready);
+
 
     //------Update play order based on media rating------//
 
@@ -259,13 +267,12 @@ const updatenewPlaylist = () => {
       return firstElement - secondElement
     })
 
-    console.log("sortedByPlayOrderArrayOfMediaObjectsNotPlayedAlready", sortedByPlayOrderArrayOfMediaObjectsNotPlayedAlready );
     
 
     //array of playorder: [5,6,7,8,9,10,11,12,13,14]
     const intialPlayOrderArray = sortedByPlayOrderArrayOfMediaObjectsNotPlayedAlready.map(mediaObj => mediaObj.play_order );
 
-    console.log("INITIAL PLAY ORDER", intialPlayOrderArray );
+   
 
     //Now need to sort by votes (media rating)
     const sortedByVotesArrayOfMediaObjectsNotPlayedAlready = arrayOfMediaObjectsNotPlayedAlready.sort((ele1, ele2) => {
@@ -281,13 +288,13 @@ const updatenewPlaylist = () => {
       mediaObjElement.play_order = intialPlayOrderArray[mediaObjIndex];
     })
 
-    console.log("SORTED MEDIA OBJ ARRAY", sortedByVotesArrayOfMediaObjectsNotPlayedAlready);
 
     //------update state based on new play order------//
 
     // Update stated based on new playorder
 
     sortedByVotesArrayOfMediaObjectsNotPlayedAlready.forEach((ele) => {
+     
 
       updatedState.playlists_for_user[state.current_playlist].media[ele.media_id] = ele;
     })
@@ -295,6 +302,16 @@ const updatenewPlaylist = () => {
 
     return updatedState;
   };
+
+  const addNewMessage = () => {
+
+    const newState = {...state}
+    const updatedMessages = {...newState.messages, [action.values.date] : action.values}
+    const updatedState = {...newState, messages:updatedMessages}
+
+    return updatedState
+
+  }
 
 //
   const actions = {
@@ -307,6 +324,7 @@ const updatenewPlaylist = () => {
     [UPDATE_NEW_PLAYLIST] : updatenewPlaylist,
     [SET_NEXT_MEDIA] : setNextMedia,
     [SET_ORDER_FROM_LIKES] : setOrderFromLikes,
+    [ADD_NEW_MESSAGE]:addNewMessage,
   
     "default": () => {
       throw new Error(`Tried to reduce with unsupported action type: ${action.type}`)}
@@ -324,5 +342,6 @@ export { reducer as default,
   UPDATE_NEW_PLAYLIST, 
   REMOVE_MEDIA_FROM_PLAYLIST, 
   SET_NEXT_MEDIA, 
-  SET_ORDER_FROM_LIKES 
+  SET_ORDER_FROM_LIKES,
+  ADD_NEW_MESSAGE 
 };
