@@ -40,10 +40,10 @@ function reducer(state, action){
 
 }
 
-function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist, setNextMedia, setOrderFromLikes}) {
+function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPlaylist, setNextMedia, setOrderFromLikes, addMessage}) {
   const initialState = { msg: "Hello", sent: "Anton", date: Date.now()}
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [conn, setConn] = useState(undefined);
+  // const [conn, setConn] = useState(undefined);
   const [empty, setEmpty] = useState(false)
 
   const user_id = localStorage.getItem('user_id')
@@ -67,20 +67,20 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
   }, [state1])
 
   // Initilize io-socket connection (Required for synchronious updates)
-  useEffect(() => {
-    const socket = io('http://localhost:8000');
-    setConn(socket);
-  }, [])
+  // useEffect(() => {
+  //   const socket = io('http://localhost:8000');
+  //   setConn(socket);
+  // }, [])
 
   // On the first render pulls message data from the database;
-  useEffect(() => {
-    axios.get(`/api/messages/${user_id}`)
-    .then((response) => {
-      // Dispacth command to reducer to initialize state with data pulled from the DB.
-      dispatch({ type: "initialize", values: response.data})
-    })
+  // useEffect(() => {
+  //   axios.get(`/api/messages/${user_id}`)
+  //   .then((response) => {
+  //     // Dispacth command to reducer to initialize state with data pulled from the DB.
+  //     dispatch({ type: "initialize", values: response.data})
+  //   })
   
-  },[])
+  // },[])
 
   // //REFACTOR INTO ONE useEffect TO PULL ALL APP DATA FROM BACKEND
   // // On the first render pulls media data from the database;
@@ -96,27 +96,27 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
   // },[])
 
   // Listen to any changes to connection and trigger dispatch if message type is "UPDATE CHAT"
-  useEffect(() => {
-    if (conn) {
-      //check if message chat is "UPDATE_CHAT" and dispatch
-      conn.on("UPDATE_CHAT", data => {
-        //Dispatch with newmessage type in order to add new message which was sent by another user to the state.
-        dispatch({ type : NEWMESSAGE, values : data.msg})
-      })
+  // useEffect(() => {
+  //   if (conn) {
+  //     //check if message chat is "UPDATE_CHAT" and dispatch
+  //     conn.on("UPDATE_CHAT", data => {
+  //       //Dispatch with newmessage type in order to add new message which was sent by another user to the state.
+  //       dispatch({ type : NEWMESSAGE, values : data.msg})
+  //     })
 
-    }
-  }, [conn])
+  //   }
+  // }, [conn])
 
   // This function is passed to Messages components via props and called on there
-  const addMessage = (message) => {
-    //  Send a put request to add a new message
-    return axios.put('/api/messages/new', {message})
-    .then((result) => {
-      // Dispathing a command to reducer with type 'newmessage'. Message argument already have a form of {type: ..., value: ...}
-      dispatch(message)
-    })
-    .catch((error) => console.log(error.response.data))
-  }
+  // const addMessage = (message) => {
+  //   //  Send a put request to add a new message
+  //   return axios.put('/api/messages/new', {message})
+  //   .then((result) => {
+  //     // Dispathing a command to reducer with type 'newmessage'. Message argument already have a form of {type: ..., value: ...}
+  //     dispatch(message)
+  //   })
+  //   .catch((error) => console.log(error.response.data))
+  // }
 
   return (
     <div className="App">
@@ -131,7 +131,7 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
           {/* //Create a chat component and pass two props: 
           addMessage and the entire state */}
             <Chat
-            state = {state}
+            state = {state1.messages}
             addMessage = {addMessage}
             /> 
           </section>
@@ -142,6 +142,7 @@ function NewRoom({state1, setPlayingMedia, addMediaToPlaylist, removeMediaFromPl
           setPlayingMedia={setPlayingMedia}
           removeMediaFromPlaylist = {removeMediaFromPlaylist}
           setOrderFromLikes = {setOrderFromLikes}
+          addMessage = {addMessage}
           />
       </main>
     </div>

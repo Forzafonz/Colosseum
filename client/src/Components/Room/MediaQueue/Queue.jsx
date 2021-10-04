@@ -47,7 +47,7 @@ function reducer (state, action) {
   const initialize = (input) => {
 
     const queueObject = input.values
-    console.log(input.values)
+    // console.log(input.values)
     const updatedState = {0:state['0']};
 
     Object.keys(queueObject).forEach((element) => {
@@ -57,7 +57,7 @@ function reducer (state, action) {
       }
     })
     const newState = {...state, ...updatedState} 
-    console.log(newState)
+    // console.log(newState)
     return updatedState;
     
   }
@@ -102,7 +102,7 @@ function Queue({state1, setPlayingMedia, setEmpty, removeMediaFromPlaylist, setO
   }, [state1]);
 
 
-  console.log("STATE1 QUEUE", state1);
+  // console.log("STATE1 QUEUE", state1);
 
 
   const refs = React.useMemo(

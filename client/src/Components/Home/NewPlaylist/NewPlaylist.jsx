@@ -20,7 +20,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
     axios
       .get(`http://localhost:8000/api/user/${user}`) //Checks for valid user
       .then((res) => {
-        console.log('---->-->user name', res.data[0].username);
+        // console.log('---->-->user name', res.data[0].username);
         const udata1 = [...udata];
         const obj2 = {};
         // obj2['id']=udata.length;
@@ -30,7 +30,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
         } else {
           obj2['id'] = udata[udata.length - 1]['id'] + 1;
         }
-        console.log(obj2['id']);
+        // console.log(obj2['id']);
         obj2['u_id'] = res.data[0].id;
         obj2['name'] = user;
 
@@ -40,7 +40,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
           udata1[udata.length] = obj2;
         }
 
-        console.log(udata1);
+        // console.log(udata1);
         setUdata(udata1);
         setUser('');
       })
@@ -57,7 +57,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
     }
 
     udata1.splice(req_index, 1);
-    console.log(udata1);
+    // console.log(udata1);
     setUdata(udata1);
   };
 
