@@ -41,6 +41,11 @@ export default function useApplicationData(initial) {
   const [stale, setStale] = useState(false);
 
   const [elapsedTimeOther, setElapsedTimeOther] = useState(0);
+  const [playing, setPlaying] = useState(true);
+
+
+
+
   
   // useLayoutEffect?
 
@@ -91,8 +96,7 @@ export default function useApplicationData(initial) {
         dispatch({ type: SET_PLAYING_MEDIA, values: {media: data.media,  playlist_id: data.playlistId }})
       })
 
-      
-
+  
       //When playing time recieved from other player, 
       // Update the current media playing time if the difference 
       // in time played in other window is more than 2 seconds
@@ -114,6 +118,16 @@ export default function useApplicationData(initial) {
           console.log("!!!!!!!!!!!CHANGE THE CURRENT MEDIA!!!!!")
         }
        
+      })
+
+      //To play in this client when play clicked in other client
+      conn.on("play_client", () => {
+        setPlaying(true);
+      })
+    
+      //To pause in this client when pause clicked in other client
+      conn.on("pause_client", () => {
+        setPlaying(false);
       })
    
       return () => {
@@ -226,6 +240,7 @@ export default function useApplicationData(initial) {
     setOrderFromLikes,
     addMessage,
     elapsedTimeOther, 
-    conn
+    conn,
+    playing
   }
 }

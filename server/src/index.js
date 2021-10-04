@@ -42,6 +42,16 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("update_media_playing_time", playingTime)
 
   })
+
+  //To play in all clients when play clicked in one client
+  socket.on("play", () => {
+    socket.broadcast.emit("play_client",)
+  })
+
+  //To pause in all clients when ppause clicked in one client
+  socket.on("pause", () => {
+    socket.broadcast.emit("pause_client",)
+  })
   
 })
 
