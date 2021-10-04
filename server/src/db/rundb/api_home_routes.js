@@ -72,6 +72,7 @@ const updatePlaylistToActive = function (playlistId, userId) {
   .then(() => console.log(`Succesfully set user id ${userId} active to false`))
   .then(() => pool.query(queryString2, [playlistId, userId]))
   .then(() => console.log(`Succesfully updated user id ${userId} playlist id ${playlistId} to active`))
+  .catch(error => console.log("THIS IS ERROR WHEN SETTING PLAYLIST TO ACTIVE IN DB:", error.response.data))
 };
 
 const getActivePlaylist = function (user_id) {

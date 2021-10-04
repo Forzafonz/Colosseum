@@ -38,12 +38,14 @@ const roomRouter = express.Router();
 // A router for room page requests
 const youtubeRouter = express.Router();
 
-module.exports = function application( actions = { addText: () => {} } ) {
+module.exports = function application( actions = { addText: () => {}, changeMedia: () => {} } ) {
   //Enable cors on the server
-  app.use(cors());
+  app.use(cors({
+    origin: ["http://localhost:3000"],
+  }));
   resetRoute(resetRouter);
   loginRegisterRoutes(loginRegisterRouter);
-  homeRoutes(homeRouter);
+  homeRoutes(homeRouter, actions.changeMedia);
   roomRoutes(roomRouter);
   youtubeRoutes(youtubeRouter);
 
