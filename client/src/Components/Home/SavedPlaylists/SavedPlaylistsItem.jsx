@@ -40,7 +40,7 @@ function SavedPlaylistsItem({
   // for the selected playlist and redirects to room
   const playPlaylist = (id) => {
     // const mediaObjectForPlaylist = state.playlists_for_user[id].media;
-
+    console.log("id in playPlaylist", id)
     // const firstMediaObject = mediaObjectForPlaylist[Object.keys(mediaObjectForPlaylist)[0]];
     setPlaylist(id);
     // firstMediaObject ? setPlayingMedia(firstMediaObject.media_id) : setPlayingMedia(null)

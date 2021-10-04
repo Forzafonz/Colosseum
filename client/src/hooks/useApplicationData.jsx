@@ -99,24 +99,29 @@ export default function useApplicationData(initial) {
   /////////////////END OF SOCKET IO IMPLEMENTATION////////////////
 
   const setPlaylist = (playlistId) => {
-    if (!state.current_playlist) {
-    axios.put(`/api/home/${userId}/playlists/${state.current_playlist}/active`)
-    }
+    console.log("Here is current playlist", state.current_playlist, playlistId)
     dispatch({ type: SET_PLAYLIST, values: playlistId })
     if (playlistId) {
+      console.log("Here is current playlist", state.current_playlist)
+      axios.put(`/api/home/${userId}/playlists/${playlistId}/active`)
+  }
+  if (playlistId) {
       axios.put(`http://localhost:8000/api/room/${userId}/playlist/${playlistId}/startplaylist`)
     }
   };
 
   const setPlayingMedia = (mediaId) => {
-
-      conn.emit("play_media", {
-        playlistId: state.current_playlist,
-        media: mediaId
-      })
-   
-    
+    console.log("STATE IN SETPLAYLING MEDIA:", state.current_playlist)
     dispatch({ type: SET_PLAYING_MEDIA, values: {media: mediaId, playlist_id: state.current_playlist}})
+      if (mediaId) {
+
+        conn.emit("play_media", {
+          playlistId: state.current_playlist,
+          media: mediaId
+        })
+        
+      }
+    
   };
 
   const addMediaToPlaylist = (data) =>{

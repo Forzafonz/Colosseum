@@ -19,6 +19,10 @@ function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}
   const playlistId = state.current_playlist;
   const [clicked, setClicked] = useState(false)
 
+  // useEffect(() => {
+  //   setPlaylist(null)
+  // }, [])
+
   return (
 
     <div className="home">

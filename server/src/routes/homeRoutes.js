@@ -52,14 +52,21 @@ module.exports = function(router, changeMedia) {
     const userId = req.params.user_id;
     const media_id = req.params.media_id
     // changeMedia({media: Number(media_id), playlistId: Number(playlistId)})
-
-    updatePlaylistToActive(playlistId, userId)
-      .then(() => {
-        console.log("I RUN!")
+    if (playlistId !== null) {
+      console.log("RUNNING WITH playlistId ", playlistId )
+      updatePlaylistToActive(playlistId, userId)
+      .then((data) => {
         res
-          .status(200)
+        .status(200)
+        .json({status:"success"})
       })
-      .catch((error) => console.log(error.response.data))
+      .catch((error) => console.log(error))
+    } else {
+      res
+      .status(200)
+      .json({status:"success"})
+    }
+
   })
 
   return router;
