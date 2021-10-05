@@ -295,7 +295,9 @@ const updatenewPlaylist = () => {
 
     //------Add the previously extracted currently playing media and add it back to the currentMedia array.
     //------This way it does not participate in sorting by votes, thus holds its queue position.
-    sortedByVotesArrayOfMediaObjectsNotPlayedAlready.unshift(currentMedia[0])
+    if (currentMedia[0]) {
+      sortedByVotesArrayOfMediaObjectsNotPlayedAlready.unshift(currentMedia[0])
+    }
   
 
     sortedByVotesArrayOfMediaObjectsNotPlayedAlready.forEach((ele) => {

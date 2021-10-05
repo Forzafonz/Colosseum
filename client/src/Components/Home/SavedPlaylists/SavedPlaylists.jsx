@@ -25,11 +25,9 @@ function SavedPlaylists({ setPlaylist, state, setPlayingMedia, setClicked, click
   />);
 
   return (
-    <div className = "savedPlaylist">
-    <h1 className="heading">Your Playlists</h1>
-    <br/>
-
-      <ListGroup>
+    <div className = "saved_playlist">
+      <h1 className="heading">YOUR PLAYLISTS</h1>
+      <ListGroup className = "saved_playlist_items_container">
         {/* <ListGroup horizontal>
 
         <ListGroup.Item       action
