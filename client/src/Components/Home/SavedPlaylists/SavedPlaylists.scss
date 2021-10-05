@@ -1,68 +1,34 @@
 // @import "styles/mixins.scss";
 // @import "styles/variables.scss";
 
-// .playlist {
-//   &__item {
-//     display: flex;
-//     align-items: center;
-//     justify-content: space-between;
-//     padding-right: 10vw;
-//     // border: red;
-//     // border-style: dotted;
-//     padding-right: 2rem;
-//     border-radius: 10rem;
-  
-//   }
- 
-//   &__image {
+.saved-playlist {
 
-//     width: 12vh;
-//     height: 12vh;
-//     border-radius: 50%;
-//     // &--selected {
-//     //   color: $dark-background;
-//     //   background-color: $white;
-//     //   border-radius: 16px;
-//     //   height: 32px;
-//     //   display: flex;
-//     //   align-items: center;
-//     //   padding-left: 2px;
-//     //   padding-right: 1rem;
-//     //   user-select: none;
-//     // }
+  // border: fuchsia;
+  // border-style: dotted;
 
-//     // &--selected &-image {
-//     //   width: 28px;
-//     //   height: 28px;
-//     //   margin-right: 0.5rem;
-//     // }
-
-//   }
-// }
-
-.saved_playlist {
   text-align: center;
-  border: fuchsia;
-  border-style: dotted;
   padding-left: 1rem;
   padding-right: 1rem;
-
-
-  
-
 }
 
 .heading {
-  color:rgb(255, 85, 0);
-  border: rgb(0, 17, 255);
-  border-style: dotted;
+
+  // border: rgb(0, 17, 255);
+  // border-style: dotted;
+
+  color:rgb(0, 0, 0);
+  text-align: cetnter;
   font-family: 'Gemunu Libre', sans-serif; 
   font-weight: 600;
+  font-size: 4rem;
+
 
 }
 
-.saved_playlist_items_container {
-  border: rgb(179, 255, 0);
-  border-style: dotted;
+.saved-playlist-items-container {
+  
+  // border: rgb(179, 255, 0);
+  // border-style: dotted;
+
   border-radius: 3rem;
 }

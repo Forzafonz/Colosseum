@@ -28,28 +28,27 @@
   align-items:center;
   display: flex;
   flex-direction: column;
-  padding:10px;
 
   input, select{
   width:27rem;
   height:2rem;
-  background-color:rgb(180, 77, 46);
+  background-color: rgb(62, 2, 2);
+  color: white;
   
   }
   
   .list-container {
   display: flex;
   flex-direction: column;
-  border: 4px solid rgb(65, 65, 140) ;
-  background-color:rgb(180, 77, 46);
+ 
+  background-color: rgb(62, 2, 2);
   height:23rem;
   width:85%;
   margin:0px;
+  color: white;
   }
   
-  h1 {
-  margin:10px;
-  }
+ 
   button {
 
   margin-left:10px;
@@ -72,11 +71,11 @@ table.center {
 }
 
 label, h1{
-  color:plum;
+  color:rgb(0, 0, 0);
 }
 
 .heading {
-  color:rgb(255, 85, 0)
+  color:rgb(0, 0, 0)
 }
   }
   

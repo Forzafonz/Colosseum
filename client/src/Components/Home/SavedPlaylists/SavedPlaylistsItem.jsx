@@ -72,8 +72,7 @@ function SavedPlaylistsItem({
           variant = "warning" 
           onClick={() => playPlaylist(id)}
           >
-          PLAY <br/>
-          
+          PLAY           
         </Button>
       }
       

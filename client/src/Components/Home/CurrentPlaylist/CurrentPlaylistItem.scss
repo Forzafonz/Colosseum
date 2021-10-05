@@ -1,89 +1,42 @@
 // @import "styles/mixins.scss";
 // @import "styles/variables.scss";
 
-// .media {
-//   &__item {
-//     display: flex;
-//     align-items: center;
-//     justify-content: space-between;
-//     padding-right: 10px;;
-//     width:95%;
+.media-item {
 
-//   }
+  // border:fuchsia;
+  // border-style: dotted;
 
-//   &__image {
-
-//     width: 15vh;
-//     height: 15vh;
-//     border-radius: 50%;
-
-// &--selected {
-//   color: $dark-background;
-//   background-color: $white;
-//   border-radius: 16px;
-//   height: 32px;
-//   display: flex;
-//   align-items: center;
-//   padding-left: 2px;
-//   padding-right: 1rem;
-//   user-select: none;
-// }
-
-// &--selected &-image {
-//   width: 28px;
-//   height: 28px;
-//   margin-right: 0.5rem;
-// }
-
-//   }
-// }
-
-.listmedia {
-  width: 90%;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-  border: 2px, solid, rgb(122, 8, 8);
-  padding: 10px 20px 10px 40px;
-  font-style: italic;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  color: white;
-  margin:2px;
+  color: rgb(0, 0, 0);
+  
 
-  .mediaimage {
-    width: 15vh;
-    height: 15vh;
-    border-radius: 50%;
-  }
-  .m-item {
-    text-overflow: ellipsis; 
-  }
-
-  .items-three {
-    display: flex;
-    flex-direction: column;
-    color:rgb(245, 244, 250);
-    font-size: 1.2rem;
-    width:80%;
-  }
-  .gap {
-    min-width:30px;
-  }
+  
+ 
 }
 
-.playlist-heading {
-  text-align: center;
-  // font-family:bold !important;
+.media-image {
+  width: 15vh;
+  height: 15vh;
+  border-radius: 50%;
+  border:2px rgb(255, 255, 255);
+  border-style: solid;
 }
-.current-playlist {
-  background-image: url('https://www.onlygfx.com/wp-content/uploads/2016/08/dark-red-watercolor-1.jpg');
-  height:100%;
-  background-size:cover;
-  background-blend-mode: soft-light;
-  // background-size:auto ;
+
+.media-info {
+  width: 85vw;
+  padding-left: 1rem;
 }
-.heading {
-  color:rgb(255, 85, 0)
+
+
+.media-info-line {
+  
+  font-family: 'Gemunu Libre', sans-serif;
+  font-size: 2rem;
+  text-align: left;
 }
+
+
+
