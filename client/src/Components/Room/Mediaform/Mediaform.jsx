@@ -34,15 +34,7 @@ function Mediaform({state, addMediaToPlaylist, setEmpty}) {
 
 
   //To get thumbnail from given youtube video url
-  const getThumbnail = function (url1) {
-    
-    const pre = 'https://img.youtube.com/vi/'
-    const post = '/default.jpg'
-    const only_url = url1.slice(-11); 
-    const result = pre + only_url + post;
-    return result;
-    
-  }
+
   
   useEffect(() => {
     setPlaylistName(state.current_playlist)
@@ -70,16 +62,31 @@ function Mediaform({state, addMediaToPlaylist, setEmpty}) {
      } else if (!url.includes("http") && category === "soundcloud") {
         //  do something
      } else {
-        const image = getThumbnail(url);
-        if (desc) {
+      let urlstring = 'https://noembed.com/embed?url=' + url;
+      axios.get(urlstring).then((res) => {
+        const image = res.data.thumbnail_url;
+        if(desc) {
           submitMedia({ url, desc, image });
         } else {
-          let urlstring = 'https://noembed.com/embed?url=' + url;
-          axios.get(urlstring).then((res) => {
-            const desc = res.data.title;
-            submitMedia({ url, desc, image });
-          });
+          const desc = res.data.title;
+          submitMedia({ url, desc, image });
         }
+      })
+
+
+
+
+
+        // const image = getThumbnail(url);
+        // if (desc) {
+        //   submitMedia({ url, desc, image });
+        // } else {
+        //   let urlstring = 'https://noembed.com/embed?url=' + url;
+        //   axios.get(urlstring).then((res) => {
+        //     const desc = res.data.title;
+        //     submitMedia({ url, desc, image });
+        //   });
+        // }
      }
   };
 
@@ -175,6 +182,7 @@ function Mediaform({state, addMediaToPlaylist, setEmpty}) {
             <Button type="submit" name="add-url" variant="success" type="submit"  onClick={addMedia}>
               {buttonLabel}
             </Button>
+            <span className = "gap">      </span>
             <Button type="button" variant="danger" onClick={() => setEmpty(false)}>
               Close form
             </Button>
