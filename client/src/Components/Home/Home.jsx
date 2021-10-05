@@ -28,15 +28,29 @@ function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia,
 
     <div className="home">
       <section className="saved-playlists-container">
-        <br/>
-        <SavedPlaylists setPlaylist={setPlaylist} setShowPlaylist = {setShowPlaylist} state={state} setPlayingMedia={setPlayingMedia} setClicked = {setClicked} clicked = {clicked}/>
+        <SavedPlaylists 
+          setPlaylist={setPlaylist} 
+          state={state} 
+          setPlayingMedia={setPlayingMedia} 
+          setClicked = {setClicked} 
+          clicked = {clicked}
+          setShowPlaylist = {setShowPlaylist}
+        />
       </section>
       <section className="new-playlist-container">
 
-        {!clicked && <NewPlaylist updatenewPlaylist = {updatenewPlaylist} setPlaylist = {setPlaylist}/>} 
-        {clicked && <CurrentPlaylist playlistId={playlistId} state={state}/>}
+        {!clicked && <NewPlaylist 
+                      updatenewPlaylist = {updatenewPlaylist} 
+                      setPlaylist = {setPlaylist}
+                      />
+        } 
+        {clicked && <CurrentPlaylist 
+                      playlistId={playlistId} 
+                      state={state}
+                    />
+        }
         
-        </section>
+      </section>
 
     </div>
     

@@ -115,15 +115,16 @@ function NewRoom({
             /> 
           </section>
         </section>
-        <Queue
-          setEmpty = {setEmpty} 
-          state1 = {state1} 
-          setPlayingMedia={setPlayingMedia}
-          removeMediaFromPlaylist = {removeMediaFromPlaylist}
-          setOrderFromLikes = {setOrderFromLikes}
-          addMessage = {addMessage}
-          />
-     
+        <section className="media-que-container">
+          <Queue
+            setEmpty = {setEmpty} 
+            state1 = {state1} 
+            setPlayingMedia={setPlayingMedia}
+            removeMediaFromPlaylist = {removeMediaFromPlaylist}
+            setOrderFromLikes = {setOrderFromLikes}
+            addMessage = {addMessage}
+            />
+        </section>
     </div>
   );
 }

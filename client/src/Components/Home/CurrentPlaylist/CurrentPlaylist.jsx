@@ -1,7 +1,9 @@
 import React from 'react';
-
+import ListGroup from 'react-bootstrap/ListGroup'
 import CurrentPlaylistItem from './CurrentPlaylistItem';
-import './CurrentPlaylistItem.scss'
+// import './CurrentPlaylistItem.scss'
+import './CurrentPlaylist.scss'
+
 
 
 
@@ -46,14 +48,11 @@ function CurrentPlaylist({ playlistId, state }) {
 
   return (
     <div className = "current-playlist"> 
-    <div className = "playlist-heading"> 
-
-      Playlist No: {playlistId}
-      <h1 className="heading">{playlistName}</h1>
+      <h1 className="heading">{playlistName.toUpperCase()}</h1>
+      <ListGroup className = "current-playlist-items-container">
+      {sortedCurrentPlaylistItems}
+      </ListGroup>
     </div>
-            {sortedCurrentPlaylistItems}
-        </div>
-   
   )
 }
 

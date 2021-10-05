@@ -54,33 +54,35 @@ function SavedPlaylistsItem({
   };
 
   return (
-    <>
-      <ListGroup.Item
-        action
-        variant="Primary"
-        className="playlist__item"
-        onClick={() => changePlaylistId(id)}
-      >
-        <div className = "savedplayliststyle">
+    
+    <ListGroup.Item
+      action
+      // variant="Primary"
+      className="playlist__item"
+      onClick={() => changePlaylistId(id)}
+    >
+      <img className="playlist-image" src={thumbnail} size />
+      {/* <div className = "emptydiv"></div> */}
+      <div className = "playlist-info">
+        <hr/>
+        {/* <div>Playlist No: {id}</div> */}
+        <div>{name.toUpperCase()}</div>
+        {/* <div>No. of items: {Object.keys(state.playlists_for_user[id].media).length}</div> */}
+        <hr/>
+      </div> 
+      {compClicked && 
+        <Button 
+          className = "playlist-play-button" 
+          variant = "warning" 
+          onClick={() => playPlaylist(id)}
+          >
+          PLAY           
+        </Button>
+      }
+      
+    </ListGroup.Item>
 
-              <div><img className="playlist__image" src={thumbnail} size /></div>
-              <div className = "emptydiv"></div>
-              <div className = "saved3">
-                <hr/>
-              <div>Playlist No: {id}</div>
-              <div>Playlist Name: {name}</div>
-              <div>No. of items: {Object.keys(state.playlists_for_user[id].media).length}</div>
-              
-              <hr/>
-
-              </div>
-      {compClicked && (
-        <Button className = "play-button" variant = "warning" onClick={() => playPlaylist(id)}>Play Playlist</Button>
-        )}
-        </div>
-      </ListGroup.Item>
-
-    </>
+    
   );
 }
 

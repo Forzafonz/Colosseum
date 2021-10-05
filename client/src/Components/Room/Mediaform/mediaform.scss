@@ -1,8 +1,9 @@
 .new-p-container {
-  width:100%;
+  width: 50%;
   height: 80vh !important;
   border: 3px solid white;
   // background-color: rgb(8, 18, 63);
+  
   background-image: url('https://www.onlygfx.com/wp-content/uploads/2016/08/dark-red-watercolor-1.jpg');
 
   color:rgb(205, 179, 179);
@@ -48,6 +49,10 @@ table {
   width:98%;
   padding: 2px;
   margin:10px;
+}
+.gap{
+  min-width:50px;
+  width:5rem;
 }
 
 }

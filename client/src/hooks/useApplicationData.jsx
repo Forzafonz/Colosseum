@@ -279,7 +279,8 @@ export default function useApplicationData(initial) {
     conn.emit("SET_ORDER_FROM_LIKES", {
       mediaId,
       room_id: state.current_playlist, 
-      like
+      like,
+      room_id : state.current_playlist
     })
     dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId, like}})
 
