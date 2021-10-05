@@ -12,6 +12,8 @@ function SavedPlaylistsItem({
   setPlaylist,
   setPlayingMedia,
   setClicked,
+  clicked,
+  setShowPlaylist
 }) {
   //To forward user to room when Play Playlist button is clicked
   let history = useHistory();
@@ -25,16 +27,18 @@ function SavedPlaylistsItem({
     if (!compClicked) {
       setClicked(true);
       setCompClicked(true);
-      setPlaylist(id);
-    } else setClicked(false);
-    setCompClicked(!compClicked);
+      setShowPlaylist(id)
+    } else {
+      setClicked(false);
+      setCompClicked(!compClicked);
+    }
   };
   // Runs to set all other elements local state to compCLicked === false, so that no button is shown.
   useEffect(() => {
-    if (state.current_playlist !== id && compClicked) {
+    if (state.show_playlist !== id && compClicked) {
       setCompClicked(false);
     }
-  }, [state.current_playlist]);
+  }, [state.show_playlist ]);
 
   //When play is pressed, it updates the states current_media to first media in media object
   // for the selected playlist and redirects to room
@@ -44,7 +48,7 @@ function SavedPlaylistsItem({
     // const firstMediaObject = mediaObjectForPlaylist[Object.keys(mediaObjectForPlaylist)[0]];
     setPlaylist(id);
     // firstMediaObject ? setPlayingMedia(firstMediaObject.media_id) : setPlayingMedia(null)
-    setPlayingMedia(null);
+    // setPlayingMedia(null);
 
     history.push('/room');
   };

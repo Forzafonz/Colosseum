@@ -9,9 +9,13 @@ import reducer, {
   UPDATE_NEW_PLAYLIST,
   SET_NEXT_MEDIA,
   SET_ORDER_FROM_LIKES,
-  ADD_NEW_MESSAGE
+  ADD_NEW_MESSAGE,
+  SET_SHOW_PLAYLIST,
+  CLEAR_MEDIA 
 } from './reducers';
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
+import { useParams } from "react-router";
 
 export default function useApplicationData(initial) {
 
@@ -29,20 +33,19 @@ export default function useApplicationData(initial) {
   const userId = localStorage.getItem("user_id");
 
   const initialState = { 
+    show_playlist: null,
     playlists_for_user: {},
     current_playlist: null,
     current_media: null,
     messages: { msg: "Placeholder", sent: "Placeholder", date: Date.now()}
-
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const [conn, setConn] = useState(undefined);
   const [stale, setStale] = useState(false);
-
+  const history = useHistory()
   const [elapsedTimeOther, setElapsedTimeOther] = useState(0);
   const [playing, setPlaying] = useState(true);
-
 
 
 
@@ -51,6 +54,8 @@ export default function useApplicationData(initial) {
 
   // Called on initial launch to retrieve information from the database
   useEffect(() => {
+    console.log("USE EFFECT TO INIT RUNS:", )
+    console.log("USER ID IN INIT:", userId)
     // /api/home/${userId}/playlists is an array of objects
     // /api/home/${userId}/media is an array of objects
     Promise.all([
@@ -82,10 +87,15 @@ export default function useApplicationData(initial) {
   }, [])
 
   useEffect(() => {
-
+    
     if (conn) {
       console.log(conn)
       //check if message chat is "UPDATE_CHAT" and dispatch
+      if (state.current_playlist){
+        console.log("JOIN_ROOM", state.current_playlist) 
+        conn.emit("JOIN_ROOM", { room_id: state.current_playlist });
+        }
+
       conn.on("UPDATE_CHAT", data => {
         dispatch({ type : ADD_NEW_MESSAGE, values : data.msg})
       
@@ -136,7 +146,7 @@ export default function useApplicationData(initial) {
       })
 
       conn.on("REMOVE_MEDIA_FROM_PLAYLIST_CLIENT", (data) => {
-        dispatch({type: REMOVE_MEDIA_FROM_PLAYLIST, values : {id : data.mediaId, playlist_id: data.playlist_id}})
+        dispatch({type: REMOVE_MEDIA_FROM_PLAYLIST, values : {room_id : data.mediaId, playlist_id: data.playlist_id}})
       })
 
       conn.on("ADD_MEDIA_TO_PLAYLIST_CLIENT", (data) =>{
@@ -147,21 +157,51 @@ export default function useApplicationData(initial) {
         }
       })
 
-      return () => {
-        conn.disconnect();
-      };
-
+    
     }
-  }, [conn])
+  }, [conn, state.current_playlist])
 
 
   /////////////////END OF SOCKET IO IMPLEMENTATION////////////////
 
-  const setPlaylist = (playlistId) => {
-    console.log("Here is current playlist", state.current_playlist, playlistId)
+  const joinRoomById =(playlistId, conn) => {
+    if(playlistId ) {
+
+      console.log("ME RUN!!", playlistId)
+      axios.put(`http://localhost:8000/api/room/${userId}/playlist/${playlistId}/join`).then((response) =>{
+        console.log("This is id", response)
+        setPlaylistOnUrl(response.data.id)
+        setStale(true)
+      })
+
+   
+    }
+    
+  }
+  const setShowPlaylist = (playlistId) =>{
+
+    dispatch({ type: SET_SHOW_PLAYLIST, values: playlistId })
+
+  }
+
+  const setPlaylistOnUrl = (playlistId) => {
     dispatch({ type: SET_PLAYLIST, values: playlistId })
+    axios.put(`/api/home/${userId}/playlists/${playlistId}/active`)
+  }
+
+  const setPlaylist = (playlistId) => {
+
+    if (playlistId){
+      console.log("JOINING ROOM ON CLIENT SIDE", playlistId)
+      conn.emit("JOIN_ROOM", {room_id:playlistId})
+    }
+
+    // console.log("Here is the current media", state.playlists_for_user)
+    // console.log("Here is current playlist", state.current_playlist, playlistId)
+    // console.log("Here is the current playlist", state.current_playlist)
     if (playlistId) {
-      console.log("Here is current playlist", state.current_playlist)
+      dispatch({ type: SET_PLAYLIST, values: playlistId })
+      dispatch({ type: SET_PLAYING_MEDIA, values: {media: null, playlist_id: playlistId}})
       axios.put(`/api/home/${userId}/playlists/${playlistId}/active`)
   }
   if (playlistId) {
@@ -176,19 +216,25 @@ export default function useApplicationData(initial) {
 
         conn.emit("play_media", {
           playlistId: state.current_playlist,
-          media: mediaId
+          media: mediaId,
+          room_id : state.current_playlist
         })
         
       }
     
   };
 
+  const clearMediaOnHome = () => {
+    dispatch({type: CLEAR_MEDIA})
+  }
+
   const addMediaToPlaylist = (data) =>{
    
     axios.put('http://localhost:8000/api/addmedia', { data }).then((res) => {
       conn.emit("ADD_MEDIA_TO_PLAYLIST_CLIENT", {
         media: res.data,
-        playlist_id: state.current_playlist
+        playlist_id: state.current_playlist,
+        room_id : state.current_playlist
       })
       dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : res.data, playlist_id: state.current_playlist}})
         if (state.current_media === null) {
@@ -201,7 +247,8 @@ export default function useApplicationData(initial) {
 
     conn.emit("REMOVE_MEDIA_FROM_PLAYLIST_CLIENT", {
       mediaId : id,
-      playlist_id: state.current_playlist
+      playlist_id: state.current_playlist,
+      room_id : state.current_playlist
     })
     dispatch({type: REMOVE_MEDIA_FROM_PLAYLIST, values : {id, playlist_id: state.current_playlist}})
 
@@ -213,7 +260,7 @@ export default function useApplicationData(initial) {
     .put('http://localhost:8000/api/createplaylist', { data })
     .then((res) => {
       newURL = res.data[0].url;
-      alert(`Playlist created successfully. Link to playlist is http://localhost:3000/playlist/${newURL}`);
+      alert(`Playlist created successfully. Link to playlist is http://localhost:3000/room/${newURL}`);
       // dispatch({ type: SET_PLAYLIST, values: res.data[0].id})
       dispatch({type: UPDATE_NEW_PLAYLIST, values: {playlist_id: res.data[0].id}})
       // if (state.current_playlist === null) {
@@ -231,7 +278,9 @@ export default function useApplicationData(initial) {
   const setOrderFromLikes = (mediaId, like) => {
     conn.emit("SET_ORDER_FROM_LIKES", {
       mediaId,
-      like
+      room_id: state.current_playlist, 
+      like,
+      room_id : state.current_playlist
     })
     dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId, like}})
 
@@ -260,6 +309,9 @@ export default function useApplicationData(initial) {
     setNextMedia, 
     setOrderFromLikes,
     addMessage,
+    clearMediaOnHome,
+    joinRoomById,
+    setShowPlaylist,
     elapsedTimeOther, 
     conn,
     playing

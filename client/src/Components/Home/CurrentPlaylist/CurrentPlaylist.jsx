@@ -10,12 +10,12 @@ import './CurrentPlaylist.scss'
 function CurrentPlaylist({ playlistId, state }) {
  
   //Check if there is a playlist selected and set name accordingly
-  const playlistName = state.current_playlist ? state.playlists_for_user[playlistId].playlist.name : "Select Playlist";
+  const playlistName = state.show_playlist ? state.playlists_for_user[playlistId].playlist.name : "Select Playlist";
 
   let mediaArray = [];
 
   //Check if there is a playlist selected
-  if (state.current_playlist) {
+  if (state.show_playlist) {
 
     // If there is, create array of media_id keys
     const mediaKeysForActivePlaylistArray = Object.keys(state.playlists_for_user[playlistId].media);
@@ -43,6 +43,8 @@ function CurrentPlaylist({ playlistId, state }) {
       const media2PlayOrder = media2.props.play_order;
       return media1PlayOrder - media2PlayOrder;
     })
+
+
 
   return (
     <div className = "current-playlist"> 

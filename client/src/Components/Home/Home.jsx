@@ -5,7 +5,7 @@ import CurrentPlaylist from './CurrentPlaylist/CurrentPlaylist';
 import axios from 'axios';
 import NewPlaylist from './NewPlaylist/NewPlaylist';
 
-function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}) {
+function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia, setShowPlaylist}) {
 
   // console.log("HOME STATE", state);
 
@@ -14,9 +14,10 @@ function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}
 
   //Triggers useEffect with new user (useEffect before would only run on initial page render)
   setStale(false);
+  console.log("HERE IS A STATE AT HOME:", state)
  
   //Grabs whatever playlist is clicked on 
-  const playlistId = state.current_playlist;
+  const playlistId = state.show_playlist;
   const [clicked, setClicked] = useState(false)
 
   // useEffect(() => {
@@ -33,6 +34,7 @@ function Home({state, setPlaylist, updatenewPlaylist, setStale, setPlayingMedia}
           setPlayingMedia={setPlayingMedia} 
           setClicked = {setClicked} 
           clicked = {clicked}
+          setShowPlaylist = {setShowPlaylist}
         />
       </section>
       <section className="new-playlist-container">
