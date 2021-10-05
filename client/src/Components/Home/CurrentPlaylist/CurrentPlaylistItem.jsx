@@ -1,62 +1,28 @@
 import React from 'react';
+import { ListGroup } from 'react-bootstrap';
 import './CurrentPlaylistItem.scss'
 
 function CurrentPlaylistItem({play_order, media_rating, media_description, media_thumbnail }) {
   
   return (
 
-    // <li className='media__item'>
-    //   <img
-    //     className="media__image"
-    //     src={media_thumbnail}
-    //     size
-    //     />
-    //   <div className>
-    //     play order: {play_order}  
-    //   </div>
+    <div className = 'media-item'>
+      
+      <img className="media-image" src={media_thumbnail} size />
 
-    //   <div className>
-    //     desc: {media_description}
-    //   </div>
-
-    //   <div className>
-    //     rating: {media_rating}
-    //   </div>
-    //     </li>
-    
-
-    <main className = 'listmedia'>
-      <div className = "m-item">
-      <img
-        className="mediaimage"
-        src={media_thumbnail}
-        size
-        />
-        </div>
-        <div className = "gap"> </div>
-        <div className = "items-three">
+      <div className = "media-info" >
         <hr></hr>
+        <div className = "media-info-line">
+          {play_order}. {media_description}
+        </div>
+        <div className = "media-info-line">
+          Rating: {media_rating}/10
+        </div>
+        
+        <hr></hr>
+      </div>      
 
-
-      <div className = "m-item">
-        Play order: {play_order}  
-      </div>
-      <div className = "m-item">
-        Rating: {media_rating}
-      </div>
-
-      <div className = "m-item">
-        Title: {media_description}
-      </div>
-      <hr></hr>
-        </div>      
-    </main>
-
-
-
-
-
-
+    </div>
   )
 }
 

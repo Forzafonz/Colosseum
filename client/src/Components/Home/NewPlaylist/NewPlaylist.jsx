@@ -104,7 +104,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
 
   return (
     <div className="newplaylist">
-      <h1 className="heading">Create a New Playlist</h1>
+      <h1 className="heading">CREATE NEW PLAYLIST</h1>
       <table name="new-table">
         <tr>
           <td>
