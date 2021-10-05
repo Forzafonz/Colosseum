@@ -7,6 +7,8 @@ const UPDATE_NEW_PLAYLIST = "UPDATE_NEW_PLAYLIST";
 const SET_NEXT_MEDIA = "SET_NEXT_MEDIA";
 const SET_ORDER_FROM_LIKES = 'SET_ORDER_FROM_LIKES';
 const ADD_NEW_MESSAGE = 'ADD_NEW_MESSAGE'
+const CLEAR_MEDIA = 'CLEAR MEDIA'
+const SET_SHOW_PLAYLIST = 'SET_SHOW_PLAYLIST'
 
 // A reducer function
 
@@ -60,35 +62,43 @@ const reducer = function (state, action) {
   //Function to set current playlist
   const setPlaylist = () =>{
     const newState = {...state}
+    console.log("I AM CALLDE WITH THIS PLAYLIST", action.values, newState.playlists_for_user[action.values])
     // const updatedState = {...newState, current_playlist: action.values}
-    if (action.values) {
-    const updatedMedia = {...newState.playlists_for_user[action.values].media}
+    if (action.values && newState.playlists_for_user[action.values]) {
+        const updatedMedia = {...newState.playlists_for_user[action.values].media}
 
-    Object.keys(updatedMedia).forEach((element) => {
-      return updatedMedia[element].played_already = false
-    })
-    
-    const updatedPlaylist = {...newState.playlists_for_user[action.values], media : updatedMedia };
+        Object.keys(updatedMedia).forEach((element) => {
+          return updatedMedia[element].played_already = false
+        })
+        
+        const updatedPlaylist = {...newState.playlists_for_user[action.values], media : updatedMedia };
+        
+        const updatedPlaylists = {...newState.playlists_for_user, [action.values] : updatedPlaylist  };
+        
+        const updatedState = { ...newState, playlists_for_user : updatedPlaylists, current_playlist: action.values };
+        
+        return {...updatedState, current_playlist: action.values};
+    } else {
 
-    const updatedPlaylists = {...newState.playlists_for_user, [action.values] : updatedPlaylist  };
-
-    const updatedState = { ...newState, playlists_for_user : updatedPlaylists };
-
-    return {...updatedState, current_playlist: action.values};
+      return {...newState, current_playlist: action.values}
     }
-
-    return {...newState, current_playlist: action.values}
-
+    
   }
+
+  const clearMedia = () => {
+    const updatedState = {...state, current_media:null}
+    return updatedState;
+  }
+
 
   //Function to set current media
   const setPlayingMedia = () => {
 
-    // console.log("ID in set Playlign Media", action)
+    console.log("I AM CALLLED WITH THIS ACTIONS", action, state.current_playlist)
     if (action.values.media) {
       return {...state, current_media: action.values.media }    
-    } else {
-
+    } else if (action.values.playlist_id){
+      
       const mediaForPlaylisObject = state.playlists_for_user[action.values.playlist_id].media;   
 
       let min_media_id = 0;
@@ -106,9 +116,11 @@ const reducer = function (state, action) {
       } else {
         min_media_id = null;
       }
-      // console.log("THIS IS MEDIA ID IN SPM", min_media_id)
+      console.log("THIS IS MEDIA ID IN SPM", min_media_id)
       return {...state, current_media: min_media_id }  
 
+    } else {
+      return {...state}
     }
 
 
@@ -245,8 +257,8 @@ const updatenewPlaylist = () => {
 
     //Array of all media keys
     const mediaKeysArray = Object.keys(updatedState.playlists_for_user[state.current_playlist].media)
-
     const arrayOfMediaObjects = mediaKeysArray.map( media => updatedState.playlists_for_user[state.current_playlist].media[media])
+    
     const currentMediaArray = [...arrayOfMediaObjects]
     const arrayOfMediaObjectsNotPlayedAlready = arrayOfMediaObjects.filter( media => media.played_already === false && media.media_id !== state.current_media )
     //------Extracting the playing element from the media Array.
@@ -295,9 +307,10 @@ const updatenewPlaylist = () => {
 
     //------Add the previously extracted currently playing media and add it back to the currentMedia array.
     //------This way it does not participate in sorting by votes, thus holds its queue position.
-    sortedByVotesArrayOfMediaObjectsNotPlayedAlready.unshift(currentMedia[0])
+    if (currentMedia.length) {
+      sortedByVotesArrayOfMediaObjectsNotPlayedAlready.unshift(currentMedia[0])
+    }
   
-
     sortedByVotesArrayOfMediaObjectsNotPlayedAlready.forEach((ele) => {
      
       updatedState.playlists_for_user[state.current_playlist].media[ele.media_id] = ele;
@@ -317,6 +330,11 @@ const updatenewPlaylist = () => {
 
   }
 
+  const setShowPlaylist = () => {
+    const updatedState = {...state}
+    return {...updatedState, show_playlist: action.values}
+  }
+
 //
   const actions = {
 
@@ -329,6 +347,8 @@ const updatenewPlaylist = () => {
     [SET_NEXT_MEDIA] : setNextMedia,
     [SET_ORDER_FROM_LIKES] : setOrderFromLikes,
     [ADD_NEW_MESSAGE]:addNewMessage,
+    [CLEAR_MEDIA]: clearMedia,
+    [SET_SHOW_PLAYLIST] : setShowPlaylist,
   
     "default": () => {
       throw new Error(`Tried to reduce with unsupported action type: ${action.type}`)}
@@ -347,5 +367,7 @@ export { reducer as default,
   REMOVE_MEDIA_FROM_PLAYLIST, 
   SET_NEXT_MEDIA, 
   SET_ORDER_FROM_LIKES,
-  ADD_NEW_MESSAGE 
+  ADD_NEW_MESSAGE,
+  CLEAR_MEDIA,
+  SET_SHOW_PLAYLIST 
 };

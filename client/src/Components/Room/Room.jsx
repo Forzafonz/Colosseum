@@ -4,6 +4,7 @@ import MediaPlayer from './MediaPlayer/MediaPlayer';
 import React, { useReducer, useEffect, useState } from 'react';
 import Queue from './MediaQueue/Queue';
 import Mediaform from './Mediaform/Mediaform';
+import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
 // import { io } from "socket.io-client"
@@ -41,7 +42,8 @@ function reducer(state, action){
 }
 
 function NewRoom({
-  state1, 
+  state1,
+  setPlaylist,
   setPlayingMedia, 
   addMediaToPlaylist, 
   removeMediaFromPlaylist, 
@@ -59,9 +61,10 @@ function NewRoom({
   const [state, dispatch] = useReducer(reducer, initialState)
   // const [conn, setConn] = useState(undefined);
   const [empty, setEmpty] = useState(false)
-
+  const history = useHistory();
   const user_id = localStorage.getItem('user_id')
-
+  
+  
 
   //This useEffect checks if current playlist is empty, and if so, it sets "empty" state to true, esle it sets it to false;
   useEffect(()=>{
@@ -79,6 +82,13 @@ function NewRoom({
     }
       
   }, [state1])
+
+  // useEffect(() =>{
+  //   if (history.location.state) {
+  //     setPlaylist(history.location.state.id)
+  //     console.log("This are my props", history.location.state.id)
+  //   }
+  // }, [history])
 
   
   return (

@@ -1,4 +1,10 @@
-const { getMediaForPlaylist, getActivePlaylistIdForUser, setMediaToPlayedAlreadyTrue, setAllMediaToPlayedAlreadyFalse } = require('../db/rundb/api_room_routes');
+const { getMediaForPlaylist, 
+  getActivePlaylistIdForUser, 
+  setMediaToPlayedAlreadyTrue, 
+  setAllMediaToPlayedAlreadyFalse,
+  addPlaylistToTheUser,
+  getPlaylistIdByHash 
+} = require('../db/rundb/api_room_routes');
 
 module.exports = function(router) { 
 
@@ -44,6 +50,24 @@ module.exports = function(router) {
       .json(data)
     })
     .catch((error) => console.log(error))
+      
+  })
+
+  router.put('/:user_id/playlist/:playlist_id/join', (req,res) => {
+
+    const {user_id, playlist_id} = req.params
+    console.log('user_id, playlist_id', user_id, playlist_id)
+    getPlaylistIdByHash(playlist_id).then((playlist_db_id) =>{
+      addPlaylistToTheUser(user_id, playlist_db_id)
+      .then((data) => {
+        
+        // console.log("THIS IS DATA:", data[0].playlist_id)
+        res
+        .status(200)
+        .json({id: data[0].playlist_id})
+      })
+      .catch((error) => console.log(error))
+    })
       
   })
 

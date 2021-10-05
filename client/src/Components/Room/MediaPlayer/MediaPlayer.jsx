@@ -48,7 +48,7 @@ function MediaPlayer({state, setNextMedia, elapsedTimeOther, conn, playing }){
   useEffect(() => {
     console.log("Current media:", state, state.current_media)
     if (state.current_media) {
-
+        console.log(state.current_media)
        setMedia(state.playlists_for_user[state.current_playlist].media[state.current_media].link);
     } else {
       setMedia(null)
@@ -82,9 +82,9 @@ function MediaPlayer({state, setNextMedia, elapsedTimeOther, conn, playing }){
         playing = {playing}
         controls url={media} 
         onEnded={()=> setNextMedia() }
-        onProgress = {(test) => conn.emit("playing_time", test.playedSeconds)}
-        onPlay = {() => conn.emit("play")}
-        onPause = {() => conn.emit("pause")}
+        onProgress = {(test) => conn.emit("playing_time", {playingTime: test.playedSeconds, room_id:state.current_playlist})}
+        onPlay = {() => conn.emit("play", {room_id: state.current_playlist})}
+        onPause = {() => conn.emit("pause", {room_id: state.current_playlist})}
         />
       </section>
     </>
