@@ -44,7 +44,7 @@ export default function Login({setPlaylist, setStale}) {
     <>
     <div className = "form">
     <div className = "header">
-      LOGGED IN USER: {userId}
+      {/* LOGGED IN USER: {userId} */}
       <div className = "close-button" onClick = {cancelHandler}><div>✕</div></div>
     </div>
     <Form className = "form-main">

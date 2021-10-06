@@ -3,7 +3,8 @@ const { getMediaForPlaylist,
   setMediaToPlayedAlreadyTrue, 
   setAllMediaToPlayedAlreadyFalse,
   addPlaylistToTheUser,
-  getPlaylistIdByHash 
+  getPlaylistIdByHash,
+  getRoomIdByPlaylistId 
 } = require('../db/rundb/api_room_routes');
 
 module.exports = function(router) { 
@@ -70,6 +71,21 @@ module.exports = function(router) {
     })
       
   })
+
+  router.get(`/playlist/:playlist_id/code`, (req, res) => {
+
+    const {playlist_id} = req.params
+    console.log(playlist_id)
+    getRoomIdByPlaylistId(playlist_id)
+    .then((data) => {
+      res
+      .status(200)
+      .json(data)
+    })
+    .catch((error) => console.log(error))
+
+  })
+
 
 
   return router;
