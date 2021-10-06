@@ -93,7 +93,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("disconnecting", () => {
-    console.log("THESE ARE ", socket.rooms); // the Set contains at least the socket ID
+    console.log("THESE ARE SOCKET ROOMS:", socket.rooms); // the Set contains at least the socket ID
   });
 
 

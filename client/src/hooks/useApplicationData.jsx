@@ -1,4 +1,4 @@
-import {useEffect, useReducer, useState} from 'react';
+import {useEffect, useReducer, useState, useRef} from 'react';
 import { io } from "socket.io-client"
 import reducer, { 
   SET_APPLICATION_DATA, 
@@ -44,6 +44,8 @@ export default function useApplicationData(initial) {
   const [conn, setConn] = useState(undefined);
   const [stale, setStale] = useState(false);
   const history = useHistory()
+  const [updateTime, setUpdateTime] = useState(0)
+  const prevTime = usePrevious(updateTime)
   const [elapsedTimeOther, setElapsedTimeOther] = useState(0);
   const [playing, setPlaying] = useState(true);
 
@@ -85,6 +87,7 @@ export default function useApplicationData(initial) {
 
   useEffect(() => {
     
+
     if (conn) {
       console.log(conn)
 
@@ -140,22 +143,28 @@ export default function useApplicationData(initial) {
     
       //To pause in this client when pause clicked in other client
       conn.on("pause_client", () => {
+        console.log("PAUSING")
         setPlaying(false);
       })
 
 
       conn.on("SET_ORDER_FROM_LIKES", (data) =>{
-        console.log("SET_ORDER_FROM_LIKES", data)
+        // console.log("CURERNT TIME", updateTime)
+        // console.log("Prev Time", prevTime)
+        // console.log("SET_ORDER_FROM_LIKES ", data, Date.now(), )
+        // console.log("DIFF:", Date.now() - prevTime)
+        const newTime = Date.now()
         dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId : data.mediaId, like:data.like}})
+        // setUpdateTime(newTime)
       })
-
+      
       conn.on("REMOVE_MEDIA_FROM_PLAYLIST_CLIENT", (data) => {
-
+        
         dispatch({type: REMOVE_MEDIA_FROM_PLAYLIST, values : {id : data.mediaId, playlist_id: data.playlist_id}})
       })
 
       conn.on("ADD_MEDIA_TO_PLAYLIST_CLIENT", (data) =>{
-        console.log("ADD_MEDIA_TO_PLAYLIST_CLIENT: ", data)
+        
         dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : data.media, playlist_id: data.playlist_id}})
         // if (state.current_media === null) {
         //   console.log("This is state: ", state.current_media)
@@ -166,7 +175,7 @@ export default function useApplicationData(initial) {
       conn.on("disconnect", () => {
         console.log(conn.id); // undefined
       });
-    
+
     }
   }, [conn, state.current_playlist])
 
@@ -304,6 +313,20 @@ export default function useApplicationData(initial) {
     .catch((error) => console.log(error.response.data))
   
   }
+
+
+  function usePrevious(value){
+  
+    const prevTime = useRef()
+    
+    useEffect(() => {
+      prevTime.current = value;
+    }, [value]);
+  
+    return prevTime.current;
+    
+  };
+
 
   //Passed to App.js and passed down to each component from there
   return { 
