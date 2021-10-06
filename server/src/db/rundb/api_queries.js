@@ -8,7 +8,7 @@ const pool = require('./db_connect');
  * @return {Promise<{}>} A promise to the user once query is done
  */
 
-const getTextMessages = function (user_id) {
+const getTextMessages = function (user_id, playlist_id) {
   // const queryString = `
   //   SELECT * FROM messages
   //   JOIN (SELECT *
@@ -19,19 +19,28 @@ const getTextMessages = function (user_id) {
   //                               active IS TRUE)) as target_chat
   //   ON taget_chat.id = messages.users_playlists_id`
 
-  const queryString = `SELECT messages.date as date, text, users_playlists.user_id as user_id, users.username as username, users.avatar as avatar  FROM messages 
-                       JOIN users_playlists
-                       ON users_playlists.id = messages.users_playlists_id
-                       JOIN users
-                       ON users_playlists.user_id = users.id
-                       WHERE users_playlists_id IN 
-                        (SELECT id FROM users_playlists WHERE playlist_id IN 
-                          (SELECT playlist_id 
-                            FROM users_playlists 
-                            WHERE user_id = $1 AND
-                            active IS TRUE))`;
+  // const queryString = `SELECT messages.date as date, text, users_playlists.user_id as user_id, users.username as username, users.avatar as avatar  FROM messages 
+  //                      JOIN users_playlists
+  //                      ON users_playlists.id = messages.users_playlists_id
+  //                      JOIN users
+  //                      ON users_playlists.user_id = users.id
+  //                      WHERE users_playlists_id IN 
+  //                       (SELECT id FROM users_playlists WHERE playlist_id IN 
+  //                         (SELECT playlist_id 
+  //                           FROM users_playlists 
+  //                           WHERE user_id = $1 AND
+  //                           active IS TRUE))`;
+  const queryString = `
+  SELECT messages.date as date, text, users_playlists.user_id as user_id, users.username as username, users.avatar as avatar  
+    FROM messages 
+    JOIN users_playlists
+    ON users_playlists.id = messages.users_playlists_id
+    JOIN users
+    ON users_playlists.user_id = users.id
+    WHERE users_playlists.playlist_id = $1
+  `
   return pool
-    .query(queryString, [user_id])
+    .query(queryString, [playlist_id])
     .then((result) => result.rows)
     .catch((error) => console.log(error.message));
 };
@@ -119,9 +128,20 @@ const createPlaylist = function (data) {
 };
 exports.createPlaylist = createPlaylist;
 
+const SetAllToFalse = function (user_id) {
+  console.log("I am here!")
+  pool
+    .query(
+      'UPDATE users_playlists SET active = false WHERE user_id = $1', 
+      [user_id]
+    )
+ 
+};
+
 //Updates table users-playlists after creating new playlist --
 const updateUserPlaylist = function (id, x) {
   const { user_id, udata } = x;
+  SetAllToFalse(user_id)
   return pool
     .query(
       'INSERT INTO users_playlists(is_host, user_id, playlist_id, active) VALUES (true, $1, $2, true)', //updating host user
@@ -139,6 +159,8 @@ const updateUserPlaylist = function (id, x) {
       });
     });
 };
+
+
 
 exports.updateUserPlaylist = updateUserPlaylist;
 

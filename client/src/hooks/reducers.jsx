@@ -144,6 +144,7 @@ const reducer = function (state, action) {
     {...updatedState.playlists_for_user, [playlist_id]:{playlist:{...updatedState.playlists_for_user[playlist_id].playlist}, 
     media:{...media_for_playlist, [newMedia.id] : newMedia}}}
     const newState = {...state, playlists_for_user:updated_playlists_for_user}
+    console.log("newState after media was added", newState)
     return newState;
   }
 
@@ -179,7 +180,7 @@ const updatenewPlaylist = () => {
     const newState = {...state, playlists_for_user:updated_playlists_for_user, current_playlist: newPlaylist_id}
     // const setPlaylistState = {...newState, }
     // console.log("=====>newstate", newState);
-    return {...newState, current_media:null};
+    return {...newState, current_media:null, current_playlist:action.values.playlist_id};
 
 }
 //
@@ -228,10 +229,8 @@ const updatenewPlaylist = () => {
 
   //Change play order for playlist based on number of likes 
   const setOrderFromLikes = () => {
-
     //------Get the current media rating------//
     const newState = {...state};
- 
     let currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating + 1
     if (!action.values.like) {
       currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating - 1

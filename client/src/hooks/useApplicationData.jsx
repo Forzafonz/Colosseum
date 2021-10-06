@@ -1,4 +1,4 @@
-import {useEffect, useReducer, useState} from 'react';
+import {useEffect, useReducer, useState, useRef} from 'react';
 import { io } from "socket.io-client"
 import reducer, { 
   SET_APPLICATION_DATA, 
@@ -44,25 +44,24 @@ export default function useApplicationData(initial) {
   const [conn, setConn] = useState(undefined);
   const [stale, setStale] = useState(false);
   const history = useHistory()
+  const [updateTime, setUpdateTime] = useState(0)
+  const prevTime = usePrevious(updateTime)
   const [elapsedTimeOther, setElapsedTimeOther] = useState(0);
   const [playing, setPlaying] = useState(true);
-
-
-
-  
-  // useLayoutEffect?
 
   // Called on initial launch to retrieve information from the database
   useEffect(() => {
     console.log("USE EFFECT TO INIT RUNS:", )
     console.log("USER ID IN INIT:", userId)
+    console.log("USER ID IN INIT:", state.current_playlist)
+
     // /api/home/${userId}/playlists is an array of objects
     // /api/home/${userId}/media is an array of objects
     Promise.all([
       axios.get(`/api/home/${userId}/playlists`),
       axios.get(`/api/home/${userId}/media`),
       axios.get(`/api/home/${userId}/activeplaylist`),
-      axios.get(`/api/messages/${userId}`) 
+      axios.get(`/api/messages/${userId}/playlist/${state.current_playlist}`) 
     ])
     .then(
       (result) => {
@@ -88,12 +87,19 @@ export default function useApplicationData(initial) {
 
   useEffect(() => {
     
+
     if (conn) {
       console.log(conn)
+
+      conn.on("connect", () => {
+        console.log("CONNECTED???", conn.connected); // true
+      });
+
       //check if message chat is "UPDATE_CHAT" and dispatch
       if (state.current_playlist){
         console.log("JOIN_ROOM", state.current_playlist) 
-        conn.emit("JOIN_ROOM", { room_id: state.current_playlist });
+        conn.emit("JOIN_ROOM", { room_id: state.current_playlist, user_id: userId });
+        setStale(true)
         }
 
       conn.on("UPDATE_CHAT", data => {
@@ -125,7 +131,7 @@ export default function useApplicationData(initial) {
 
           setElapsedTimeOther(dataArr[1]);
 
-          console.log("!!!!!!!!!!!CHANGE THE CURRENT MEDIA!!!!!")
+  
         }
        
       })
@@ -137,27 +143,39 @@ export default function useApplicationData(initial) {
     
       //To pause in this client when pause clicked in other client
       conn.on("pause_client", () => {
+        console.log("PAUSING")
         setPlaying(false);
       })
 
 
       conn.on("SET_ORDER_FROM_LIKES", (data) =>{
+        // console.log("CURERNT TIME", updateTime)
+        // console.log("Prev Time", prevTime)
+        // console.log("SET_ORDER_FROM_LIKES ", data, Date.now(), )
+        // console.log("DIFF:", Date.now() - prevTime)
+        const newTime = Date.now()
         dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId : data.mediaId, like:data.like}})
+        // setUpdateTime(newTime)
       })
-
+      
       conn.on("REMOVE_MEDIA_FROM_PLAYLIST_CLIENT", (data) => {
-        dispatch({type: REMOVE_MEDIA_FROM_PLAYLIST, values : {room_id : data.mediaId, playlist_id: data.playlist_id}})
+        
+        dispatch({type: REMOVE_MEDIA_FROM_PLAYLIST, values : {id : data.mediaId, playlist_id: data.playlist_id}})
       })
 
       conn.on("ADD_MEDIA_TO_PLAYLIST_CLIENT", (data) =>{
-        console.log("ADD_MEDIA_TO_PLAYLIST_CLIENT: ", data)
+        
         dispatch({type: ADD_MEDIA_TO_PLAYLIST, values : {media : data.media, playlist_id: data.playlist_id}})
-        if (state.current_media === null) {
-          dispatch({ type: SET_PLAYING_MEDIA, values: {media: data.media.media_id}})
-        }
+        // if (state.current_media === null) {
+        //   console.log("This is state: ", state.current_media)
+        //   dispatch({ type: SET_PLAYING_MEDIA, values: {media: data.media.media_id}})
+        // }
       })
 
-    
+      conn.on("disconnect", () => {
+        console.log(conn.id); // undefined
+      });
+
     }
   }, [conn, state.current_playlist])
 
@@ -193,7 +211,7 @@ export default function useApplicationData(initial) {
 
     if (playlistId){
       console.log("JOINING ROOM ON CLIENT SIDE", playlistId)
-      conn.emit("JOIN_ROOM", {room_id:playlistId})
+      conn.emit("JOIN_ROOM", {room_id:playlistId, user_id: userId})
     }
 
     // console.log("Here is the current media", state.playlists_for_user)
@@ -263,6 +281,7 @@ export default function useApplicationData(initial) {
       alert(`Playlist created successfully. Link to playlist is http://localhost:3000/room/${newURL}`);
       // dispatch({ type: SET_PLAYLIST, values: res.data[0].id})
       dispatch({type: UPDATE_NEW_PLAYLIST, values: {playlist_id: res.data[0].id}})
+    
       // if (state.current_playlist === null) {
       //   console.log("I do my job!!")
       // }
@@ -279,8 +298,7 @@ export default function useApplicationData(initial) {
     conn.emit("SET_ORDER_FROM_LIKES", {
       mediaId,
       room_id: state.current_playlist, 
-      like,
-      room_id : state.current_playlist
+      like
     })
     dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId, like}})
 
@@ -288,7 +306,7 @@ export default function useApplicationData(initial) {
 
   const addMessage = (message) => {
     //  Send a put request to add a new message
-    return axios.put('/api/messages/new', {message})
+    return axios.put('/api/messages/new', {message, room_id: state.current_playlist})
     .then((result) => {
       // Dispathing a command to reducer with type 'newmessage'. Message argument already have a form of {type: ..., value: ...}
       dispatch({type: ADD_NEW_MESSAGE, values: message.values})
@@ -296,6 +314,20 @@ export default function useApplicationData(initial) {
     .catch((error) => console.log(error.response.data))
   
   }
+
+
+  function usePrevious(value){
+  
+    const prevTime = useRef()
+    
+    useEffect(() => {
+      prevTime.current = value;
+    }, [value]);
+  
+    return prevTime.current;
+    
+  };
+
 
   //Passed to App.js and passed down to each component from there
   return { 

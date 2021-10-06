@@ -21,9 +21,10 @@ module.exports = function(router, addText) {
 
 
   // Route to get all messages currently existed in the database.
-  router.get('/messages/:userid', (req, res) => {
+  router.get('/messages/:userid/playlist/:playlistid', (req, res) => {
     const userid = req.params.userid;
-    getTextMessages(userid)
+    const playlistid = req.params.playlistid;
+    getTextMessages(userid, playlistid)
       .then((data) => {
         res
         .status(200)
@@ -102,7 +103,7 @@ module.exports = function(router, addText) {
   router.put(`/messages/new`, (req, res) => {
     insertTextMessages(req.body.message.values).then((data) => {
       // Calls a function to update all clients using socket.io
-      addText(req.body.message.values);
+      addText(req.body.message.values, req.body.room_id);
       res.status(200).json(data);
     });
   });
