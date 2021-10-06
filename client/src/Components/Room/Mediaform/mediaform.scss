@@ -1,10 +1,9 @@
 .new-p-container {
   width: 50%;
   height: 80vh !important;
-  border: 3px solid white;
-  // background-color: rgb(8, 18, 63);
-  
-  background-image: url('https://www.onlygfx.com/wp-content/uploads/2016/08/dark-red-watercolor-1.jpg');
+  // border: 3px solid white;
+  border-radius: 20px;  
+  background-image: url("https://www.transparenttextures.com/patterns/brick-wall-dark.png");
 
   color:rgb(205, 179, 179);
   font-size:1.3rem;
@@ -18,10 +17,14 @@
  
 
 .h-pl {
-  color:rgb(255, 85, 0)
+  color:rgb(12, 12, 11);
+  font-family: 'Gemunu Libre', sans-serif !important; 
+  font-weight: bolder;
+  font-size: 3rem;
+
 }
 .h-name {
-  color:rgb(228, 46, 76);
+  color:rgb(19, 17, 18);
   font-style: italic;
   
 }
@@ -29,12 +32,12 @@
 input, select{
   width:80%;
   height:2rem;
-  background-color:rgb(180, 77, 46);
+  background-color: lightgray;
   
   }
 
   label, h1{
-    color:plum;
+    color:rgb(10, 10, 10);
   }
  
 
