@@ -145,7 +145,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
               ></input>
               <label> </label>
               <Button type="submit" name="add-url" variant="success">
-                Add
+                ADD
               </Button>
             </form>
           </td>
@@ -165,7 +165,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
         size="lg"
         variant="success"
       >
-        Create Playlist!
+        CREATE PLAYLIST
       </Button>
     </div>
   );
