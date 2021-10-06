@@ -1,6 +1,7 @@
 /// Main file which will run on npm start
 /// Contains declarations for http server and sokets.io
 
+const usersObject = {}
 
 
 const PORT = process.env.PORT || 8000;
@@ -22,26 +23,39 @@ const io = socketio(server, {
 
 // Define a simple function which will be passed as a callback to our app, which will be called when a specific route is called.
 // This function cannot be defined in the route itself as it will not have access to io (for now)
-function addText(msg) {
+function addText(msg, room_id) {
 
-  io.emit("UPDATE_CHAT", { msg });
+  io.to(room_id).emit("UPDATE_CHAT", { msg });
 
 }
 /// ROOM 'id" is id parameters that passed by each emit on client side. It is done to make each call look the same
 io.on("connection", (socket) => {
-  console.log("Connected with", socket.room_id)
-  console.log("ROOMS IN SOCKET", socket.rooms);
-  socket.on("JOIN_ROOM", ({ room_id }) => {
-    console.log("room, join", room_id)
-    socket.leaveAll()
-    socket.join(room_id)
+  // console.log("ROOMS IN SOCKET", io.sockets.sockets);
+  const socarray = []
+  Object.keys(io.sockets.sockets).forEach(function(s) {
+    io.sockets.sockets[s];
+    socarray.push(io.sockets.sockets[s])
+  });
+  console.log(socarray)
+
+
+  socket.on("JOIN_ROOM", ({ room_id, user_id }) => {
+    // console.log("Connected with", socket.room_id)
+    // console.log("room, join", room_id)
+    // socket.leaveAll()
+    if (user_id && room_id ) {
+      console.log("I am joining")
+      socket.join(room_id)
+      console.log("Number of people", io.sockets.adapter.rooms.get(room_id).size)
+      // console.log("Room keys:", (socket.rooms))
+      // console.log(usersObject)
+      // console.log("Number of people", io.sockets.adapter.rooms.get(room_id).size)
+    }
    
-    console.log("Room keys:", (socket.rooms))
-    console.log("Number of people", io.sockets.adapter.rooms.get(room_id).size)
   })
 
   socket.on("play_media", ({ media, playlistId, room_id }) => {
-    console.log("play media", media, playlistId, room_id)
+    // console.log("play media", media, playlistId, room_id)
     socket.to(room_id).emit("play_media", { media, playlistId })
   })
   //To sync two media players playing time when different spot clicked in playbar
@@ -63,6 +77,8 @@ io.on("connection", (socket) => {
   })
 
   socket.on("SET_ORDER_FROM_LIKES", ({ mediaId, like, room_id }) => {
+    console.log("SET_ORDER_FROM_LIKES", mediaId, like, room_id)
+    // console.log("Number of people", io.sockets.adapter.rooms.get(room_id).size)
     socket.to(room_id).emit("SET_ORDER_FROM_LIKES", { mediaId, like })
   })
 
@@ -83,6 +99,27 @@ io.on("connection", (socket) => {
 
 })
 
+
+function addUser(room_id, user_id) {
+  if (Object.keys(usersObject).includes(room_id)) {
+    if (!usersObject[room_id].includes[user_id])
+      usersObject[room_id].push(user_id)
+  } else {
+    usersObject[room_id] = [user_id];
+  }
+  console.log("Here is an object", usersObject)
+}
+
+function checkUser(room_id, user_id) {
+  console.log(Object.keys(usersObject).includes(room_id), room_id, usersObject)
+  if (Object.keys(usersObject).includes(room_id)){
+    if (usersObject[room_id].includes[user_id]){
+      console.log("Here is check", room_id, user_id)
+      return true;
+    }
+  }
+  return false;
+}
 
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
