@@ -9,7 +9,7 @@ function Landing({setStale, setPlaylist}) {
 
   return (
     <>
-    {/* <MainLanding></MainLanding> */}
+    <MainLanding></MainLanding>
     {/* <Login setStale={setStale} setPlaylist={setPlaylist}/> */}
     {/* {!mode && <Login />}
     {mode && <div> LANDING PAGE! </div>} */}

@@ -1,22 +1,24 @@
 @font-face{
   font-family: 'Explora';
-  src:'https://fonts.googleapis.com/css2?family=Explora&display=swap'
+  src:'https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@800&display=swap'
 }
 
 .name{
   position: absolute;
   background-color: transparent;
   z-index: 1;
-  color: rgba(243, 138, 18, 0.6);
-  font-size: 4rem;
-  font-family: Explora;
+  // color: rgba(243, 138, 18, 0.6);
+  color:  rgb(62, 2, 2);
+  font-size: 12rem;
+  font-family: 'Gemunu Libre', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 5rem;
+  letter-spacing: 6rem;
   text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px white, 0 0 1px white;
-  top: 50%;
-  left: 25%;
+  top: 45%;
+  left: 22%;
   right: 30%;
   pointer-events: none;
+  font-weight: bold;
 }
 .menu{
   min-width: 30vw;
@@ -25,17 +27,18 @@
   z-index: 1;
   text-transform: uppercase;
   color: white;
-  font-family: Explora;
+  font-family: 'Gemunu Libre', sans-serif;
   display: flex;
   justify-content: space-between;
-  top: 60%;
+  top: 65%;
   left: 35%;
   right: 30%;
-  font-size: 2rem;
+  font-size: 4rem;
 
   .link{
     &:hover{
-      color: rgba(243, 138, 18, 0.6);
+      color:  rgb(62, 2, 2);
+      font-weight: bold;
       text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px white, 0 0 1px white;
       cursor: pointer;
     }
