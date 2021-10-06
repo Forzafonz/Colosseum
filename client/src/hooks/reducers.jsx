@@ -180,7 +180,7 @@ const updatenewPlaylist = () => {
     const newState = {...state, playlists_for_user:updated_playlists_for_user, current_playlist: newPlaylist_id}
     // const setPlaylistState = {...newState, }
     // console.log("=====>newstate", newState);
-    return {...newState, current_media:null, current_playlist:action.values.playlist_id};
+    return {...newState, current_media:null, current_playlist : action.values.playlist_id};
 
 }
 //
@@ -229,6 +229,15 @@ const updatenewPlaylist = () => {
 
   //Change play order for playlist based on number of likes 
   const setOrderFromLikes = () => {
+    // console.log("ACTION VALUES", action.values)
+    // console.log("Time update:", action.values.timeUpdate)
+    // console.log("State time", state.last_time_updated)
+    // console.log("TIME DIFFERENCE", action.values.timeUpdate - state.last_time_updated)  
+
+    // CHECK last time media was updated and if is 100 nanomillisecond (super small number) ago, then we don't update
+    // IT is a workaround for multiple people connected to the same room as we cannot disconect them properly at this moment.
+    if ((action.values.timeUpdate-state.last_time_updated) > 100) {
+
     //------Get the current media rating------//
     const newState = {...state};
     let currentMediaRating = newState.playlists_for_user[state.current_playlist].media[action.values.mediaId].media_rating + 1
@@ -276,6 +285,9 @@ const updatenewPlaylist = () => {
       const secondElement = ele2.play_order;
 
       return firstElement - secondElement
+    
+    
+    
     })
 
     
@@ -316,7 +328,11 @@ const updatenewPlaylist = () => {
     })
 
 
-    return updatedState;
+    return {...updatedState, last_time_updated: Date.now()};
+
+  }
+  return state
+
   };
 
   const addNewMessage = () => {

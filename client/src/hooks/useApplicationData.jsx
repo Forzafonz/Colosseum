@@ -37,7 +37,8 @@ export default function useApplicationData(initial) {
     playlists_for_user: {},
     current_playlist: null,
     current_media: null,
-    messages: { msg: "Placeholder", sent: "Placeholder", date: Date.now()}
+    messages: { msg: "Placeholder", sent: "Placeholder", date: Date.now()},
+    last_time_updated : null
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -149,12 +150,9 @@ export default function useApplicationData(initial) {
 
 
       conn.on("SET_ORDER_FROM_LIKES", (data) =>{
-        // console.log("CURERNT TIME", updateTime)
-        // console.log("Prev Time", prevTime)
-        // console.log("SET_ORDER_FROM_LIKES ", data, Date.now(), )
-        // console.log("DIFF:", Date.now() - prevTime)
+        console.log("CURERNT TIME", state.last_time_updated)
         const newTime = Date.now()
-        dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId : data.mediaId, like:data.like}})
+        dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId : data.mediaId, like:data.like, timeUpdate: newTime}})
         // setUpdateTime(newTime)
       })
       
@@ -300,7 +298,9 @@ export default function useApplicationData(initial) {
       room_id: state.current_playlist, 
       like
     })
-    dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId, like}})
+    console.log("CURERNT TIME", state.last_time_updated)
+    const newTime = Date.now()
+    dispatch({type: SET_ORDER_FROM_LIKES, values: {mediaId, like, timeUpdate: newTime}})
 
   };
 
