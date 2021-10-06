@@ -281,6 +281,7 @@ export default function useApplicationData(initial) {
       alert(`Playlist created successfully. Link to playlist is http://localhost:3000/room/${newURL}`);
       // dispatch({ type: SET_PLAYLIST, values: res.data[0].id})
       dispatch({type: UPDATE_NEW_PLAYLIST, values: {playlist_id: res.data[0].id}})
+    
       // if (state.current_playlist === null) {
       //   console.log("I do my job!!")
       // }

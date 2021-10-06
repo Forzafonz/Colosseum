@@ -128,9 +128,20 @@ const createPlaylist = function (data) {
 };
 exports.createPlaylist = createPlaylist;
 
+const SetAllToFalse = function (user_id) {
+  console.log("I am here!")
+  pool
+    .query(
+      'UPDATE users_playlists SET active = false WHERE user_id = $1', 
+      [user_id]
+    )
+ 
+};
+
 //Updates table users-playlists after creating new playlist --
 const updateUserPlaylist = function (id, x) {
   const { user_id, udata } = x;
+  SetAllToFalse(user_id)
   return pool
     .query(
       'INSERT INTO users_playlists(is_host, user_id, playlist_id, active) VALUES (true, $1, $2, true)', //updating host user
@@ -148,6 +159,8 @@ const updateUserPlaylist = function (id, x) {
       });
     });
 };
+
+
 
 exports.updateUserPlaylist = updateUserPlaylist;
 

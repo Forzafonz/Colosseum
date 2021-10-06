@@ -180,7 +180,7 @@ const updatenewPlaylist = () => {
     const newState = {...state, playlists_for_user:updated_playlists_for_user, current_playlist: newPlaylist_id}
     // const setPlaylistState = {...newState, }
     // console.log("=====>newstate", newState);
-    return {...newState, current_media:null};
+    return {...newState, current_media:null, current_playlist:action.values.playlist_id};
 
 }
 //
