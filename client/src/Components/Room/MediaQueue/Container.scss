@@ -3,5 +3,23 @@
   display: flex;
   flex-direction: row;
   background-color: black;
-  
+  // overflow: auto;
+
+  // &::-webkit-scrollbar-track {
+  //   box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+	//   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	//   background-color: transparent;
+  // }
+
+  // &::-webkit-scrollbar {
+  // 	width: 5px;
+	//   background-color: transparent;
+  // }
+
+  // &::-webkit-scrollbar-thumb {
+	//   background-color: rgba(0, 0, 0, 0.2);
+  //   & :active {
+  //     background-color: white
+  //   }
+  // }
 }

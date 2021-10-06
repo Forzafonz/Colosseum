@@ -308,7 +308,7 @@ export default function useApplicationData(initial) {
     //  Send a put request to add a new message
     return axios.put('/api/messages/new', {message, room_id: state.current_playlist})
     .then((result) => {
-      // Dispathing a command to reducer with type 'newmessage'. Message argument already have a form of {type: ..., value: ...}
+      // Dispathing a command to rlocalStorage.cleaeducer with type 'newmessage'. Message argument already have a form of {type: ..., value: ...}
       dispatch({type: ADD_NEW_MESSAGE, values: message.values})
     })
     .catch((error) => console.log(error.response.data))

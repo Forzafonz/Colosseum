@@ -111,6 +111,19 @@ const getPlaylistIdByHash = function(playlist_hash) {
  
 };
 
+const getRoomIdByPlaylistId = function(player_id) {
+  const queryString = `
+  SELECT url FROM playlists
+  WHERE id = $1
+  `;
+
+  //Return promise for query
+  return pool.query(queryString, [player_id])
+    .then(result => {
+      return result.rows[0].url})
+    .catch(error => console.log(error.message));
+}
+
 
 module.exports = { 
   getMediaForPlaylist, 
@@ -119,5 +132,6 @@ module.exports = {
   setMediaToPlayedAlreadyTrue, 
   setAllMediaToPlayedAlreadyFalse,
   addPlaylistToTheUser,
-  getPlaylistIdByHash
+  getPlaylistIdByHash,
+  getRoomIdByPlaylistId
  }; 

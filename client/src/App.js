@@ -67,7 +67,8 @@ function App() {
             
         <Route exact path = "/room">
           <Header
-          setPlaylist={setPlaylist} 
+          setPlaylist={setPlaylist}
+          state = {state} 
           />
           <Room state1={state} 
           setPlayingMedia={setPlayingMedia}
