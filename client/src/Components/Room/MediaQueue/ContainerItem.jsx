@@ -37,13 +37,11 @@ const ContainerItem = React.forwardRef((props, ref) => {
 
     <div className= "pillar">
       <div id = {id} className = "main-block" ref = {ref}>
-        <div className = "remove-button" onClick = {() => deleteFromQueue()}>✕</div>
+        <div className = "remove-button" onClick = {() => deleteFromQueue()}>X</div>
         <span className = "likes-dislikes">
-          <div className = "social-button social-likes" onClick = {() => voteAction()}> {media_rating}/10</div>
+          <div className = "social-button social-likes" onClick = {() => voteAction()}> 👍 {media_rating}</div>
         </span>
-        <div>
-          {/* {description} */}
-        </div>
+      
         <div>
           <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(media_id)}/>
         </div>

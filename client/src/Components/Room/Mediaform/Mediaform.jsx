@@ -122,7 +122,7 @@ function Mediaform({state, addMediaToPlaylist, setEmpty}) {
   return (
     <div className="new-p-container">
       <br/>      
-      <h1 className ="h-pl">{state.playlists_for_user[playlistName].playlist.name} </h1>
+      <h1 className ="h-pl">{state.playlists_for_user[playlistName].playlist.name.toUpperCase()} </h1>
 
       <table name="new-table">
         <tr>
@@ -180,11 +180,11 @@ function Mediaform({state, addMediaToPlaylist, setEmpty}) {
           <td>
             <label> </label>
             <Button type="submit" name="add-url" variant="success" type="submit"  onClick={addMedia}>
-              {buttonLabel}
+              {buttonLabel.toUpperCase()}
             </Button>
             <span className = "gap">      </span>
             <Button type="button" variant="danger" onClick={() => setEmpty(false)}>
-              Close form
+              CANCEL
             </Button>
           </td>
         </tr>

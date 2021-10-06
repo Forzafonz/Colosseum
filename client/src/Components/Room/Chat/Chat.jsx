@@ -10,9 +10,9 @@ export default function Chat({addMessage, state}) {
   return (
     // Create a "Header" of the chat with person name and avatar
     <div className="chat">
-      <div className = "chat-title head">
+      {/* <div className = "chat-title head">
         <div className = "chat_click-chat">Chat</div><div className = "chat_click-room">Room</div>
-        </div>
+        </div> */}
       <div className="chat-title">
         <h1>{username}</h1>
         <figure className="avatar">
