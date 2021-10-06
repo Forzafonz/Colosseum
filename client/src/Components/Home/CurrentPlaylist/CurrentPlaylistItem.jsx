@@ -15,10 +15,9 @@ function CurrentPlaylistItem({play_order, media_rating, media_description, media
         <div className = "media-info-line">
           {play_order}. {media_description}
         </div>
-        <div className = "media-info-line">
+        {/* <div className = "media-info-line">
           Rating: {media_rating}/10
-        </div>
-        
+        </div> */}
         <hr></hr>
       </div>      
 

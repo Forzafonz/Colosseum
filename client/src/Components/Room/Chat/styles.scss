@@ -142,12 +142,11 @@ Chat Title
   text-align: left;
   padding: 10px 10px 10px 50px;
 
-    
 
   h1,
   h2 {
     font-weight: normal;
-    font-size: 10px;
+    font-size: 20px;
     margin: 0;
     padding: 0;
   }
@@ -311,6 +310,8 @@ Messages
       transform: scale(0);
       transform-origin: 0 0;
       animation: bounce 500ms linear both;
+      color: white;
+      background: linear-gradient(120deg, #8a2424, #3f2587);
     }
 
     &.loading {
