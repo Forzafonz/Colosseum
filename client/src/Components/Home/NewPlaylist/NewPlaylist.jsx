@@ -108,7 +108,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
       <table name="new-table">
         <tr>
           <td>
-            <label>Playlist Name:</label>
+            <label>Name:</label>
           </td>
           <td>
             <input
@@ -120,7 +120,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
         </tr>
         <tr>
           <td>
-            <label>Playlist Thumbnail:</label>
+            <label>Thumbnail url:</label>
           </td>
           <td>
             <input
@@ -133,7 +133,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
 
         <tr>
           <td>
-            <label>Add users to Playlist:</label>
+            <label>Add users:</label>
           </td>
           <td>
             <form onSubmit={addtolist}>
@@ -145,7 +145,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
               ></input>
               <label> </label>
               <Button type="submit" name="add-url" variant="success">
-                Add
+                ADD
               </Button>
             </form>
           </td>
@@ -165,7 +165,7 @@ function NewPlaylist({updatenewPlaylist, setPlaylist}) {
         size="lg"
         variant="success"
       >
-        Create Playlist!
+        CREATE PLAYLIST
       </Button>
     </div>
   );

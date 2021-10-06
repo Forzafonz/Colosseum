@@ -23,7 +23,7 @@ function Header({setPlaylist}){
         <Nav.Item className= "ms-4 pt-0 mt-0 mb-0">
           <Image src="Colloseum.png" className="d-inline-block align-top" width="50" height="auto"/>
         </Nav.Item>&nbsp
-        <Navbar.Brand as={Link} to="/home">Colosseum</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/home">COLOSSEUM</Navbar.Brand>
         <Nav.Item className= "ms-4 mt-0 pt-0 mt-0 mb-0">
           <Nav.Link as={Link} to="/home/clear">Home</Nav.Link>
         </Nav.Item>
