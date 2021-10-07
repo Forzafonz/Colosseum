@@ -15,6 +15,7 @@ module.exports = function(router) {
       q: `${searchString}`,
       maxResults: 3
   }, (err,response) => {
+    console.log(response.data.items)
     res
     .status(200)
     .json(response.data.items)
