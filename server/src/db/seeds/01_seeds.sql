@@ -61,16 +61,16 @@ INSERT INTO playlists_media (media_rating, play_order, played_already, played_le
             (0, 1, false, 1.10, 6, 3),
             (0, 2, false, 1.10, 7, 3),
             (0, 3, false, 1.10, 8, 3),
-            (0, 1, false, 1.10, 5, 4),
-            (0, 2, false, 1.10, 9, 4),
-            (0, 3, false, 1.10, 10, 4),
-            (0, 4, false, 1.10, 1, 4),
-            (0, 5, false, 1.10, 2, 4),
-            (0, 6, false, 1.10, 3, 4),
-            (0, 7, false, 1.10, 4, 4),
-            (0, 8, false, 1.10, 6, 4),
-            (0, 9, false, 1.10, 7, 4),
-            (0, 10, false, 1.10, 8, 4);
+            (0, 1, false, 1.10, 6, 4),
+            (0, 2, false, 1.10, 2, 4),
+            (0, 3, false, 1.10, 5, 4),
+            (0, 4, false, 1.10, 7, 4),
+            (0, 5, false, 1.10, 1, 4),
+            (0, 6, false, 1.10, 4, 4),
+            (0, 7, false, 1.10, 9, 4),
+            (0, 8, false, 1.10, 3, 4),
+            (0, 9, false, 1.10, 8, 4),
+            (0, 10, false, 1.10, 10, 4);
 
 INSERT INTO messages (text, date, users_playlists_id)
             VALUES('Hello There !!',1632010842289,1),
