@@ -5,7 +5,7 @@
   padding-top: 1vh;
   padding-left: 4vh;
   padding-right: 4vh;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   width: 30vw;
   height: 60vh;
@@ -14,7 +14,7 @@
   top: 20vh;
   bottom: 20vh;
   border-radius: 1%;
-  border:solid 2px #FFF;
+  // border:solid 2px black;
 
   .form-main{
     padding-top: 4vh;
@@ -23,6 +23,7 @@
     align-content: space-between;
     justify-content: space-evenly;
   }
+  
 
   .header{
     height: 2vw;
@@ -52,4 +53,22 @@
 
   
 
+}
+
+.title-login{
+  min-width: 30vw;
+  position: absolute;
+  background-color: transparent;
+  z-index: 1;
+  text-transform: uppercase;
+  color:  rgb(62, 2, 2);
+  font-family: 'Gemunu Libre', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  top: 9%;
+  left: 32%;
+  right: 25%;
+  font-size: 4rem;
+  letter-spacing: 3rem;
+  font-weight: bold;
 }

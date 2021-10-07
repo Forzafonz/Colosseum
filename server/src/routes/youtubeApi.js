@@ -13,8 +13,9 @@ module.exports = function(router) {
       part: 'snippet',
       type: 'video',
       q: `${searchString}`,
-      maxResults: 3
+      maxResults: 5
   }, (err,response) => {
+    console.log(response.data.items)
     res
     .status(200)
     .json(response.data.items)

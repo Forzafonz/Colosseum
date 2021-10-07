@@ -276,7 +276,7 @@ export default function useApplicationData(initial) {
     .put('http://localhost:8000/api/createplaylist', { data })
     .then((res) => {
       newURL = res.data[0].url;
-      alert(`Playlist created successfully. Link to playlist is http://localhost:3000/room/${newURL}`);
+      // alert(`Playlist created successfully. Link to playlist is http://localhost:3000/room/${newURL}`);
       // dispatch({ type: SET_PLAYLIST, values: res.data[0].id})
       dispatch({type: UPDATE_NEW_PLAYLIST, values: {playlist_id: res.data[0].id}})
     

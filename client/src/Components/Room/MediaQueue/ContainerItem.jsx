@@ -1,7 +1,16 @@
 import React, {useState} from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt, faArrowAltCircleUp, faStar as Star, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import { faStar } from '@fortawesome/free-regular-svg-icons'
+
 import './ContainerItem.scss'
 
+
 const ContainerItem = React.forwardRef((props, ref) => {
+  const element = <FontAwesomeIcon icon={faTrashAlt} />
+  const arrow = <FontAwesomeIcon icon={faThumbsUp} />
+  const star = <FontAwesomeIcon icon={Star} size="3x"/>
+  const starEmpty = <FontAwesomeIcon icon={faStar} size="3x"/>
 
   const [liked, setLiked] = useState(false)
 
@@ -36,15 +45,15 @@ const ContainerItem = React.forwardRef((props, ref) => {
   return (
 
     <div className= "pillar">
-      <div id = {id} className = "main-block" ref = {ref}>
-        <div className = "remove-button" onClick = {() => deleteFromQueue()}>X</div>
-        <span className = "likes-dislikes">
-          <div className = "social-button social-likes" onClick = {() => voteAction()}> 👍 {media_rating}</div>
-        </span>
-      
-        <div>
-          <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(media_id)}/>
-        </div>
+      <div id = {id} className = "main-block" ref = {ref}>      
+          <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(media_id)}/> 
+          <div className = "remove-button" onClick = {() => deleteFromQueue()}>{element}</div>
+          <div className = "votes" >{arrow }  {media_rating}</div>
+          <div className = "top-header"></div>
+          <div className = "video-info">
+          {!liked && <div className = "votes-button" onClick = {() => voteAction()}>{starEmpty}</div>}
+          {liked && <div className = "votes-button" onClick = {() => voteAction()}>{star}</div>}
+          </div>
       </div>
       <img src = "Pillars2.png" /> 
     </div>
