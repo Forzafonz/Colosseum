@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt, faArrowAltCircleUp, faStar as Star } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt, faArrowAltCircleUp, faStar as Star, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 
 import './ContainerItem.scss'
@@ -8,7 +8,7 @@ import './ContainerItem.scss'
 
 const ContainerItem = React.forwardRef((props, ref) => {
   const element = <FontAwesomeIcon icon={faTrashAlt} />
-  const arrow = <FontAwesomeIcon icon={faArrowAltCircleUp} />
+  const arrow = <FontAwesomeIcon icon={faThumbsUp} />
   const star = <FontAwesomeIcon icon={Star} size="3x"/>
   const starEmpty = <FontAwesomeIcon icon={faStar} size="3x"/>
 

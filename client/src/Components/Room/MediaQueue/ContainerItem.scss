@@ -46,7 +46,7 @@
     -webkit-transform:scale(1.25);
     transform:scale(1.25);
     filter: pink; 
-    -webkit-filter: blur(0.3rem);
+    -webkit-filter: grayscale(1);
     // -webkit-filter: grayscale(100%);
   }
 
@@ -173,7 +173,7 @@
 // }
 
 .votes {
-  color: green;
+  color: greenyellow;
   font-weight: bold;
   position: absolute;
   z-index: 2;
