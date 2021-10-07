@@ -118,12 +118,13 @@
 
 .votes-button{
     // position:absolute;
-    width: auto;
-    min-width: 10rem;
+   
     // visibility: hidden;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    // background-color: rgba(0, 0, 0, 0.5);
+    
+    color: darkgoldenrod;
     pointer-events: auto;
+
     &:hover{
       visibility: visible;
       -webkit-transform:scale(1.1);
@@ -147,7 +148,7 @@
 }
 
 .video-info{
-  top: 50%;
+  top: 40%;
   visibility: hidden;
   position: absolute;
   width: auto;
@@ -199,9 +200,9 @@
   .main-block {
     width: 10rem !important;
   }
-  .votes-button {
-    min-width: 6rem !important;
-  }
+  // .votes-button {
+  //   min-width: 6rem !important;
+  // }
   .top-header {
     width: 40% !important;
   }

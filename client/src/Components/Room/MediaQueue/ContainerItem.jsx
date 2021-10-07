@@ -1,12 +1,16 @@
 import React, {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt, faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt, faArrowAltCircleUp, faStar as Star } from '@fortawesome/free-solid-svg-icons'
+import { faStar } from '@fortawesome/free-regular-svg-icons'
+
 import './ContainerItem.scss'
 
 
 const ContainerItem = React.forwardRef((props, ref) => {
   const element = <FontAwesomeIcon icon={faTrashAlt} />
   const arrow = <FontAwesomeIcon icon={faArrowAltCircleUp} />
+  const star = <FontAwesomeIcon icon={Star} size="3x"/>
+  const starEmpty = <FontAwesomeIcon icon={faStar} size="3x"/>
 
   const [liked, setLiked] = useState(false)
 
@@ -47,8 +51,8 @@ const ContainerItem = React.forwardRef((props, ref) => {
           <div className = "votes" >{arrow }  {media_rating}</div>
           <div className = "top-header"></div>
           <div className = "video-info">
-          {!liked && <button className = "votes-button" onClick = {() => voteAction()}>VOTE!</button>}
-          {liked && <button className = "votes-button" onClick = {() => voteAction()}>REMOVE VOTE!</button>}
+          {!liked && <div className = "votes-button" onClick = {() => voteAction()}>{starEmpty}</div>}
+          {liked && <div className = "votes-button" onClick = {() => voteAction()}>{star}</div>}
           </div>
       </div>
       <img src = "Pillars2.png" /> 
