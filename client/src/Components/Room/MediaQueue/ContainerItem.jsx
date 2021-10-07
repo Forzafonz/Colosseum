@@ -45,6 +45,7 @@ const ContainerItem = React.forwardRef((props, ref) => {
           <img className = "img-thumbnail" src = {thumbnail} onClick={() => setPlayingMedia(media_id)}/> 
           <div className = "remove-button" onClick = {() => deleteFromQueue()}>{element}</div>
           <div className = "votes" >{arrow }  {media_rating}</div>
+          <div className = "top-header"></div>
           <div className = "video-info">
           {!liked && <button className = "votes-button" onClick = {() => voteAction()}>VOTE!</button>}
           {liked && <button className = "votes-button" onClick = {() => voteAction()}>REMOVE VOTE!</button>}

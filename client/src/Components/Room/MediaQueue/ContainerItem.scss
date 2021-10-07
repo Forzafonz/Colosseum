@@ -22,9 +22,9 @@
   position: relative;
   overflow: hidden;
 
-  // &:hover{
-  //   // background-color: rgba(255, 255, 255, 0.7);
-  // }
+  &:hover{
+    background-color: rgba(255, 255, 255, 0.7);
+  }
 
   .img-thumbnail{
     filter: none;
@@ -81,11 +81,27 @@
     color: rgb(255, 0, 0);
     font-weight: bold;
     position: absolute;
-    top: 0.3rem;
-    right: 1rem;
+    top: 0.1rem;
+    right: 0.5rem;
+    z-index: 2;
+    pointer-events: auto;
     &:hover{
       cursor:pointer;
     }
+  }
+
+  .top-header {
+
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 28%;
+    border-bottom-left-radius: 15%;
+    height: 2.5vh;
+    background-color:rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    pointer-events: none;
   }
 
   .img-thumbnail {
@@ -159,12 +175,11 @@
   color: green;
   font-weight: bold;
   position: absolute;
-  
-  top: 0.3rem;
-  right: 3rem;
-  &:hover{
-    cursor:pointer;
-  }
+  z-index: 2;
+
+  top: 0.1rem;
+  right: 2rem;
+ 
 }
 
 
@@ -186,6 +201,9 @@
   }
   .votes-button {
     min-width: 6rem !important;
+  }
+  .top-header {
+    width: 40% !important;
   }
 }
 
