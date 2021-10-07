@@ -42,6 +42,7 @@ export default function Login({setPlaylist, setStale}) {
 
   return (
     <>
+    <div className = 'title-login'>COLOSSEUM</div>
     <div className = "form">
     <div className = "header">
       {/* LOGGED IN USER: {userId} */}

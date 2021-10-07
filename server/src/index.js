@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
   socket.on("JOIN_ROOM", ({ room_id, user_id }) => {
     // console.log("Connected with", socket.room_id)
     // console.log("room, join", room_id)
-    // socket.leaveAll()
+    socket.leaveAll()
     if (user_id && room_id ) {
       console.log("I am joining")
       socket.join(room_id)
