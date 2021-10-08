@@ -32,7 +32,7 @@ This is a single page Full Stack application which supports synchronization feat
 # Functionality Demonstration:
 
 ## Video Synchronization Features
-If there are more than one user currently listening to the same playlist it will be synchronized across all connected to this playlist clients, so that all actions performed at one instance are broadcasted to all connected users:
+If there are multiple users currently listening to the same playlist it will be synchronized across all connected to this playlist clients, so that all actions performed at one instance are broadcasted to all other connected users:
 
 ![New appointment](/public/images/Sync.gif)
 ___
