@@ -2,16 +2,16 @@
 
 ## About:
 
-This is a single page Full Stack application with synchronization features. It allows user to create, save, watch and share playlists with other people. The application supports live chat as well.
+This is a single page Full Stack application which supports synchronization features. It allows user to create, save, watch and share playlists in real time with other people. The application supports live chat as well.
 
 
 # Key Features:
 
-*  Single Page Application;
-*  Built using functional React;
-*  Reducer was used to controll global application state;
-*  **Socket.io** was used to enable playlist, video and chat synchronization across multiple clients.
-*  Landing page is built useing THREE.js for React.
+*  Single Page Application
+*  Built using functional React
+*  **Reducer** was used to control global application state
+*  **Socket.io** was used to enable playlist, video and chat synchronization across multiple clients
+*  Landing page is built using THREE.js for React
 
 [For installation steps see below](#getting-started)
 
@@ -30,9 +30,9 @@ This is a single page Full Stack application with synchronization features. It a
 
 
 # Functionality Demonstration:
-___
+
 ## Video Synchronization Features
-If there are more than one user currently listening to the same playlist it will be synchronized across all clients, so that all actions performed at one instance are broadcasted to all connected clients:
+If there are more than one user currently listening to the same playlist it will be synchronized across all connected to this playlist clients, so that all actions performed at one instance are broadcasted to all connected users:
 
 ![New appointment](/public/images/Sync.gif)
 ___
@@ -84,12 +84,12 @@ ___
 
 1. Clone repository in your local folder: 
 ```git clone git@github.com:Forzafonz/Colosseum.git colosseum```
+1. Switch into projects folder: ```cd colosseum```
 1. Switch into server directory to launch server: ```cd server```
-1. Install all dependencies: ```npm install```
+1. Install all server dependencies: ```npm install```
 1. Create a new database using psql.
-1. Use ```.env.example``` file which can be found in the server folder as a template to create `.env` file which should contain your newly created database infomration. Save it in the same folder as `.env.example`
-1. Go to browser and run ```localhost:8000\reset``` to crete tables and seed database
-1. Switch into client directory to launch client: ```cd client```
-1. Install all dependencies: ```npm install```
-1. Run the development web server using the ```npm start``` command from server folder.
-1. Run the client  using the ```npm start``` command from client folder.
+1. Use ```.env.example``` file which can be found in the server folder as a template to create `.env` file which should contain your set-ip for a newly created database . Save it in the same folder as `.env.example`
+1. Go to browser and run ```localhost:8000\reset``` to create tables and seed database
+1. Switch into client directory to launch client: ```cd ../client```
+1. Install all client dependencies: ```npm install```
+1. Run the client server using the ```npm start``` command from client folder. ```If React-three-fiber fails to load, try to refresh page 2 times```
