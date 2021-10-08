@@ -5,10 +5,10 @@
 This is a single page Full Stack application which supports synchronization features. It allows user to create, save, watch and share playlists in real time with other people. The application supports live chat as well.
 
 
-# Key Features:
+## Key Features:
 
 *  Single Page Application
-*  Built using functional React
+*  Built using functional React for front-end and Node/Express for  back-end
 *  **Reducer** was used to control global application state
 *  **Socket.io** was used to enable playlist, video and chat synchronization across multiple clients
 *  Landing page is built using THREE.js for React
