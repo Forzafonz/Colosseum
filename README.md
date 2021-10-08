@@ -11,7 +11,7 @@ This is a single page Full Stack application which supports synchronization feat
 *  Built using functional React for front-end and Node/Express for  back-end
 *  **Reducer** was used to control global application state
 *  **Socket.io** was used to enable playlist, video and chat synchronization across multiple clients
-*  Allows mutliple-client connection and synchornizes media playling across mutliple users
+*  Allows mutliple-clients connection and synchornizes media playing across all clients listening to the same playlist
 *  Supports youtube and soundclound media
 *  Landing page is built using THREE.js for React
 
