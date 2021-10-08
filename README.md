@@ -13,7 +13,7 @@ This is a single page Full Stack application with synchronization features. It a
 *  **Socket.io** was used to enable playlist, video and chat synchronization across multiple clients.
 *  Landing page is built useing THREE.js for React.
 
-[For installation steps see below](#-Getting-Started)
+[For installation steps see below](#getting-started)
 
 # Main frameworks/libraries used:
 
